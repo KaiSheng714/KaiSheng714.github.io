@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+
+    {% if site.google_analytics %}
+      <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ site.google_analytics }}');
+      </script>
+    {% endif %}
+    <meta charset="UTF-8">
+
+{% seo %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+  </head>
+  <body>
+    <header class="page-header"
+    role="banner">
+      <h1 class="project-name">Areg Sarkissian</h1>
+    </header>
+    <main id="content" class="main-content" role="main">
+      <a href="https://kaisheng714.github.io">Posts</a> | <a href="https://kaisheng714.github.io/about">About</a>
+      {{ content }}
+      <footer class="site-footer">
+        &copy; 2022 Kai-Sheng, Yang
+      </footer>
+    </main>
+  </body>
+
+</html>
