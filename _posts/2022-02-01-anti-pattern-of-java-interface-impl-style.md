@@ -60,10 +60,8 @@ author: "Kai-Sheng"
 
 如果是為了寫單元測試，也就是說在 production 裡有一對 interface 與 implementation，而在 test 裡會有另一個 implementation 時，我建議可以使用 mock library，如 java 的 [Mocktio](https://site.mockito.org/)，如此就不必特地為了單元測試而建立新的實作，以致於可以刪除這個 interface，使專案保持簡潔。
 
-因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface，下圖是 IntelliJ 的 extract interface：
-
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*Pf8uNoMzyWkN6buL.png?style=center)
-
+因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface。
+ 
 可能有些人會問:
 
 _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 class diagram 有出現 interface 和單一的 impl 阿。_
