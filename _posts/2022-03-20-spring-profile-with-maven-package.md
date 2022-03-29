@@ -29,7 +29,7 @@ application.properties 只有一行 **spring.profiles.active=@activeProfile@**
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](https://miro.medium.com/max/486/1*NRwTGDKFcfH1qqMbErg_BQ.png?style=center)
 
 
-[Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](https://miro.medium.com/max/476/1*_OWBIOG2g0p4QjWgSgRgKg.png?style=center)
+![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](https://miro.medium.com/max/476/1*_OWBIOG2g0p4QjWgSgRgKg.png?style=center)
 
 準備完成後，專案結構會像這樣:
 
@@ -99,6 +99,6 @@ java -jar <my-artifact>.war
 
 透過本文介紹的方式，可以讓開發人員輕鬆的在任何環境中套用 Spring 專案中的 .properties / .yml，不需要再根據環境來手動調整。當然也可以將這方法套用在 jenkins 來做 CI/CD ，在日後千百次的打包/執行/部署的過程中，能替我們節省許多成本。
 
-[幫團隊節省成本，就是替幫公司賺錢。](#4cd8)
+**幫團隊節省成本，就是替幫公司賺錢。**
 
 本文範例完整程式碼 [https://github.com/KaiSheng714/spring-maven-profile-integration-demo](https://github.com/KaiSheng714/spring-maven-profile-integration-demo)

@@ -15,7 +15,6 @@ author: "Kai-Sheng"
 ![](https://miro.medium.com/max/1278/1*26kXMYhdtJDv68MxWlKCRw.png?style=center)Powermock
 
 ## PowerMock
-=========
 
 [**PowerMock**](https://github.com/powermock/powermock) 是基於 Mockito 之上，並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！
 
@@ -25,21 +24,19 @@ author: "Kai-Sheng"
 
 既然 PowerMock 這麼強大，為什麼作者會做出此評論呢 ? 請讓我先以優缺點分析作為出發點並探討：
 
-**PowerMock 的優點**
-=================
+### PowerMock 的優點
 
-1\. 強大的 mock 功能，能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
+1. 強大的 mock 功能，能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
 
-2\. 對於熟悉 Mockito 的廣大開發者來說能快速上手，因為 PowerMock 是基於 Mockito 的擴充。
+2. 對於熟悉 Mockito 的廣大開發者來說能快速上手，因為 PowerMock 是基於 Mockito 的擴充。
 
-**PowerMock 的缺點/不建議使用的理由**
-==========================
+### **PowerMock 的缺點/不建議使用的理由**
 
-**1\. 相同的 API**
+1. 相同的 API
 
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
 
-**2\. 同一種 Annotation 卻有不同用法**
+2. 同一種 Annotation 卻有不同用法
 
 例如 `@PrepareForTest` 是 PowerMock 特有的 Annotation，其旨在於告訴 PowerMock 要 mock 測試目標物件的 static, final 等。例如
 
@@ -49,7 +46,7 @@ author: "Kai-Sheng"
 
 而當你要 mock 的對象是 java 提供的物件(例如 System)時，需要帶入的參數卻是”使用 System 的類別”
 
-**3\. Overhead**
+3. Overhead
 
 **良好的測試程式大多遵循 F.I.R.S.T 原則**，不過 PowerMock 的初始化時間比 Mockito **更久**，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
@@ -59,8 +56,7 @@ author: "Kai-Sheng"
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — 重構。
 
-重構(Refactoring)
-===============
+## 重構(Refactoring)
 
 為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需**重構**程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的**健康**是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
 
@@ -92,8 +88,7 @@ author: "Kai-Sheng"
 
 但其實有更好的替代方案，方法與上一個例子的概念很類似，我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。(除此之外，也可以使用 factory pattern 來處理物件的建立)
 
-結語
---
+### 結語
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 
@@ -102,9 +97,7 @@ PowerMock 是個功能強大、非常實用的單元測試工具，但也不可�
 如果你的測試充斥著 PowerMock，表示你的 production code 可能已經有許多 bad smell 。因此，考慮到專案未來的發展，我建議你不要使用 PowerMock ，而是藉由 refactoring，並在開發時遵循良好的設計原則，避免寫出 anti-pattern 與 bad smell。撰寫單元測試時，若有必要，使用一般的 mock framework (如 Mockito) 即可。
 
 更重要的是，在撰寫程式時，稱職的 **clean coder 們應時常思考什麼才是好的設計。**
-
-以上是我的經驗談，關於設計的議題本來就沒有絕對，如果你有其他想法，歡迎留言。
-
-REF
+ 
+#### REF
 
 [https://martinfowler.com/articles/modernMockingTools.html](https://martinfowler.com/articles/modernMockingTools.html)
