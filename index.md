@@ -1,18 +1,17 @@
-# All Posts
+---
+#
+# Here you can change the text shown in the Home page before the Latest Posts section.
+#
+# Edit cayman-blog's home layout in _layouts instead if you wanna make some changes
+# See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+#
+layout: home
+---
 
-2022-03-20
+Cayman Blog Theme is a clean, responsive blogging theme for Jekyll. It is inspired by the Cayman Theme for Github Pages, which can be greatly used for single projects but not as blogging platform.
 
-[解析 Spring 的依賴注入模式 (Dependency Injection Pattern)](https://kaisheng714.github.io/blog/2022/analyzing-dependency-injection-patterns-in-spring)
+This theme has instead all you need to start today blogging with Jekyll, and no effort: pages, posts, few social buttons. Try loading this on mobile too.
 
-2022-03-02
+Have a look at the Github page for more information.
 
-[Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](https://kaisheng714.github.io/blog/2022/spring-profile-with-maven-package)
-
-
-2022-03-10
-
-[常見的 Interface 錯誤用法](https://kaisheng714.github.io/blog/2022/anti-pattern-of-java-interface-impl-style)
-
-2022-03-05
-
-[不建議使用 PowerMock 的理由](https://kaisheng714.github.io/blog/2022/why-powermock-is-bad)
+You find this descriptive text in the `index.md` file, so you can change it, or remove it completely, according to your needs.
