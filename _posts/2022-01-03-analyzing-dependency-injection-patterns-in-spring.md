@@ -7,7 +7,9 @@ author: "Kai-Sheng"
 ---
 
  Spring 提供了幾種 Dependency Injection (DI) Patterns，其中最常用的是 **field based injection**，它也是許多人第一次使用 Spring 時所使用的 pattern。
- 雖然 field based injection 好用又方便，但其實它有不少缺點，例如你會發現， IntelliJ 很貼心地告訴我們:
+ 雖然 field based injection 好用又方便，但其實它有不少缺點。
+ 
+ 例如你會發現， IntelliJ 很貼心地告訴我們:
 
 > 
 > Field Injection is not recommended.
@@ -17,7 +19,7 @@ author: "Kai-Sheng"
 
 ![Field Injection is not recommended](/assets/image/spring-di.png?style=center)
 
-為何 constructor based 優於 field based injection 呢 ?
+為何 **constructor based injection** 優於 **field based injection** 呢 ?
 
 接下來我會解析這兩種 Dependency Injection Pattern.
 
