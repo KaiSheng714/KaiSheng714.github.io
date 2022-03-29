@@ -1,8 +1,10 @@
-
-·7 min read
-
-不建議使用 PowerMock 的理由
-===================
+---
+layout: post
+title: "不建議使用 PowerMock 的理由"
+tagline: "不建議使用 PowerMock 的理由"
+categories: java,unit-test,powermock,mockito,design,interface
+author: "Kai-Sheng"
+--- 
 
 在寫 Java 的單元測試時常會使用 mock framework，因為它能幫助我們輕鬆建立 mock object，不必再為了單元測試而寫假物件，也更容易對目標物件進行獨立測試，隔絕外部相依，而降低寫單元測試的負擔。
 
@@ -12,7 +14,7 @@
 
 ![](https://miro.medium.com/max/1278/1*26kXMYhdtJDv68MxWlKCRw.png?style=center)Powermock
 
-PowerMock
+## PowerMock
 =========
 
 [**PowerMock**](https://github.com/powermock/powermock) 是基於 Mockito 之上，並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！

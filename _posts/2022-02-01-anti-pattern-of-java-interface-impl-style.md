@@ -1,11 +1,12 @@
+---
+layout: post
+title: "常見的 Interface 錯誤用法"
+tagline: "常見的 Interface 錯誤用法"
+categories: java,design,interface
+author: "Kai-Sheng"
+--- 
 
-
-·8 min read
-
-# 常見的 Interface 錯誤用法
-==================
-
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*_o1uujfIgv4JMHpJ)Photo by [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
+![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*_o1uujfIgv4JMHpJ)
 
 **TL;DR 如果 class 不需要或不具備抽象化的條件，就不做抽象化。**
 
