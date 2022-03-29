@@ -62,7 +62,7 @@ author: "Kai-Sheng"
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface，下圖是 IntelliJ 的 extract interface：
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*Pf8uNoMzyWkN6buL.png?style=center)extract interface by intelliJ
+![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*Pf8uNoMzyWkN6buL.png?style=center)
 
 可能有些人會問:
 

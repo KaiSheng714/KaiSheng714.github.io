@@ -142,7 +142,7 @@ public class HelloBeanTest {
 
 只有在使用 Constructor DI 時才會造成此問題。
 
-舉個簡單的例子，若依賴關係圖: Bean A → Bean B → Bean C → Bean A ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException` ，造成程式 crash。更白話一點，這就是**雞生蛋/蛋生雞的**問題。
+舉個簡單的例子，若依賴關係圖: Bean A → Bean B → Bean C → Bean A ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException` ，造成程式 crash。更白話一點，這就是**雞生蛋 / 蛋生雞的**問題。
 
 ![循環依賴問題 Circular dependency issues ](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
