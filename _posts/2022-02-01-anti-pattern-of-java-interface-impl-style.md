@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "常見的 Interface 錯誤用法"
-tagline: "TL;DR 如果 class 不需要或不具備抽象化的條件，就不做抽象化。"
-categories: java,design,interface
+tagline: "如果物件不需要或不具備抽象化的條件，就不做抽象化。"
+meta: java,design,interface
 author: "Kai-Sheng"
 --- 
 
 在 java 專案中，相信很多人曾看過或寫過`只有一個實作(implementation) 的介面 (interface)`，並且以 **Interface-Impl** 的風格命名，如圖:
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/896/1*AHXZgS9Zc8Ly73Tk3jYo4Q.jpeg) 
+![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center)
 
 上圖中的 FooService, BarService 只有一個實作，而且它們都放在同一個 package 或 module 裡，通常只給專案或產品內部使用，並不會當作 library 提供給其它專案參考。不曉得大家有沒有思考過為什麼要這樣寫 ?
 
@@ -16,7 +16,7 @@ author: "Kai-Sheng"
 
 但是，像這樣**只有一個實作的介面** (本文簡稱為 **interface-impl**) ，其實會對程式品質與開發帶來負面影響。
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*_o1uujfIgv4JMHpJ)
+![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
 ## Anti Pattern
 
@@ -36,7 +36,7 @@ author: "Kai-Sheng"
 
 此外，以 java 的 List 以及常見的兩個實作 ArrayList, LinkedList 為例:
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/836/0*iKFqT32yPICHOy01.png?style=center)java list interface
+![常見的 Interface 錯誤用法](https://miro.medium.com/max/836/0*iKFqT32yPICHOy01.png?style=center)
 
 這兩個 List 具有不同的實作與特性，透過 interface，我們可以用很少的改動成本，再根據應用情境（例如效能、時間空間複雜度等因素)決定要使用 ArrayList 或 LinkedList ，如此也增加了程式的彈性，一個好的 interface 就應如此設計。
 

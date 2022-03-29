@@ -2,7 +2,7 @@
 layout: post
 title: "不建議使用 PowerMock 的理由"
 tagline: "Why Powermock Is Not Good"
-categories: java,unit-test,powermock,mockito,design,interface
+meta: java,unit-test,powermock,mockito,design,interface
 author: "Kai-Sheng"
 --- 
 
@@ -211,11 +211,36 @@ public void testExapmle() {
 
 但其實有更好的替代方案，方法與上一個例子的概念很類似，我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。(除此之外，也可以使用 factory pattern 來處理物件的建立)
 
-![powermock](/assets/image/powermock-think.png?style=center)
+```java
+
+// better
+public MyClass(InterfaceA a) {
+  this.a = a;
+}
+public int process() {
+  return a.process();
+}
+
+@Test
+public void testExapmle() {
+ // arrange    
+ InterfaceA mockedA = mock(InterfaceA.class);
+ MyClass myClass = new MyClass(mockedA);
+
+ // act
+ int result = myClass.process();
+ ...
+}
+```
+
 
 ## 結語
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
+
+
+![powermock](/assets/image/powermock-think.png?style=center)
+
 
 PowerMock 是個功能強大、非常實用的單元測試工具，但也不可否認的，若使用不當，容易使讓開發人員忽略程式碼品質，導致後續消耗更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
 
