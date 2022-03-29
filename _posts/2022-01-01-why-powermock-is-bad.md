@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "不建議使用 PowerMock 的理由"
-tagline: "不建議使用 PowerMock 的理由"
+tagline: "Why Powermock Is Not Good"
 categories: java,unit-test,powermock,mockito,design,interface
 author: "Kai-Sheng"
 --- 
@@ -37,29 +37,42 @@ author: "Kai-Sheng"
 
 1. 相同的 API
 
+
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
+
 
 2. 同一種 Annotation 卻有不同用法
 
 例如 `@PrepareForTest` 是 PowerMock 特有的 Annotation，其旨在於告訴 PowerMock 要 mock 測試目標物件的 static, final 等。例如
 
-```
+```java
 @PrepareForTest(MyUtils.class)
 ```
 
-而當你要 mock 的對象是 java 提供的物件(例如 System)時，需要帶入的參數卻是”使用 System 的類別”
+而當你要 mock 的對象是 java 提供的物件(例如 System)時，需要帶入的參數卻是 ”使用 System 的類別”
+
+```java
+// wrong
+@PrepareForTest(System.class)
+
+// correct
+@PrepareForTest(TheClassUseSystem.class)
+```
 
 3. Overhead
 
 **良好的測試程式大多遵循 F.I.R.S.T 原則**，不過 PowerMock 的初始化時間比 Mockito **更久**，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
-**4. 容易忽略 code design**
+
+4. 容易忽略 **code design**
 
 這也是我認為**最大的缺點。**正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — 重構。
 
+
 -----
+
 
 ## 重構(Refactoring)
 
@@ -67,36 +80,140 @@ author: "Kai-Sheng"
 
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
-**1. static class/method**
+1. Static class / method
 
 我相信這應該是 PowerMock 受歡迎的最大理由，static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
 
 舉例來說，下面的 getProperty() 函式，從程式的角度看起來沒問題，但實際上在 Server 尚未啟動時可能產生錯誤或是沒有回傳值。因為這個 method 相依了 Server 的狀態，所以不適合作為 static method，應該改成 instance method。
 
-理論上，一個良好的 static method 是不需要 mock 的，就讓它執行該做的事吧！如下另一個例子：
+```java
+// bad, it may cause error when server is shutdown.
+public static getProperty(String key) {
+  return server.getProperty(key);
+}
+```
 
-**2. private method**
+理論上，一個良好的 static method 是不需要 mock 的，就讓它執行該做的事吧！如下例子：
+
+```java
+// Let it run, don't mock StringUtils.
+if (StringUtils.isNullOrEmpty(str)) {
+   doSomething();
+} else {
+   doAnother(); 
+}
+```
+
+
+
+2. Private method
 
 例如你想要驗證 `getData`的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
 
+```java
+// bad, long method, and too complex
+public Data getData(String key) {
+  Cache cahce = getCache(); 
+  init(cache);
+  if (flag) {
+    processA();
+  } else {
+    processB();
+    processC();
+  }
+  calculate();
+  return cache.get(key);
+}
+
+@Test
+public void testGetData() {
+  // arrange
+  doNothing().when(myClass, method(MyClass.class, "processA")) ...
+  // act
+  Date result = myClass.getData(key);
+  ...
+}
+```
+
 從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility ? 此時可以考慮使用 `move method`搬到另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖從測試程式改變 getData 原有的行為。
 
-**3. System Class**
+3. System Class
 
 假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System，如下
 
+```java
+// bad design. hard to test.
+public boolean isLate() {
+  long now = System.currentTimeMillis();
+  if (now > 1500000L)
+    return true;
+  } else {
+    return false;
+  } 
+}
+
+@Runwith(PowermockRunner.class)
+@PrepareforTest(MyClass.class)
+@Test
+public void exampleTest() {
+  // arrange
+  Powermockito.mockStatic(System.class);
+  when(System.currentTimeMillis()).thenReturn(1500001L);
+  ...
+}
+```
+
 而比較好的做法是：不讓 method 自己去請求 System 提供現在時間，而是由 caller 傳遞進去，有點像 Dependency Injection (DI) 的觀念，透過 DI 能夠使我們更容易建立 mock object。經過重構後的程式碼如下(甚至連 mock framework 都不需要了，如果能不依賴於 framework，會是個更好的 practice)
 
-**4. Constructor**
+
+```java
+// better
+public boolean isLate(long now) {
+  return now > 1500000L? true : false;
+}
+
+@Test
+public void exampleTest() {
+  // arrange 
+  long now = 1600000L;
+  MyClass myClass = new MyClass();
+
+  // act
+  boolean result = myClass.isLate(now); 
+
+  // assert
+  assertTrue(result);
+}
+```
+
+4. Constructor
 
 如下例所示，寫測試時，如果想在程式執行 `new A()` 時替換成我們自訂的 mockedA，可以使用 PowerMock 提供的 `whenNew()`：
 
-但其實有更好的替代方案，方法與上一個例子的概念很類似，我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。(除此之外，也可以使用 factory pattern 來處理物件的建立)
+```java
+// bad
+public int process() {
+  a = new A();
+  return a.process();
+}
 
+@Test
+public void testExapmle() {
+  // arrange
+  A mockedA = mock(A.class); 
+  PowerMockito.whenNew(A.class).withNoArguments().thenReturn(mockedA);
+
+  // act
+  myClass.example();
+  ...
+}
+```
+
+但其實有更好的替代方案，方法與上一個例子的概念很類似，我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。(除此之外，也可以使用 factory pattern 來處理物件的建立)
 
 ![powermock](/assets/image/powermock-think.png?style=center)
 
-### 結語
+## 結語
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 
@@ -106,6 +223,6 @@ PowerMock 是個功能強大、非常實用的單元測試工具，但也不可�
 
 更重要的是，在撰寫程式時，稱職的 **clean coder 們應時常思考什麼才是好的設計。**
  
-#### REF
+### References
 
 [https://martinfowler.com/articles/modernMockingTools.html](https://martinfowler.com/articles/modernMockingTools.html)
