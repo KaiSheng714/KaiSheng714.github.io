@@ -1,8 +1,10 @@
----
+--- 
 ---
 
-@import "{{ site.theme }}";
+ @import "{{ site.theme }}";
+
 .main-content {
+
   h1,
   h2,
   h3,
@@ -11,4 +13,9 @@
   h6 {
     color: #159957;
   }
+}
+
+img[src$="center"] {
+  display: block;
+  margin: 0 auto;
 }

@@ -2,7 +2,7 @@
 
 ·8 min read
 
-常見的 Interface 錯誤用法
+# 常見的 Interface 錯誤用法
 ==================
 
 ![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*_o1uujfIgv4JMHpJ)Photo by [Glenn Carstens-Peters](https://unsplash.com/@glenncarstenspeters?utm_source=medium&utm_medium=referral) on [Unsplash](https://unsplash.com?utm_source=medium&utm_medium=referral)
@@ -40,7 +40,7 @@ Anti Pattern
 
 此外，以 java 的 List 以及常見的兩個實作 ArrayList, LinkedList 為例:
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/836/0*iKFqT32yPICHOy01.png)java list interface
+![常見的 Interface 錯誤用法](https://miro.medium.com/max/836/0*iKFqT32yPICHOy01.png?style=center)java list interface
 
 這兩個 List 具有不同的實作與特性，透過 interface，我們可以用很少的改動成本，再根據應用情境（例如效能、時間空間複雜度等因素)決定要使用 ArrayList 或 LinkedList ，如此也增加了程式的彈性，一個好的 interface 就應如此設計。
 
@@ -64,7 +64,7 @@ How To Fix It ?
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface，下圖是 IntelliJ 的 extract interface：
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*Pf8uNoMzyWkN6buL.png)extract interface by intelliJ
+![常見的 Interface 錯誤用法](https://miro.medium.com/max/1400/0*Pf8uNoMzyWkN6buL.png?style=center)extract interface by intelliJ
 
 可能有些人會問:
 

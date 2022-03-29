@@ -10,7 +10,7 @@
 
 目前有許多主流 mock framework，如最受歡迎的 [Mockito](https://github.com/mockito/mockito)，以及本篇文章的主角 — PowerMock。
 
-![](https://miro.medium.com/max/1278/1*26kXMYhdtJDv68MxWlKCRw.png)Powermock
+![](https://miro.medium.com/max/1278/1*26kXMYhdtJDv68MxWlKCRw.png?style=center)Powermock
 
 PowerMock
 =========
