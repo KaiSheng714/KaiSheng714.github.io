@@ -2,10 +2,10 @@
 layout: post
 title: "分析 Spring 的依賴注入模式 (Dependency Injection Pattern)"
 tagline: "This post demonstrates post content styles"
-categories: junk
+categories: spring
 image: /thumbnail-mobile.png
-author: "Bart Simpson"
-meta: "Springfield"
+author: "Kai-Sheng"
+meta: "Spring"
 ---
 
 # **分析 Spring 的依賴注入模式 (Dependency Injection Pattern)**
