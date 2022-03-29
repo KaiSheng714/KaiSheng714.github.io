@@ -10,7 +10,7 @@ order: 0
 ![profile](/assets/image/profile.png?style=center&size=medium)
 
 
-<h2 style="text-align: center;">Kai-Sheng, Yang (Jason Yang)</h1>
+<h2 style="text-align: center;">Kai-Sheng, Yang (Jason Yang)</h2>
 
 持續學習中的軟體工程師。致力於研究 Clean Code。
 
