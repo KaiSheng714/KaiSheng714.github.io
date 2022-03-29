@@ -28,12 +28,14 @@ author: "Kai-Sheng"
 既然 PowerMock 這麼強大，為什麼作者會做出此評論呢 ? 請讓我先以優缺點分析作為出發點並探討：
 
 ### PowerMock 的優點
+------
 
 1. 強大的 mock 功能，能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
 
 2. 對於熟悉 Mockito 的廣大開發者來說能快速上手，因為 PowerMock 是基於 Mockito 的擴充。
 
 ### PowerMock 的缺點 / 不建議使用的理由
+------
 
 1. 相同的 API
 

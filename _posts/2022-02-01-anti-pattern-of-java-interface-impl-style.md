@@ -52,6 +52,8 @@ author: "Kai-Sheng"
 
 此外，當 interface-impl 出現時，表示檔案的數量是比原本多一倍的，這不僅讓專案更龐大，也隱含的增加了專案的複雜度，因為多了這層非必要的 abstract layer，讓系統變得更不直觀，也會讓開發者永遠好奇眼前的 interface 是否有其他的 implementation ?
 
+------
+
 ## How To Fix It ?
 
 我認為這種 **interface-impl 不應存在**，反而使用一般的 concrete class 即可，開發程式不需要過度包裝與設計，Keep it simple, straightforword。可能有些人會認為專案中即使有一些 **interface-impl** 也無傷大雅，**但我認為大問題往往是從小問題引起的**，一旦病入膏肓，就算想改也改不動了。因此，稱職的 clean coder 應盡量維持專案的乾淨與健康。
@@ -79,6 +81,8 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
 
 因此，首先描述你的 interface 能提供`什麼`功能，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述`如何`存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
+
+------
 
 ## 結語
 
