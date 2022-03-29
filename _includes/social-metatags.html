@@ -75,12 +75,8 @@
 <meta property="og:description" content="{{ page_description }}" />
 <meta property="og:site_name" content="{{ site.title }}" />
 
-{% if page-lang == "en" %}
-  {% assign page-lang-country = "en_US" %}
-{% elsif page-lang == "it" %}
-  {% assign page-lang-country = "it_IT" %}
-{% endif %}
-<meta property="og:locale" content="zh-TW" />
+
+<meta property="og:locale" content="zh_tw" />
 
 {%if page.date %}
   <meta property="article:published_time" content="{{ page.date | date_to_xmlschema }}" />
