@@ -7,10 +7,6 @@ author: "Kai-Sheng"
 ---
 
  Spring 提供了幾種 Dependency Injection (DI) Patterns，其中最常用的是 **field based injection**，它也是許多人第一次使用 Spring 時所使用的 pattern。
-
- ![Field based Dependency Injection v.s. Constructor based Dependency Injection Patterns in Spring](https://www.70kg-club.tech/content/images/2022/01/OG-Spring.png?style=center)
- 
- 
  雖然 field based injection 好用又方便，但其實它有不少缺點，例如你會發現， IntelliJ 很貼心地告訴我們:
 
 > 
