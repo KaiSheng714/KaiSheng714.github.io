@@ -11,7 +11,7 @@ order: 0
 
 
 <h2 style="text-align: center;">Kai-Sheng, Yang (Jason Yang)</h2>
-<h3 style="text-align: center;">持續學習中的軟體工程師。致力於研究 Clean Code。</h3>
+<p style="text-align: center;">持續學習中的軟體工程師。致力於研究 Clean Code。</p>
 
 -----
 
