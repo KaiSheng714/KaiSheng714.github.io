@@ -1,4 +1,4 @@
-# 分析 Spring 的依賴注入模式 (Dependency Injection Pattern)
+# **分析 Spring 的依賴注入模式 (Dependency Injection Pattern)**
 
 ![Field based Dependency Injection v.s. Constructor based Dependency Injection Patterns in Spring](https://miro.medium.com/max/1400/0*KzoTPNquc8QDHFNv.png?style=center)
 
@@ -12,8 +12,9 @@
 
 為何 constructor based 優於 field based injection 呢 ? 以下解析這兩種 Dependency Injection Pattern.
 
+------
+
 ## **1\. Field Based Dependency Injection**
-============================================
 
 **這種注入方式顧名思義，就是直接在 field 加上 @Autowired**
 
@@ -93,7 +94,8 @@ public class HelloBean {
 }
 ```
 
-### 優點
+### **優點**
+------
 
 **1\. 容易發現 code smell**
 
@@ -120,11 +122,12 @@ public class HelloBeanTest {
 ```
 
 
-**3 不可變物件 (Immutable Object)**
+**3. 不可變物件 (Immutable Object)**
 
 意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 Constructor Dependency Injection，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
-### 缺點
+### **缺點**
+------
 
 **1\. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
 
