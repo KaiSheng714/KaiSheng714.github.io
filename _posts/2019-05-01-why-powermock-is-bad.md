@@ -14,7 +14,7 @@ author: "Kai-Sheng"
 
 ![powermock](/assets/image/powermock.png?style=center)
 
-## PowerMock
+## **PowerMock**
 
 [**PowerMock**](https://github.com/powermock/powermock) 是基於 Mockito 之上，並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！
 
@@ -27,22 +27,22 @@ author: "Kai-Sheng"
 
 既然 PowerMock 這麼強大，為什麼作者會做出此評論呢 ? 請讓我先以優缺點分析作為出發點並探討：
 
-### PowerMock 的優點
+### **PowerMock 的優點**
 ------
 
 1. 強大的 mock 功能，能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
 
 2. 對於熟悉 Mockito 的廣大開發者來說能快速上手，因為 PowerMock 是基於 Mockito 的擴充。
 
-### PowerMock 的缺點 / 不建議使用的理由
+### **PowerMock 的缺點 / 不建議使用的理由**
 ------
 
-**1. 相同的 API**
+#### **1. 相同的 API**
 
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
 
 
-**2. 同一種 Annotation 卻有不同用法**
+#### **2. 同一種 Annotation 卻有不同用法**
 
 例如 `@PrepareForTest` 是 PowerMock 特有的 Annotation，其旨在於告訴 PowerMock 要 mock 測試目標物件的 static, final 等。例如
 
@@ -60,12 +60,12 @@ author: "Kai-Sheng"
 @PrepareForTest(TheClassUseSystem.class)
 ```
 
-**3. Overhead** 
+#### **3. Overhead** 
 
 **良好的測試程式大多遵循 F.I.R.S.T 原則**，不過 PowerMock 的初始化時間比 Mockito **更久**，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
 
-**4. 容易忽略 code design** 
+#### **4. 容易忽略 code design** 
 
 這也是我認為**最大的缺點。**正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
 
@@ -75,14 +75,14 @@ author: "Kai-Sheng"
 -----
 
 
-## 重構(Refactoring)
+## **重構(Refactoring)**
 
 為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需**重構**程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的**健康**是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
 
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
 
-**1. Static class / method** 
+#### **1. Static class / method** 
  
 我相信這應該是 PowerMock 受歡迎的最大理由，static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
 
@@ -138,7 +138,7 @@ public void testGetData() {
 
 從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility ? 此時可以考慮使用 `move method`搬到另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖從測試程式改變 getData 原有的行為。
 
-**3. System Class** 
+#### **3. System Class** 
 
 
 假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System，如下
@@ -188,7 +188,7 @@ public void exampleTest() {
 }
 ```
 
-**4. Constructor** 
+#### **4. Constructor** 
 
 如下例所示，寫測試時，如果想在程式執行 `new A()` 時替換成我們自訂的 mockedA，可以使用 PowerMock 提供的 `whenNew()`：
 
