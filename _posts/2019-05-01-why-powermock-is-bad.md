@@ -106,7 +106,7 @@ if (StringUtils.isNullOrEmpty(str)) {
 }
 ```
 
-**2. Private method** 
+#### **2. Private method** 
 
 
 例如你想要驗證 `getData`的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
@@ -236,7 +236,7 @@ public void testExapmle() {
 ```
 
 
-## 結語
+## **結語**
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 

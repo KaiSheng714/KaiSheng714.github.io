@@ -18,11 +18,11 @@ author: "Kai-Sheng"
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
-## Anti Pattern
+## **Anti Pattern**
 
 我認為 **interface-impl** 這樣的設計是個 Anti Pattern。它會產生幾個問題 :
 
-### 1. 違反 YAGNI 原則
+### **1. 違反 YAGNI 原則**
 
 人性使然，人們在面對未知事物時傾向於未雨綢繆，因為能為自己帶來確定感和安心感，但在設計程式時也許要有不同思維。
 
@@ -32,7 +32,7 @@ author: "Kai-Sheng"
 
 如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，**表面**上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
 
-### 2. 違反 DRY 原則
+### **2. 違反 DRY 原則**
 
 當你定義出 interface-impl 時，當其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步另一者，否則 compile 會失敗，但我們不應該將同樣的事情再重複做一次 [(DRY 原則)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)。如果事先建立 interface 的理由是”以後”會用到，則開發者會不斷地面臨這個問題 (cost of carry)
 
@@ -46,7 +46,7 @@ author: "Kai-Sheng"
 
 想像一下，如果一個 interface-impl 真的有第二個 implementation 出現時，你該如何為它命名呢? -impl2 ? 再者，要如何在 java doc 裡清楚地描述 interface 與 -impl，或是只能重複地描述呢?
 
-### 3. 不必要的干擾
+### **3. 不必要的干擾**
 
 想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，在如此龐大的系統裡遇到這種事，有害開發者的工作效率與心理。
 
@@ -54,7 +54,7 @@ author: "Kai-Sheng"
 
 ------
 
-## How To Fix It ?
+## **How To Fix It ?**
 
 我認為這種 **interface-impl 不應存在**，反而使用一般的 concrete class 即可，開發程式不需要過度包裝與設計，Keep it simple, straightforword。可能有些人會認為專案中即使有一些 **interface-impl** 也無傷大雅，**但我認為大問題往往是從小問題引起的**，一旦病入膏肓，就算想改也改不動了。因此，稱職的 clean coder 應盡量維持專案的乾淨與健康。
 
@@ -82,13 +82,13 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 
 ------
 
-## 結語
+## **結語**
 
 本文描述了許多人對於 java interface 的誤用，導致這種`只有一個實作的介面 (interface-impl)` 成對出現在許多專案中，這並沒有利用 interface 的優點，若開發者只為了盲目遵循錯誤的設計原則，而沒有理解 interface 實際的涵義與價值，將導致許多負面影響。**並不是只要有 interface 就等於抽象、解耦**，誤用比未用更糟糕。
 
 因此，當你有個 interface 時，它應該會提供給許多 client 實作，並且能清楚描述實作的細節，開發者也可以輕易的替換不同實作；反之，則表示開發者可能誤用了 interface，或者是根本不需要 interface。也許你可以檢視你的專案是否有類似的情況，試著讓專案更乾淨、簡潔、明確，提高可讀性。
 
-#### Reference
+### **Reference**
 
 [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 

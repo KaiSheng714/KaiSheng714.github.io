@@ -6,11 +6,10 @@ meta: java,spring,test,clean-code,dependency-injection
 author: "Kai-Sheng"
 ---
 
- Spring 提供了幾種 Dependency Injection (DI) Patterns，其中最常用的是 **field based injection**，它也是許多人第一次使用 Spring 時所使用的 pattern。
- 雖然 field based injection 好用又方便，但其實它有不少缺點。
+ Dependency Injection (DI) 是 Spring 相當重要且實用的手段，Spring 提供了數種 DI Patterns，其中最常用的是 **field based injection**，它是許多人第一次使用 Spring 時所使用的 pattern。雖然這方式簡單易用卻有不少缺點。
  
- 例如你會發現， IntelliJ 很貼心地告訴我們:
 
+ 例如你會發現， IntelliJ 很貼心地告訴我們:
 > 
 > Field Injection is not recommended.
 > 
@@ -108,11 +107,11 @@ public class HelloBean {
 ### **優點**
 ------
 
-**1. 容易發現 code smell**
+#### **1. 容易發現 code smell**
 
 假設我們需要注入 10 個 bean ，對比 Field 注入的方式，這種方式暴露了 constructor 中含有過多的參數，正常的開發者看到 10 個參數肯定是會頭痛的，這就表示我們需要想辦法重構它。
 
-**2. 容易測試**
+#### **2. 容易測試**
 
 它不需要任何 JUnit 以外的 @Annotation，這不僅讓程式是看起來更乾淨了，也降低了理解與維護成本。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂 70~80%。
 
@@ -133,14 +132,14 @@ public class HelloBeanTest {
 ```
 
 
-**3. 不可變物件 (Immutable Object)**
+#### **3. 不可變物件 (Immutable Object)**
 
 意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 Constructor Dependency Injection，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 ### **缺點**
 ------
 
-**1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
+#### **1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
 
 只有在使用 Constructor DI 時才會造成此問題。
 
@@ -150,11 +149,11 @@ public class HelloBeanTest {
 
 但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠及早發現，讓開發人員意識到該重新設計此 Bean，我個人認為這反而是個不錯的缺點。
 
-## 總結
+### **總結**
 
 本文介紹了兩種依賴注入模式。最常見的是 field dependencies injection，很不幸的這種注入方式會造成程式的不良影響與 code smell，但依舊有許多人使用此方式。另外，Spring 官方團隊建議開發者使用 **constructor based dependencies injection**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊。
 
-### References
+### **References**
 
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
 - [What exactly is field injection and how to avoid it](https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it/39891473)  
