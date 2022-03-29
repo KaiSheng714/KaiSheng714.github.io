@@ -6,15 +6,14 @@ meta: java,design,interface
 author: "Kai-Sheng"
 --- 
 
-在 java 專案中，相信很多人曾看過或寫過`只有一個實作(implementation) 的介面 (interface)`，並且以 **Interface-Impl** 的風格命名，如圖:
+在 java 專案中，應該不少人看過或寫過**只有一個實作(implementation) 的介面 (interface)**`，並且以 **Interface-Impl** 的風格存在於各專案中，其實這種風格會對程式品質與開發帶來負面影響。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center)
 
-上圖中的 FooService, BarService 只有一個實作，而且它們都放在同一個 package 或 module 裡，通常只給專案或產品內部使用，並不會當作 library 提供給其它專案參考。不曉得大家有沒有思考過為什麼要這樣寫 ?
+上圖中的 Foo, Bar, Service 只有一個實作，而且它們都放在同一個 package 或 module 裡，通常只給專案或產品內部使用，並不會當作 library 提供給其它專案參考。
 
-據我觀察，可能是有些人將 C++ 的標頭檔 .h 和 實作檔 .cpp 結構的習慣帶進來 ；也有可能是拜 naming convention 或常見的 practice 所賜，習慣成自然；又或者是考量到未來的擴充性，所以就事先定義好 interface；又或者是許多文章提到：物件之間應該盡量依賴於抽象而不是實作。又或者是：”大家都這樣寫，但我不知道為什麼，所以就照樣寫”。
-
-但是，像這樣**只有一個實作的介面** (本文簡稱為 **interface-impl**) ，其實會對程式品質與開發帶來負面影響。
+不曉得大家有沒有思考過為什麼要這樣寫? 據我觀察，可能是拜 naming convention 或常見的 practice 所賜，習慣成自然；又或者是考量到未來的擴充性，所以就事先定義好 interface；又或者是許多文章提到：物件之間應該盡量依賴於抽象而不是實作。又或者是：”大家都這樣寫，但我不知道為什麼，所以就照樣寫”。
+ 
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
