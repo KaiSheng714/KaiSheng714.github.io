@@ -38,13 +38,10 @@ author: "Kai-Sheng"
 ------
 
 1. 相同的 API
-
-
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
 
 
 2. 同一種 Annotation 卻有不同用法
-
 例如 `@PrepareForTest` 是 PowerMock 特有的 Annotation，其旨在於告訴 PowerMock 要 mock 測試目標物件的 static, final 等。例如
 
 ```java
@@ -62,12 +59,10 @@ author: "Kai-Sheng"
 ```
 
 3. Overhead
-
 **良好的測試程式大多遵循 F.I.R.S.T 原則**，不過 PowerMock 的初始化時間比 Mockito **更久**，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
 
 4. 容易忽略 **code design**
-
 這也是我認為**最大的缺點。**正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — 重構。
@@ -83,7 +78,6 @@ author: "Kai-Sheng"
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
 1. Static class / method
-
 我相信這應該是 PowerMock 受歡迎的最大理由，static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
 
 舉例來說，下面的 getProperty() 函式，從程式的角度看起來沒問題，但實際上在 Server 尚未啟動時可能產生錯誤或是沒有回傳值。因為這個 method 相依了 Server 的狀態，所以不適合作為 static method，應該改成 instance method。
@@ -109,7 +103,6 @@ if (StringUtils.isNullOrEmpty(str)) {
 
 
 2. Private method
-
 例如你想要驗證 `getData`的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
 
 ```java
@@ -140,7 +133,6 @@ public void testGetData() {
 從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility ? 此時可以考慮使用 `move method`搬到另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖從測試程式改變 getData 原有的行為。
 
 3. System Class
-
 假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System，如下
 
 ```java
@@ -189,7 +181,6 @@ public void exampleTest() {
 ```
 
 4. Constructor
-
 如下例所示，寫測試時，如果想在程式執行 `new A()` 時替換成我們自訂的 mockedA，可以使用 PowerMock 提供的 `whenNew()`：
 
 ```java
