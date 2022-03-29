@@ -6,17 +6,16 @@ meta: java,spring,maven,intellij,profile
 author: "Kai-Sheng"
 ---
 
-在 Spring 專案中，profile 是用於區分各種環境的，例如本機環境、開發環境、測試環境、正式環境等等。
+在 Spring 專案中，profile 是用於區分各種環境的，例如本機環境、開發環境、測試環境、正式環境等等。本文介紹一個透過 profile 來達成自動適應環境的開發與部署方式。此方法可以減少不必要的人工步驟，從開發到部署，透過指令就可以輕易完成。
 
-你是否曾在 release day 當天，才在打包好的 war 檔中，手動調整/替換成正式環境的 application.yml / application.properties 呢 ?
-
+你是否曾在 release day 當天，才在打包好的 war 檔中，手動調整成正式環境的 application.yml / application.properties 呢 ?
 又或者，整份專案只有正式環境使用的 .yml / .properties ，每當你在開發時都要自己生一份屬於本機開發的 .yml / .properties，而且還要小心翼翼的不要放到 git 上呢 ?
+希望本篇文章對你有幫助。
 
-其實有一個更好的方式可以減少這些不必要的人工步驟，從開發到部署，透過指令就可以輕易完成。
 
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-index.png?size=medium)
 
-## **1. 開發階段 — 準備所有 application.properties**
+## **1. 開發階段 — 準備各環境的 application.properties**
 
 首先準備好所有需要的 .properties / .yml，根據自己的需求而定。例如開發環境 (dev) 、正式環境 (prod) 等，以及一個主要的 application.properties。
 

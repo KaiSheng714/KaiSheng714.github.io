@@ -6,7 +6,7 @@ meta: java,spring,test,clean-code,dependency-injection
 author: "Kai-Sheng"
 ---
 
- Dependency Injection (DI) 是 Spring 相當重要且實用的手段，Spring 提供了數種 DI Patterns，其中最常用的是 **field based injection**，它是許多人第一次使用 Spring 時所使用的 pattern。雖然這方式簡單易用卻有不少缺點。
+ 依賴注入 (Dependency Injection, DI) 是 Spring 實現控制反轉（IoC）的重要手段。Spring 提供了數種 DI Patterns，其中最常用的是 **field based injection**，它是許多人第一次使用 Spring 時所使用的 pattern。雖然這方式簡單易用卻有不少缺點。
  
 
  例如你會發現， IntelliJ 很貼心地告訴我們:
@@ -134,7 +134,7 @@ public class HelloBeanTest {
 
 #### **3. 不可變物件 (Immutable Object)**
 
-意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 Constructor Dependency Injection，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
+意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor based DI，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 ### **缺點**
 ------
@@ -151,7 +151,7 @@ public class HelloBeanTest {
 
 ### **總結**
 
-本文介紹了兩種依賴注入模式。最常見的是 field dependencies injection，很不幸的這種注入方式會造成程式的不良影響與 code smell，但依舊有許多人使用此方式。另外，Spring 官方團隊建議開發者使用 **constructor based dependencies injection**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊。
+本文介紹了兩種依賴注入模式。最常見的是 field based DI，很不幸的這種注入方式會造成程式的不良影響與 code smell，但依舊有許多人使用此方式。另外，Spring 官方團隊建議開發者使用 **constructor based DI**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊。
 
 ### **References**
 
