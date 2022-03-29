@@ -2,7 +2,7 @@
 layout: post
 title: "分析 Spring 的依賴注入模式 (Dependency Injection Pattern)"
 tagline: "Field based Dependency Injection v.s. Constructor based Dependency Injection Patterns in Spring"
-categories: java,spring,test,clean-code,dependency-injection
+meta: java,spring,test,clean-code,dependency-injection
 author: "Kai-Sheng"
 ---
 
@@ -13,12 +13,13 @@ author: "Kai-Sheng"
  
  雖然 field based injection 好用又方便，但其實它有不少缺點，例如你會發現， IntelliJ 很貼心地告訴我們:
 
+> 
 > Field Injection is not recommended.
 > 
 > Spring Team recommends: "Always use constructor based dependency injection in tour beans. Always use assertions for mandatory dependencies".
->
+> 
 
-![Field Injection is not recommended](https://miro.medium.com/max/1400/0*2sSIIXTvt-6-6nMF.png?style=center)
+![Field Injection is not recommended](/assets/image/spring-di.png?style=center)
 
 為何 constructor based 優於 field based injection 呢 ?
 
