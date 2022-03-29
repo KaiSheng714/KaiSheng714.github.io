@@ -1,5 +1,12 @@
-# **分析 Spring 的依賴注入模式 (Dependency Injection Pattern)**
-
+---
+layout: post
+title: "分析 Spring 的依賴注入模式 (Dependency Injection Pattern)"
+tagline: "This post demonstrates post content styles"
+categories: spring
+author: "Kai-Sheng"
+meta: "Spring"
+---
+ 
 ![Field based Dependency Injection v.s. Constructor based Dependency Injection Patterns in Spring](https://miro.medium.com/max/1400/0*KzoTPNquc8QDHFNv.png?style=center)
 
 在 Spring 中，有幾種 Dependency Injection (DI) Patterns，其中最常用的肯定是 **Field Injection** 了，它是許多人第一次使用 Spring 時所使用的 pattern。field injection 雖然好用又方便，但其實它有不少缺點，而且你會發現， IntelliJ 很貼心地告訴我們:
