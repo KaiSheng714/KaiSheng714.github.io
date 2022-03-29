@@ -6,10 +6,12 @@ permalink: /about.html
 ref: about
 order: 0
 ---
+![profile](/assets/image/profile.png)
 
-This is the _Cayman Blog_ Jekyll theme. You can find out more info about customizing this theme, as well as basic usage documentation, and source code at: [cayman-blog](https://github.com/lorepirri/cayman-blog)
 
-You can find the source code for _Jekyll_ at [jekyll](https://github.com/jekyll/jekyll)
+Kai-Sheng, Yang  (Jason Yang)
+
+努力學習中的軟體工程師。致力於研究 Clean Code、提升開發效率。 Skills: Java, Spring, OOP, Refactoring, Unit Test
 
 
 [Go to the Home Page]({{ '/' | absolute_url }})
