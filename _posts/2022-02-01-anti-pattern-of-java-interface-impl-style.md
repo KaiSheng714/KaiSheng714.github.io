@@ -36,7 +36,7 @@ author: "Kai-Sheng"
 
 此外，以 java 的 List 以及常見的兩個實作 ArrayList, LinkedList 為例:
 
-![常見的 Interface 錯誤用法](https://miro.medium.com/max/836/0*iKFqT32yPICHOy01.png?style=center)
+![常見的 Interface 錯誤用法](/assets/image/interface-impl-list.png?style=center)
 
 這兩個 List 具有不同的實作與特性，透過 interface，我們可以用很少的改動成本，再根據應用情境（例如效能、時間空間複雜度等因素)決定要使用 ArrayList 或 LinkedList ，如此也增加了程式的彈性，一個好的 interface 就應如此設計。
 
@@ -70,7 +70,9 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 
 **關於 interface 的正確用法**，在我簡單舉例前，先引用一段話:
 
+> 
 > _Programming to an interface, not an implementation_
+> 
 
 意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
 
@@ -82,7 +84,7 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 
 因此，當你有個 interface 時，它應該會提供給許多 client 實作，並且能清楚描述實作的細節，開發者也可以輕易的替換不同實作；反之，則表示開發者可能誤用了 interface，或者是根本不需要 interface。也許你可以檢視你的專案是否有類似的情況，試著讓專案更乾淨、簡潔、明確，提高可讀性。
 
-#### Ref
+#### Reference
 
 [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 
