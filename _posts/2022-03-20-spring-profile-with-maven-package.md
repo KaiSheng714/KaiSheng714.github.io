@@ -14,7 +14,7 @@ author: "Kai-Sheng"
 
 其實有一個更好的方式可以減少這些不必要的人工步驟，從開發到部署，透過指令就可以輕易完成。
 
-![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](https://miro.medium.com/max/1400/1*oXVJyfl-jV39yo8hEUdYnw.png?style=center) 
+![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-index.png?style=center&size=medium)
 
 ## 1. 開發階段 — 準備所有 application.properties
 

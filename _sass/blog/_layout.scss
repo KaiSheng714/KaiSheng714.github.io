@@ -149,11 +149,11 @@
 
 
 // in post
-img[src$="center"] {
+img[src~="center"] {
   display: block;
   margin: 0 auto;
 }
 
-img[src$="medium"] {
+img[src~="medium"] {
   width: 50%;
 }
