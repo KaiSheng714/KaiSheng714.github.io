@@ -1,5 +1,4 @@
 # 分析 Spring 的依賴注入模式 (Dependency Injection Pattern)
-===============================================
 
 ![Field based Dependency Injection v.s. Constructor based Dependency Injection Patterns in Spring](https://miro.medium.com/max/1400/0*KzoTPNquc8QDHFNv.png?style=center)
 
@@ -13,7 +12,7 @@
 
 為何 constructor based 優於 field based injection 呢 ? 以下解析這兩種 Dependency Injection Pattern.
 
-## 1\. Field Based Dependency Injection**
+## **1\. Field Based Dependency Injection**
 ============================================
 
 **這種注入方式顧名思義，就是直接在 field 加上 @Autowired**
@@ -31,19 +30,16 @@ public class HelloBean {
    // ...
 ```
 
-### 優點
+### **優點**
 ------
 
 1 簡單方便易用，只要短短一行即可完成。
 
-### 缺點
+### **缺點**
 ------
 
 1.  不易維護，**因為簡單方便，更容易產生 code smell 而不自知，例如** `**God Object**`
 2.  不好測試，測試環境需要透過 DI container 並加上許多 @annotation 來初始化，看起來更像整合測試了。而且編譯執行時會多一些 overhead，也較不容易除錯。
-
-Field based Dependency Injection Test
-
 3. 不好理解測試
 
 ```java
@@ -78,8 +74,7 @@ public class HelloBeanTest {
 
 只有短短幾行就讓人產生諸多疑問，理解成本較高。若使用 Constructor Based Dependency Injection 則不易產生此問題。下面會詳述。
 
-## 2. Constructor Based Dependency Injection
-==============================================
+## **2. Constructor Based Dependency Injection**
 
 **此方式最大的特點就是: Bean 的建立與依賴入是同時發生的**
 
@@ -99,7 +94,6 @@ public class HelloBean {
 ```
 
 ### 優點
-------
 
 **1\. 容易發現 code smell**
 
@@ -109,14 +103,28 @@ public class HelloBean {
 
 它不需要任何 JUnit 以外的 @Annotation，這不僅讓程式是看起來更乾淨了，也降低了理解與維護成本。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂 70~80%。
 
-Constructor based Dependency Injection Test
 
-**3\. 不可變物件 (Immutable Object)**
+```java
+public class HelloBeanTest {
+    
+    private HelloBean helloBean;
+    
+    @Before
+    public void setup() {    
+        AnotherBean anotherBean = mock(AnotherBean.class);
+        helloBean = new HelloBean(anotherBean);
+    }
+  
+    // Test cases...
+}
+```
 
-意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 Constructor Dependency Injection，再把依賴宣都告成 **_final_**，就可以輕鬆建立 Immutable Object。
+
+**3 不可變物件 (Immutable Object)**
+
+意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 Constructor Dependency Injection，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 ### 缺點
---
 
 **1\. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
 
@@ -129,12 +137,10 @@ Constructor based Dependency Injection Test
 但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠及早發現，讓開發人員意識到該重新設計此 Bean，我個人認為這反而是個不錯的缺點。
 
 ## 總結
---
 
 本文介紹了兩種依賴注入模式。最常見的是 field dependencies injection，很不幸的這種注入方式會造成程式的不良影響與 code smell，但依舊有許多人使用此方式。另外，Spring 官方團隊建議開發者使用 **constructor based dependencies injection**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊。
 
-References
-----------
+### References
 
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
 - [What exactly is field injection and how to avoid it](https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it/39891473)  
