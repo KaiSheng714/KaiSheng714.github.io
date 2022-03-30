@@ -16,7 +16,7 @@ author: "Kai-Sheng"
 
 ## **PowerMock**
 
-[**PowerMock**](https://github.com/powermock/powermock) 是基於 Mockito 之上，並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！
+[**PowerMock**](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！
 
 不過，在 PowerMock 的 readme 中說了一段耐人尋味的話:
 
@@ -32,7 +32,7 @@ author: "Kai-Sheng"
 
 1. 強大的 mock 功能，能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
 
-2. 對於熟悉 Mockito 的廣大開發者來說能快速上手，因為 PowerMock 是基於 Mockito 的擴充。
+2. 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
 ### **PowerMock 的缺點 / 不建議使用的理由**
 ------
@@ -62,14 +62,13 @@ author: "Kai-Sheng"
 
 #### **3. Overhead** 
 
-**良好的測試程式大多遵循 F.I.R.S.T 原則**，不過 PowerMock 的初始化時間比 Mockito **更久**，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
-
+良好的測試程式大多遵循 **F.I.R.S.T** 原則，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
 #### **4. 容易忽略 code design** 
 
-這也是我認為**最大的缺點。**正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
+這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
 
-如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — 重構。
+如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
 
 
 -----
@@ -77,7 +76,7 @@ author: "Kai-Sheng"
 
 ## **重構(Refactoring)**
 
-為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需**重構**程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的**健康**是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
+為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的健康是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
 
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
@@ -107,7 +106,6 @@ if (StringUtils.isNullOrEmpty(str)) {
 ```
 
 #### **2. Private method** 
-
 
 例如你想要驗證 `getData`的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
 
@@ -139,7 +137,6 @@ public void testGetData() {
 從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility ? 此時可以考慮使用 `move method`搬到另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖從測試程式改變 getData 原有的行為。
 
 #### **3. System Class** 
-
 
 假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System，如下
 
@@ -219,6 +216,7 @@ public void testExapmle() {
 public MyClass(InterfaceA a) {
   this.a = a;
 }
+
 public int process() {
   return a.process();
 }
@@ -240,9 +238,7 @@ public void testExapmle() {
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 
-
 ![powermock](/assets/image/powermock-think.png?style=center)
-
 
 PowerMock 是個功能強大、非常實用的單元測試工具，但也不可否認的，若使用不當，容易使讓開發人員忽略程式碼品質，導致後續消耗更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
 
