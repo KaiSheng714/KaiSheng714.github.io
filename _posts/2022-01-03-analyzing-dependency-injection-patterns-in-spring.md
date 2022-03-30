@@ -131,7 +131,6 @@ public class HelloBeanTest {
 }
 ```
 
-
 #### **3. 不可變物件 (Immutable Object)**
 
 意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor based DI，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
@@ -147,7 +146,7 @@ public class HelloBeanTest {
 
 ![循環依賴問題 Circular dependency issues ](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
-但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠及早發現，讓開發人員意識到該重新設計此 Bean，我個人認為這反而是個不錯的缺點。
+但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這反而是個不錯的缺點。
 
 ### **總結**
 
