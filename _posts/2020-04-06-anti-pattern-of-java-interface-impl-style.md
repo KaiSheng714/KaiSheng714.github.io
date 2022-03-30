@@ -6,7 +6,7 @@ meta: java,design,interface
 author: "Kai-Sheng"
 --- 
 
-在 java 專案中，應該不少人看過或寫過**只有一個實作(implementation) 的介面 (interface)**`，並且以 **Interface-Impl** 的風格存在於各專案中，其實這種風格會對程式品質與開發帶來負面影響。
+在 java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格存在於各專案中，其實這種風格會對程式品質與開發帶來負面影響。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center)
 
@@ -14,7 +14,6 @@ author: "Kai-Sheng"
 
 不曉得大家有沒有思考過為什麼要這樣寫? 據我觀察，可能是拜 naming convention 或常見的 practice 所賜，習慣成自然；又或者是考量到未來的擴充性，所以就事先定義好 interface；又或者是許多文章提到：物件之間應該盡量依賴於抽象而不是實作。又或者是：”大家都這樣寫，但我不知道為什麼，所以就照樣寫”。
  
-
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
 ## **Anti Pattern**
@@ -23,11 +22,11 @@ author: "Kai-Sheng"
 
 ### **1. 違反 YAGNI 原則**
 
+![常見的 Interface 錯誤用法](/assets/image/interface-impl-yagni.png?style=center)
+
 人性使然，人們在面對未知事物時傾向於未雨綢繆，因為能為自己帶來確定感和安心感，但在設計程式時也許要有不同思維。
 
 如果 interface-impl 成對出現時，表示已經違反 [YAGNI 原則](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)，原因是，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。因此只要程式設計得剛好、不會難以維護，不需要考慮太遙遠的未來，就是個好的設計。
-
-![常見的 Interface 錯誤用法](/assets/image/interface-impl-yagni.png?style=center)
 
 如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，**表面**上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
 
@@ -61,7 +60,9 @@ author: "Kai-Sheng"
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface。
  
-可能有些人會問:
+-----
+
+### **可能有些人會問:**
 
 _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 class diagram 有出現 interface 和單一的 impl 阿。_
 
@@ -69,15 +70,17 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 
 如果你遇到 **“大家都這樣寫，但我不知道為什麼，所以我就照樣寫”** 的情況或團隊，也許可以試著打破墨守成規的思想，你可以將想法提出來和大家溝通交流，經過評估與分析，也許能改掉這種不好的寫作風格。
 
-**關於 interface 的正確用法**，在我簡單舉例前，先引用一段話:
+-----
+
+### **關於 interface 的正確用法**:
 
 > 
 > _Programming to an interface, not an implementation_
 > 
 
-意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
+先引用一段話，意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
 
-因此，首先描述你的 interface 能提供`什麼`功能，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述`如何`存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
+因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
 ------
 
@@ -87,7 +90,7 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 
 因此，當你有個 interface 時，它應該會提供給許多 client 實作，並且能清楚描述實作的細節，開發者也可以輕易的替換不同實作；反之，則表示開發者可能誤用了 interface，或者是根本不需要 interface。也許你可以檢視你的專案是否有類似的情況，試著讓專案更乾淨、簡潔、明確，提高可讀性。
 
-### **Reference**
+#### **Reference**
 
 [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 
