@@ -29,6 +29,8 @@ author: "Kai-Sheng"
 
 如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，**表面**上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
 
+可以參考我寫的另一篇文章: [2022-04-06-yagni](2022-04-06-yagni.html)
+
 ### **2. 違反 DRY 原則**
 
 當你定義出 interface-impl 時，當其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次 [(DRY 原則)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)。如果事先建立 interface 的理由是**以後**會用到，則開發者將會不斷地面臨這個問題，這就是攜帶成本 (cost of carry)。
