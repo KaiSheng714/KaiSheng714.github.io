@@ -111,7 +111,7 @@ if (StringUtils.isNullOrEmpty(str)) {
 
 ```java
 // bad, long method, and too complex
-public Data getData(String key) {
+private Data getData(String key) {
   Cache cahce = getCache(); 
   init(cache);
   if (flag) {
@@ -135,6 +135,8 @@ public void testGetData() {
 ```
 
 從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility ? 此時可以考慮使用 `move method`搬到另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖從測試程式改變 getData 原有的行為。
+
+回到正題，測試 private method，應該由 public method 作為入口去測試即可。
 
 #### **3. System Class** 
 
