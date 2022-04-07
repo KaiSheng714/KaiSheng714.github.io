@@ -9,33 +9,43 @@
 
 <url>
   <loc>https://kaisheng714.github.io/</loc>
-  <lastmod>2022-03-31T04:42:44+00:00</lastmod>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://kaisheng714.github.io/about.html</loc>
-  <lastmod>2022-03-31T04:42:44+00:00</lastmod>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/2022/01/03/analyzing-dependency-injection-patterns-in-spring.html</loc>
-  <lastmod>2022-03-31T04:42:44+00:00</lastmod>
+  <loc>https://kaisheng714.github.io/blog/yagni-principle.html</loc>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/2021/03/20/spring-profile-with-maven-package.html</loc>
-  <lastmod>2022-03-31T04:42:44+00:00</lastmod>
+  <loc>https://kaisheng714.github.io/blog/analyzing-dependency-injection-patterns-in-spring.html</loc>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/2020/04/06/anti-pattern-of-java-interface-impl-style.html</loc>
-  <lastmod>2022-03-31T04:42:44+00:00</lastmod>
+  <loc>https://kaisheng714.github.io/blog/spring-profile-with-maven-package.html</loc>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/2019/05/01/why-powermock-is-bad.html</loc>
-  <lastmod>2022-03-31T04:42:44+00:00</lastmod>
+  <loc>https://kaisheng714.github.io/blog/anti-pattern-of-java-interface-impl-style.html</loc>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
   <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://kaisheng714.github.io/blog/why-powermock-is-bad.html</loc>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://kaisheng714.github.io/categories/</loc>
+  <lastmod>2022-04-07T04:47:03+00:00</lastmod>
+  <priority>0.64</priority>
 </url>
 
 
