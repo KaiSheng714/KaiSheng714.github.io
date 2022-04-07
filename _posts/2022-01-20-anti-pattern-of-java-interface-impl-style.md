@@ -4,7 +4,7 @@ title: "常見的 Interface 錯誤用法"
 tagline: "如果物件不需要或不具備抽象化的條件，就不做抽象化。"
 meta: java,design,interface
 author: "Kai-Sheng"
-permalink: /blog/anti-pattern-of-java-interface-impl-style.html
+permalink: /posts/anti-pattern-of-java-interface-impl-style.html
 categories: [Java, Design]
 --- 
 
