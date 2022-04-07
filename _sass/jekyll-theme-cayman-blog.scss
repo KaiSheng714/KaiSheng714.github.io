@@ -117,11 +117,11 @@ a {
   }
 
   @include medium {
-    padding: 3rem 4rem 3rem 4rem;
+    padding: 3rem 4rem 2rem 4rem;
   }
 
   @include small {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem 1rem 1rem;
   }
 }
 
