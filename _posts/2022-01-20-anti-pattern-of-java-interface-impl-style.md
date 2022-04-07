@@ -102,8 +102,4 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 
 [Adam Bien — Service s = new ServiceImpl() — Why You Are Doing That?](http://adambien.blog/roller/abien/entry/service_s_new_serviceimpl_why)
 
-[Ted Kaminski — Why an interface with only one implementation?](https://www.tedinski.com/2018/07/31/interfaces-cutting-dependencies.html)
-
-[Jérôme Loisel — IMPL CLASSES ARE EVIL](https://octoperf.com/blog/2016/10/27/impl-classes-are-evil/)
-
 [Do I need to use an interface when only one class will ever implement it?](https://softwareengineering.stackexchange.com/questions/159813/do-i-need-to-use-an-interface-when-only-one-class-will-ever-implement-it/159815#159815)
