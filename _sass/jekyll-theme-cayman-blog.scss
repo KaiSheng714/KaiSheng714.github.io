@@ -377,6 +377,7 @@ a {
 }
 
 .site-footer {
+  text-align: center;
   padding-top: 2rem;
   margin-top: 2rem;
   border-top: solid 1px $hr-border-color;
@@ -393,6 +394,11 @@ a {
     font-size: 0.9rem;
     margin-bottom: 0.5rem;
   }
+}
+
+.site-footer div {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .site-footer-owner {
