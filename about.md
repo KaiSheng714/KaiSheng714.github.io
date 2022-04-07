@@ -2,7 +2,7 @@
 layout: page
 title: About
 tagline: 
-permalink: /about.html
+permalink: /about
 ref: about
 order: 0
 ---
