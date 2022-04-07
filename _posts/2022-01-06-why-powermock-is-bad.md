@@ -5,7 +5,7 @@ tagline: "Why Powermock Is Not Good"
 meta: java,unit-test,powermock,mockito,design,interface
 author: "Kai-Sheng"
 permalink: /blog/why-powermock-is-bad.html
-categories: [Java, Design, Unit-testing]
+categories: [Design, Unit-testing]
 --- 
 
 在寫 Java 的單元測試時常會使用 mock framework，因為它能幫助我們輕鬆建立 mock object，不必再為了單元測試而寫假物件，也更容易對目標物件進行獨立測試，隔絕外部相依，而降低寫單元測試的負擔。
