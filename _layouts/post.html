@@ -27,7 +27,9 @@ layout: default
       {% unless forloop.last %}&nbsp;{% endunless %}
       {% endfor %}
     </div>
-    
+
+    {% include reading-time.html %}
+
     {{ content }}
   </div>
 
