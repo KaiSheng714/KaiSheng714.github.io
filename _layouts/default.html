@@ -141,17 +141,18 @@
                 {% endif %}
             </div>
 
-            <div>
-                Copyright © 2022 KaiSheng. All Rights Reserved.
+            <div >
+                Copyright © <span id="copyrightYear">2021</span>KaiSheng. All Rights Reserved.
             </div>
-                  
+
             </footer>
         </section>
         
         <script>
             var menu = document.querySelector("nav.site-nav");
             var checkbox = document.getElementById("nav-trigger");
-            
+            setCopyrightYear();
+
             // close menu if click outside menu
             document.addEventListener("click", function(e) {
                 if (menu != e.target &&
@@ -170,6 +171,11 @@
                 }
                 return false;
             }  
+
+            function setCopyrightYear() {
+                document.getElementById('copyrightYear').innerText = new Date().getFullYear();
+            }
+            
         </script>
         
     </body>
