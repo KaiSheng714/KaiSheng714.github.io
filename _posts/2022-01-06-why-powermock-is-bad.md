@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "不建議使用 PowerMock 的理由"
-tagline: "Why Powermock Is Not Good"
+tagline: "沒有工具是毫無代價的"
 meta: java,unit-test,powermock,mockito,design,interface
 author: "Kai-Sheng"
 permalink: /blog/why-powermock-is-bad.html
