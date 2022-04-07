@@ -4,6 +4,7 @@ title: "常見的 Interface 錯誤用法"
 tagline: "如果物件不需要或不具備抽象化的條件，就不做抽象化。"
 meta: java,design,interface
 author: "Kai-Sheng"
+permalink: /blog/anti-pattern-of-java-interface-impl-style.html
 --- 
 
 在 java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格存在於各專案中，其實這種風格會對程式品質與開發帶來負面影響。
