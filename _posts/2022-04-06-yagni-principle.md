@@ -4,7 +4,8 @@ title: "談談 YAGNI 設計原則"
 tagline: "設計得剛好就好"
 meta: design,clean-code
 author: "Kai-Sheng"
-permalink: /blog/yagni.html
+permalink: /blog/yagni-principle.html
+categories: [Java, Design]
 --- 
 
 
