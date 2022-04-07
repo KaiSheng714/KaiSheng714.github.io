@@ -30,4 +30,4 @@ target-blank:
 
 header_page_refs: ['about']
 
-categories: [Java, Design, Spring, Maven, Unit-testing]
+categories: ['Java', 'Design', 'Spring', 'Maven', 'Unit-testing']
