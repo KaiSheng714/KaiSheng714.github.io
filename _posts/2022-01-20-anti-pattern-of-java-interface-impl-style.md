@@ -15,7 +15,7 @@ categories: [Java, Design]
 而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。
 
 
-我認為 interface-impl 這樣的設計是個 `anti-pattern`。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
+我認為 interface-impl 這樣的設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
 
 ------ 
 ### **1. 違反 YAGNI 原則**
@@ -33,7 +33,7 @@ categories: [Java, Design]
 
 ### **3. 不必要的干擾**
 
-想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，在如此龐大的系統裡遇到這種事，有害開發者的工作效率與心理。
+想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，在大系統裡遇到這種事，有損開發者的工作效率與心理感受。
 
 此外，當 interface-impl 出現時，表示檔案的數量是比原本多一倍的，這不僅讓專案更龐大，也隱含的增加了專案的複雜度，因為多了這層非必要的 abstract layer，讓系統變得更不直觀，也會讓開發者永遠好奇眼前的 interface 是否有其他的 implementation ?
 
