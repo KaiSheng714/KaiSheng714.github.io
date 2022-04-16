@@ -17,16 +17,16 @@ order: 0
 
 ### **Experience**
 
-##### **Advanced Engineer**
-##### FarEasTone Telecom
-##### July 2021 - Present
+- **Advanced Engineer**
+  - FarEasTone Telecom
+  - July 2021 - Present
  
 - **Program Analyst**
   - Galaxy Software Services Corporation.
   - Oct 2017 - Jan 2021
  
 ### **Education**
-- **National Taipei University of Technology, Taipei Tech**
+- **National Taipei University of Technology**
   - Master's degree, Computer Science and Information Engineering 
   - 2015 - 2017
 
