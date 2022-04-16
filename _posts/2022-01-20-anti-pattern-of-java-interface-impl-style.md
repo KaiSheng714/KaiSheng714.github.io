@@ -61,7 +61,7 @@ categories: [Java, Design]
 
 因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-再者，如果你的專案並沒有開放給外部使用，在實務上，大部分的情況下是不需要 interface 的。除非你開發的是如 library, SDK 給外部 client 使用，就可以利用 interface 定義出你的系統邊界，讓外部 client 知道如何使用你的專案、如何界接。
+再者，如果你的專案並沒有開放給外部使用，在實務上，大部分的情況下是不需要 interface 的。除非你開發的是如 library, SDK 給外部 client 使用，就可以利用 interface 定義出你的系統邊界，讓外部 client 知道如何透過 interface 去使用、界接你的專案。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
@@ -70,8 +70,8 @@ categories: [Java, Design]
 ## **結語**
 
 本文描述了許多人對於 java interface 的誤用，導致這種只有一個實作的介面 (interface-impl) 成對出現在許多專案中，這並沒有利用 interface 的優點，若開發者盲目遵循錯誤的設計原則，而沒有理解 interface 實際的涵義與價值，將導致許多負面影響。**並不是只要有 interface 就等於抽象、解耦**，誤用比未用更糟糕。
-
-因此，當你有個 interface 時，它應該會提供給許多外部 client 實作，並且能清楚描述實作的細節，開發者也可以輕易的替換不同實作；反之，則表示開發者可能誤用了 interface，或者是根本不需要 interface。也許你可以檢視你的專案是否有類似的情況，試著讓專案更乾淨、簡潔、明確，提高可讀性。
+ 
+也許你可以檢視你的專案是否有類似的情況，試著讓專案更乾淨、簡潔、明確，提高可讀性。
 
 #### **Reference**
 
