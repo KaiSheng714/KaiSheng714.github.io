@@ -1,0 +1,3 @@
+User-Agent: *
+Disallow:
+Sitemap: https://kaisheng714.github.io/sitemap2.xml
