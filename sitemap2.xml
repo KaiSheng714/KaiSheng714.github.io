@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://kaisheng714.github.io/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/posts/spring-profile-with-maven-package</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/categories/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/about</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/posts/yagni-principle</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/posts/analyzing-dependency-injection-patterns-in-spring</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/posts/anti-pattern-of-java-interface-impl-style</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://kaisheng714.github.io/posts/why-powermock-is-bad</loc>
+    <changefreq>daily</changefreq>
+  </url>
+</urlset>
