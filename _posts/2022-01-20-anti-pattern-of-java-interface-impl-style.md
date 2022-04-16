@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "常見的 Interface 錯誤用法"
-tagline: "如果物件不需要或不具備抽象化的條件，就不做抽象化。"
+tagline: "大部分的情況下是不需要 interface 的"
 meta: java,design,interface
 author: "Kai-Sheng"
 permalink: /posts/anti-pattern-of-java-interface-impl-style
@@ -61,7 +61,7 @@ categories: [Java, Design]
 
 因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-再者，如果你的專案並沒有開放給外部使用，例如 library, SDK 等，在實務上，大部分的情況下是不需要 interface 的。
+再者，如果你的專案並沒有開放給外部使用，在實務上，大部分的情況下是不需要 interface 的。除非你開發的是如 library, SDK 給外部 client 使用，就可以利用 interface 定義出你的系統邊界，讓外部 client 知道如何使用你的專案、如何界接。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
