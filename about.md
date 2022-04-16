@@ -17,16 +17,16 @@ order: 0
 
 ### **Experience**
 
-- Advanced Engineer
+- **Advanced Engineer**
   - FarEasTone Telecom
   - July 2021 - Present
  
--  Program Analyst
+- **Program Analyst**
   - Galaxy Software Services Corporation.
   - Oct 2017 - Jan 2021
  
 ### **Education**
-- Master's degree
+- **Master's degree**
   - NTUT CSIE 
   - 2015 - 2017
 
