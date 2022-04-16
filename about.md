@@ -7,7 +7,7 @@ ref: about
 order: 0
 ---
 
-![profile](/assets/image/profile.png?style=center&size=medium)
+![profile](/assets/image/profile.png?style=center&size=small)
 
 
 <h2 style="text-align: center;"><strong>Kai-Sheng, Yang (Jason Yang)</strong></h2>
@@ -17,17 +17,17 @@ order: 0
 
 ### **Experience**
 
-- **Advanced Engineer**
-  - FarEasTone Telecom
-  - July 2021 - Present
+##### **Advanced Engineer**
+##### FarEasTone Telecom
+##### July 2021 - Present
  
 - **Program Analyst**
   - Galaxy Software Services Corporation.
   - Oct 2017 - Jan 2021
  
 ### **Education**
-- **Master's degree**
-  - NTUT CSIE 
+- **National Taipei University of Technology, Taipei Tech**
+  - Master's degree, Computer Science and Information Engineering 
   - 2015 - 2017
 
 ------
