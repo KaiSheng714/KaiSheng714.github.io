@@ -22,10 +22,6 @@ categories: [Java, Design]
 
 ### **1. 違反 YAGNI 原則**
 
-![常見的 Interface 錯誤用法](/assets/image/interface-impl-yagni.png?style=center)
-
-人性使然，人們在面對未知事物時傾向於未雨綢繆，因為能為自己帶來確定感和安心感，但在設計程式時也許要有不同思維。
-
 如果 interface-impl 成對出現時，表示已經違反 YAGNI 原則，原因是，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。因此只要程式設計得剛好、不會難以維護，不需要考慮太遙遠的未來，就是個好的設計。
 
 如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，**表面**上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
