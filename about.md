@@ -36,4 +36,6 @@ order: 0
 
 ------
 
-[Go to the Home Page]({{ '/' | absolute_url }})
+<div style="padding-top:32px; text-align: center;">
+  <a href="/"> 🏠 Go to the Home Page 🏠</a>
+</div>
