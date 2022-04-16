@@ -15,24 +15,20 @@ order: 0
 
 -----
 
-### **Skills**
-- Java
-- Spring
-- OOP
-- Refactoring
-- Unit Test
-- AngularJS
-- MySql
-- Oracle DB
-- Jenkins
-
 ### **Experience**
-- 遠傳電信 專業工程師 (2021.07-)
-- 叡揚資訊 程式分析師 (2017.10 - 2021.01)
 
+- Advanced Engineer
+  - FarEasTone Telecom
+  - July 2021 - Present
+ 
+-  Program Analyst
+  - Galaxy Software Services Corporation.
+  - Oct 2017 - Jan 2021
+ 
 ### **Education**
-- 國立臺北科技大學資訊工程所 (2015-2017)
-- 國立臺北科技大學資訊工程系 (2011-2015)
+- Master's degree
+  - NTUT CSIE 
+  - 2015 - 2017
 
 ------
 
