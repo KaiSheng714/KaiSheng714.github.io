@@ -12,19 +12,19 @@ categories: [Java, Design]
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center)
 
-而且它們都放在同一個 package 或 module 裡，通常只給內部使用，並不會當作 library 提供給其它專案參考。
+而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。
 
 本文將探討此寫法的負面影響以及如何改善。 
 
-## **Anti Pattern**
+------
 
-我認為 interface-impl 這樣的設計是個 anti-pattern。它會產生幾個問題 :
+我認為 interface-impl 這樣的設計是個 `anti-pattern`。它會產生幾個問題 :
 
 ### **1. 違反 YAGNI 原則**
 
-人性使然，人們在面對未知事物時傾向於未雨綢繆，因為能為自己帶來確定感和安心感，但在設計程式時也許要有不同思維。
-
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-yagni.png?style=center)
+
+人性使然，人們在面對未知事物時傾向於未雨綢繆，因為能為自己帶來確定感和安心感，但在設計程式時也許要有不同思維。
 
 如果 interface-impl 成對出現時，表示已經違反 YAGNI 原則，原因是，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。因此只要程式設計得剛好、不會難以維護，不需要考慮太遙遠的未來，就是個好的設計。
 
