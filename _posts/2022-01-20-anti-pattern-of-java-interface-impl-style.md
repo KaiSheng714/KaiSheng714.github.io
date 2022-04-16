@@ -8,14 +8,13 @@ permalink: /posts/anti-pattern-of-java-interface-impl-style
 categories: [Java, Design]
 --- 
 
-在 java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格存在於各專案中，其實這種風格會對程式品質與開發帶來負面影響。
+在 java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 Foo, Bar, Service :
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center)
 
-上圖中的 Foo, Bar, Service 只有一個實作，而且它們都放在同一個 package 或 module 裡，通常只給專案或產品內部使用，並不會當作 library 提供給其它專案參考。
+而且它們都放在同一個 package 或 module 裡，通常只給內部使用，並不會當作 library 提供給其它專案參考。
 
-不曉得大家有沒有思考過為什麼要這樣寫? 據我觀察，可能是拜 naming convention 或常見的 practice 所賜，習慣成自然；又或者是考量到未來的擴充性，所以就事先定義好 interface；又或者是許多文章提到：物件之間應該盡量依賴於抽象而不是實作。又或者是：”大家都這樣寫，但我不知道為什麼，所以就照樣寫”。本文將探討此寫法的負面影響。
- 
+本文將探討此寫法的負面影響以及如何改善。 
 
 ## **Anti Pattern**
 
@@ -33,18 +32,10 @@ categories: [Java, Design]
 
 可以參考我寫的另一篇文章: [談談 YAGNI 設計原則](/2022/04/06/yagni.html)
 
-### **2. 違反 DRY 原則**
+### **2. 提高維護成本**
 
 當你定義出 interface-impl 時，當其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次 [(DRY 原則)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)。如果事先建立 interface 的理由是**以後**會用到，則開發者將會不斷地面臨這個問題，這就是攜帶成本 (cost of carry)。
-
-想像一下，如果一個 interface-impl 真的有第二個 implementation 出現時，你該如何為它命名呢? -impl2 ? 再者，要如何在 java doc 裡清楚地描述 interface 與 -impl，或是只能重複地描述呢?以 java 的 List 以及常見的兩個實作 ArrayList, LinkedList 為例:
-
-![常見的 Interface 錯誤用法](/assets/image/interface-impl-list.png?style=center)
-
-這兩個 List 具有不同的實作與特性，透過 interface，我們可以用很少的改動成本，再根據應用情境（例如效能、時間空間複雜度等因素) 決定要使用 ArrayList 或 LinkedList ，如此也增加了程式的彈性，一個好的 interface 就應如此設計。
-
-但 JDK 中肯定沒有 ListImpl、ArrayListImpl、LinkedListImpl。因此，我認為 interface-impl 這種設計，不僅沒有講到重點，反而只是換個方式再將 interface 重複講一遍而已 (tautology)。
-
+ 
 
 ### **3. 不必要的干擾**
 
@@ -63,16 +54,7 @@ categories: [Java, Design]
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface。
  
 -----
-
-### **可能有些人會問:**
-
-_很多文章或書上介紹 pattern 或 architecture時，常會看到它的 class diagram 有出現 interface 和單一的 impl 阿。_
-
-但我認為它的表達方式也許只是**教學、範例**用途而已，並不是真的要你也一起 impl，另外也要考量自身需求，不需硬套用某個 pattern 或 architecture，造成過度設計。
-
-如果你遇到 **“大家都這樣寫，但我不知道為什麼，所以我就照樣寫”** 的情況或團隊，也許可以試著打破墨守成規的思想，你可以將想法提出來和大家溝通交流，經過評估與分析，也許能改掉這種不好的寫作風格。
-
------
+ 
 
 ### **關於 interface 的正確用法**:
 
@@ -85,6 +67,8 @@ _很多文章或書上介紹 pattern 或 architecture時，常會看到它的 cl
 意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
 
 因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
+
+如果你的專案並沒有開放給其他團隊使用，大部分的情況下是不需要 interface 的。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
