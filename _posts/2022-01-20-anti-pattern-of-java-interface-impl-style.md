@@ -14,15 +14,13 @@ categories: [Java, Design]
 
 而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。
 
-本文將探討此寫法的負面影響以及如何改善。 
 
-------
+我認為 interface-impl 這樣的設計是個 `anti-pattern`。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
 
-我認為 interface-impl 這樣的設計是個 `anti-pattern`。它會產生幾個問題 :
-
+------ 
 ### **1. 違反 YAGNI 原則**
 
-如果 interface-impl 成對出現時，表示已經違反 YAGNI 原則，原因是，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。因此只要程式設計得剛好、不會難以維護，不需要考慮太遙遠的未來，就是個好的設計。
+設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。因此只要程式設計得剛好、不會難以維護，不需要考慮太遙遠的未來，就是個好的設計。
 
 如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，**表面**上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
 
@@ -49,8 +47,7 @@ categories: [Java, Design]
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface。
  
------
- 
+----- 
 
 ### **關於 interface 的正確用法**:
 
@@ -64,7 +61,7 @@ categories: [Java, Design]
 
 因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-再者，如果你的專案並沒有開放給其他團隊使用，例如 library, SDK 等，在實務上，大部分的情況下是不需要 interface 的。
+再者，如果你的專案並沒有開放給外部使用，例如 library, SDK 等，在實務上，大部分的情況下是不需要 interface 的。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
