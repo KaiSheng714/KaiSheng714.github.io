@@ -32,9 +32,9 @@ categories: [Java, Design]
 
 可以參考我寫的另一篇文章: [談談 YAGNI 設計原則](/2022/04/06/yagni.html)
 
-### **2. 提高維護成本**
+### **2. 違反 DRY 原則**
 
-當你定義出 interface-impl 時，當其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次 [(DRY 原則)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)。如果事先建立 interface 的理由是**以後**會用到，則開發者將會不斷地面臨這個問題，這就是攜帶成本 (cost of carry)。
+當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次 [(DRY 原則)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)。
  
 
 ### **3. 不必要的干擾**
@@ -68,7 +68,7 @@ categories: [Java, Design]
 
 因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-如果你的專案並沒有開放給其他團隊使用，大部分的情況下是不需要 interface 的。
+再者，如果你的專案並沒有開放給其他團隊使用，例如 library, SDK 等，在實務上，大部分的情況下是不需要 interface 的。
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
