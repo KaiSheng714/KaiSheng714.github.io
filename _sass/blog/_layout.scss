@@ -181,9 +181,14 @@ img[src*="size=small"] {
   width: 100%;
 }
 
+.profile-section-card p {
+  margin-bottom:  0;
+}
+
+
 .artdeco-entity-image--square-4 {
-  width: 56px;
-  height: 56px;
+  width: 100px;
+  height: 100px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: content-box;
