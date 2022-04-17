@@ -31,7 +31,7 @@
   line-height: $base-line-height * $base-font-size * 2.25;
 
   .nav-trigger {
-      display: none;
+    display: none;
   }
 
   .menu-icon {
@@ -76,17 +76,17 @@
       padding-top: 10px;
       text-align: center;
 
-      > svg path {
+      >svg path {
         fill: $grey-color-dark;
       }
     }
 
-    input ~ .trigger {
+    input~.trigger {
       clear: both;
       display: none;
     }
 
-    input:checked ~ .trigger {
+    input:checked~.trigger {
       display: block;
       padding-bottom: 5px;
     }
@@ -94,6 +94,7 @@
     .trigger {
       padding-top: 20px;
     }
+
     .page-link {
       display: block;
       padding: 10px 10px;
@@ -102,6 +103,7 @@
         margin-bottom: 10px;
         margin-right: 20px;
       }
+
       margin-right: 10px;
       margin-left: 10px;
     }
@@ -116,18 +118,18 @@
   margin-left: 0;
   list-style: none;
 
-  > li {
+  >li {
     margin-bottom: $spacing-unit * 1.5;
   }
 
-  > li > h2 {
+  >li>h2 {
     margin-top: 0rem;
     margin-bottom: 0.4rem;
   }
 
-  > li > p {
+  >li>p {
     margin-top: 0rem;
-  }  
+  }
 }
 
 @include media-query($on-palm) {
@@ -182,7 +184,7 @@ img[src*="size=small"] {
 }
 
 .profile-section-card p {
-  margin-bottom:  0;
+  margin-bottom: 0;
 }
 
 
@@ -192,7 +194,7 @@ img[src*="size=small"] {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: content-box;
-  border: 4px solid rgba(0,0,0,0);
+  border: 4px solid rgba(0, 0, 0, 0);
   border-radius: 6px;
 }
 
@@ -214,8 +216,32 @@ img[src*="size=small"] {
 
 
 .profile-section-card__title {
-font-size: 1.8rem;
-line-height: 1.33333;
-font-weight: 600;
-color: rgba(0,0,0,0.9);
+  font-size: 1.8rem;
+  line-height: 1.33333;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.9);
+  margin: 0;
 }
+
+.profile-section-card__subtitle {
+  font-size: 1.6rem;
+  line-height: 1.75;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.9);
+  margin: 0;
+  font-style: normal;
+}
+
+.profile-section-card__meta {
+  font-size: 1.6rem;
+  line-height: 1.75;
+  font-weight: 400;
+  color: rgba(0,0,0,0.6);
+  margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+      background: transparent;
+}
+
