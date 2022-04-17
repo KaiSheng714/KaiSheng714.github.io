@@ -189,8 +189,8 @@ img[src*="size=small"] {
 
 
 .artdeco-entity-image--square-4 {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   background-clip: content-box;
@@ -216,32 +216,33 @@ img[src*="size=small"] {
 
 
 .profile-section-card__title {
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   line-height: 1.33333;
   font-weight: 600;
   color: rgba(0, 0, 0, 0.9);
   margin: 0;
+  margin-bottom: 0;
 }
 
 .profile-section-card__subtitle {
-  font-size: 1.6rem;
+  font-size: 1.2rem;
   line-height: 1.75;
   font-weight: 400;
   color: rgba(0, 0, 0, 0.9);
   margin: 0;
+  margin-bottom: 0;
   font-style: normal;
 }
 
 .profile-section-card__meta {
-  font-size: 1.6rem;
+  font-size: 1.1rem;
   line-height: 1.75;
   font-weight: 400;
-  color: rgba(0,0,0,0.6);
+  color: rgba(0, 0, 0, 0.6);
   margin: 0;
-      padding: 0;
-      border: 0;
-      font-size: 100%;
-      vertical-align: baseline;
-      background: transparent;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
 }
-
