@@ -190,7 +190,7 @@ img[src*="size=small"] {
 .profile-section-card_image {
   -ms-flex-negative: 0;
   flex-shrink: 0;
-  margin-right: 4px;
+  margin-right: 10px;
   width: 80px;
   height: 80px;
   -webkit-box-sizing: border-box;
@@ -238,4 +238,8 @@ img[src*="size=small"] {
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
+}
+
+.profile-section-card_meta p {
+  margin: 0 !important;
 }
