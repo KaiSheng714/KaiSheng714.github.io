@@ -7,28 +7,6 @@ ref: about
 order: 0
 ---
 
-![profile](/assets/image/profile.png?style=center&size=small)
-
-
-<h2 style="text-align: center;"><strong>Kai-Sheng, Yang (Jason Yang)</strong></h2>
-<p style="text-align: center;">A software engineer working on Clean Code.</p>
-
------
-
-### **Experience**
-
-- **Advanced Engineer**
-  - FarEasTone Telecom
-  - July 2021 - Present
- 
-- **Program Analyst**
-  - Galaxy Software Services Corporation.
-  - Oct 2017 - Jan 2021
- 
-### **Education**
-- **National Taipei University of Technology**
-  - Master's degree, Computer Science and Information Engineering 
-  - 2015 - 2017
 
 ------
 
