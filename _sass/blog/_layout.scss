@@ -172,6 +172,11 @@ img[src*="size=small"] {
 
 // profile
 
+.profile-ul {
+  list-style: none;
+  padding-left: 0;
+}
+
 .profile-section-card {
   position: relative;
   display: -webkit-box;
@@ -182,11 +187,6 @@ img[src*="size=small"] {
   width: 100%;
 }
 
-.profile-section-card p {
-  margin-bottom: 0;
-}
-
- 
 .profile-section-card_image {
   -ms-flex-negative: 0;
   flex-shrink: 0;
