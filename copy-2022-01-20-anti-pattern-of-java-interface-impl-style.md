@@ -11,5 +11,5 @@ categories: [Java, Design]
 文章搬家囉...轉址中...
 
  <script>
-   window.location.href = "/anti-pattern-of-java-interface-impl-style";
+   window.location.href = "/articles/anti-pattern-of-java-interface-impl-style";
  </script>
