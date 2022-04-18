@@ -8,8 +8,8 @@ permalink: /posts/anti-pattern-of-java-interface-impl-style
 categories: [Java, Design]
 --- 
 
-文章搬家囉...轉址中
+文章搬家囉...轉址中...
 
  <script>
-   window.location.href = "https://kaisheng714.github.io/articles/anti-pattern-of-java-interface-impl-style";
+   window.location.href = "/anti-pattern-of-java-interface-impl-style";
  </script>
