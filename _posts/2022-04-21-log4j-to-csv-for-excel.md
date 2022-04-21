@@ -13,7 +13,7 @@ categories: [Java]
 
 ------
 
-### 解法1. **用 shell 指令在檔頭加入 BOM**
+###  **解法1. 用 shell 指令在檔頭加入 BOM**
 
 這是一個很簡單粗暴的解法:
 
@@ -27,9 +27,9 @@ printf '\xEF\xBB\xBF' > with_bom.csv
 cat source_file.txt >> with_bom.csv
 ```
 
-網路上大部分的解法都是像這樣，是事後手動在檔頭補上 BOM，雖然簡單，但這不符合我的需求，我希望能使用 log4j 一氣呵成。
+網路上大部分的解法都是像這樣，是事後透過指令或程式手動在檔頭補上 BOM。雖然簡單，但這不符合我的需求，我希望能使用 log4j 一氣呵成。
 
-所幸後來我在 stackoverflow 上發問後，有一個熱心網友給了答案:
+研究無果後，所幸我在 stackoverflow 上發問，有一位熱心網友給了答案:
 
 ### **解法2. 在 header 裡加入 BOM (推薦)**
 
