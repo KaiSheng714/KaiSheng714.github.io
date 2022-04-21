@@ -10,7 +10,7 @@ categories: [Java, Design]
 
 在 java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 Foo, Bar, Service :
 
-![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center&padding=vertical-medium)
+![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?style=center&margin=vertical-medium)
 
 而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。
 
