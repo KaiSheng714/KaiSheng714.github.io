@@ -1,14 +1,16 @@
 ---
 layout: post
-title: "使用 Log4j 解決 CSV 檔中文亂碼問題"
+title: "使用 Log4j 輕鬆解決 CSV 檔中文亂碼問題"
 tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/log4j-to-utf8-csv-for-excel
 categories: [Java]
 --- 
 
-我最近需要用到 log4j 來記錄使用者的行為，並輸出成 UTF-8 csv，輸出完成後，用文字編輯器如 VS code 打開一切正常，但一使用 Excel 2016 時就會看到亂碼。
-查閱資料後才發現原來 csv 檔的開頭沒有帶著 BOM (byte-order mark) ，導致 Excel 不知道要以 UTF-8 編碼來讀此 CSV 檔，因而出現亂碼。
+我最近需要用到 log4j 做記錄日誌，並輸出成 UTF-8 csv 檔案。在輸出完成後，用文字編輯器如 VS code 打開一切正常，但使用 Excel 2016 時就會看到亂碼。查閱資料後才發現原來 csv 檔的開頭沒有帶著 BOM (byte-order mark)，導致 Excel 不知道要以 UTF-8 編碼格式讀取，因而出現亂碼。
+
+![log4j-to-utf8-csv-for-excel](/assets/image/excel.png)
+
 
 ### 解法1.  用 shell 指令在檔頭加入 BOM
 
@@ -24,7 +26,7 @@ printf '\xEF\xBB\xBF' > with_bom.csv
 cat source_file.txt >> with_bom.csv
 ```
 
-網路上大部分的解法都是像這樣，是事後手動在檔頭補上 BOM，雖然簡單，但這不符合我的需求，我希望能一氣呵成。
+網路上大部分的解法都是像這樣，是事後手動在檔頭補上 BOM，雖然簡單，但這不符合我的需求，我希望能使用 log4j 一氣呵成。
 
 所幸後來我在 stackoverflow 上發問後，有一個熱心網友給了答案:
 
