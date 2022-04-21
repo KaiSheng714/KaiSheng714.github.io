@@ -163,6 +163,10 @@ img {
   margin: 0 auto;
 }
 
+img[src*="size=large"] {
+  width: 72%;
+}
+
 img[src*="size=medium"] {
   width: 50%;
 }
@@ -171,11 +175,9 @@ img[src*="size=small"] {
   width: 36%;
 }
 
-img[src*="margin=vertical-medium"] {
-  margin-top: 16px;
-  margin-bottom: 16px;
+img[src*="padding=vertical-medium"] {
+  padding: 24px 0;
 }
-
 
 
 // profile
