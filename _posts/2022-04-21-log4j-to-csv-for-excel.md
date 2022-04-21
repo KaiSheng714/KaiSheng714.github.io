@@ -47,7 +47,7 @@ cat source_file.txt >> with_bom.csv
 </RollingFile>
 ```
 
-至於解決 CSV 檔中文亂碼問題呢? 關鍵在於 `&#xFEFF;`，這個就是上述的 UTF-8 BOM。利用 Log4j 原有的 header 屬性，借力使力輕鬆解決 Excel 中文亂碼問題。
+至於解決 CSV 檔中文亂碼問題呢? 關鍵在於 `&#xFEFF;`，這個就是上述的 UTF-8 BOM。利用 Log4j 原有的 header 屬性，借力使力輕鬆解決 Excel 開啟 CSV 中文亂碼問題。
 
 ---
 ### **Reference**
