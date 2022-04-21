@@ -4,7 +4,7 @@ title: "談談 KISS 設計原則"
 tagline: "設計得簡單就好"
 meta: design,clean-code
 author: "Kai-Sheng"
-permalink: /posts/kiss-principle
+permalink: /articles/kiss-principle
 categories: [Design]
 --- 
 

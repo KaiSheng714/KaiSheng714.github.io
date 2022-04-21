@@ -4,7 +4,7 @@ title: "Java 8 Optional 常見的錯誤用法"
 tagline: ""
 meta: design,clean-code,java
 author: "Kai-Sheng"
-permalink: /posts/misuse-of-java8-optional
+permalink: /articles/misuse-of-java8-optional
 categories: [Design, Java]
 --- 
 
