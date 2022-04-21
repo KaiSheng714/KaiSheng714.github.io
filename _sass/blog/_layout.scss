@@ -160,7 +160,7 @@
 // in post
 img {
   display: block;
-  margin: 0 auto;
+  margin: 32px auto !important;
 }
 
 img[src*="size=large"] {
@@ -176,7 +176,7 @@ img[src*="size=small"] {
 }
 
 img[src*="margin=vertical-medium"] {
-  margin: 0 24px  !important;
+  // margin: 0 24px  !important;
 }
 
 
