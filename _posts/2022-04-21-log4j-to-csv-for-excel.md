@@ -11,8 +11,7 @@ categories: [Java]
 
 ![log4j-to-utf8-csv-for-excel](/assets/image/excel.png)
 
-
-### 解法1.  用 shell 指令在檔頭加入 BOM
+### 解法1. **用 shell 指令在檔頭加入 BOM**
 
 這是一個很簡單粗暴的解法:
 
@@ -30,7 +29,7 @@ cat source_file.txt >> with_bom.csv
 
 所幸後來我在 stackoverflow 上發問後，有一個熱心網友給了答案:
 
-### (推薦) 解法2. 在 header 裡加入 BOM
+### **解法2. 在 header 裡加入 BOM (推薦)**
 
 `CsvParameterLayout` 是 Log4j 推出的專門給 CSV 的 Layout 類型，只需要簡單的設定就能符合我的需求。
 
@@ -51,8 +50,8 @@ cat source_file.txt >> with_bom.csv
 ---
 ### **Reference**
 
-https://zh.wikipedia.org/zh-tw/%E4%BD%8D%E5%85%83%E7%B5%84%E9%A0%86%E5%BA%8F%E8%A8%98%E8%99%9F
+[Byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark)
 
-https://stackoverflow.com/questions/3127436/adding-bom-to-utf-8-files
+[Adding BOM to UTF-8 files](https://stackoverflow.com/q/3127436/5485454)
 
-https://stackoverflow.com/questions/71943217/log4j2-write-to-csv-for-excel-without-garbled-characters/71944893#71944893
+[Log4j2 write to CSV for Excel without garbled characters](https://stackoverflow.com/q/71943217/5485454)
