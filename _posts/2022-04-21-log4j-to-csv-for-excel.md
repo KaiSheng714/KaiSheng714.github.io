@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "使用 Log4j 輕鬆解決 CSV 檔中文亂碼問題"
+title: "使用 Log4j 輸出 CSV 檔，並輕鬆解決中文亂碼問題"
 tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/log4j-to-utf8-csv-for-excel
