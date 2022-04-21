@@ -26,7 +26,7 @@ categories: [Design]
 
  -----
 
-![YAGNI](/assets/image/yagni.png)
+![YAGNI](/assets/image/yagni.png?padding=vertical-medium)
 
 -----
 
