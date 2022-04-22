@@ -27,7 +27,7 @@ printf '\xEF\xBB\xBF' > with_bom.csv
 cat source_file.csv >> with_bom.csv
 ```
 
-雖然簡單，但這並不符合我的需求，這種解法需要多一個處理步驟，但我希望能**使用 log4j 一氣呵成**。
+雖然簡單，但這並不符合我的需求，這種解法需要多一個處理步驟，但我希望能**使用 Log4j 一氣呵成**。
 
 在研究無果後，我只好在 stackoverflow 上發問，所幸有一位熱心網友給了答案:
 
