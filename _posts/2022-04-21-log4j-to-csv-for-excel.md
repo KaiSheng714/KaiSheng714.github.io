@@ -7,7 +7,7 @@ permalink: /articles/log4j-to-utf8-csv-for-excel
 categories: [Java]
 --- 
 
-我最近需要用到 Log4j2 做即時日誌，並輸出成 UTF-8 CSV 檔案。在輸出完成後，用文字編輯器如 VS code 開啟後查看一切正常，不過，使用 Excel 2016 時就會看到一亂碼。查閱資料後才發現原來 CSV 檔的開頭沒有帶著 BOM (byte-order mark)，導致 Excel 不知要以 UTF-8 編碼格式讀取，因而出現亂碼，本文介紹兩種解決辦法。
+我最近需使用 Log4j2 做即時日誌並輸出成 CSV，輸出完成後，文字編輯器打開一切正常，不過，當使用 Excel 2016 時會看到許多亂碼，明明是 UTF-8，怎麼還會有亂碼呢? 查資料後才發現原來 CSV 的檔頭沒有帶著 BOM (byte-order mark)，導致 Excel 不知要以 UTF-8 編碼格式讀取，因而出現亂碼。本文介紹兩種解決辦法。
 
 ![log4j-to-utf8-csv-for-excel](/assets/image/log4j.png?size=large&margin=vertical-medium)
 

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Java] 不要這樣使用 Optional"
+title: "[Java] 多此一舉! 不要這樣用 Optional"
 tagline: ""
 meta: design,clean-code,java
 author: "Kai-Sheng"
@@ -10,7 +10,9 @@ categories: [Design, Java]
 
 
 
-![java8-optional](/assets/image/optional.png?size=small)
+![java8-optional](/assets/image/optional.png?size=large)
+
+多此一舉
 
 ## 1. 用在參數
 
