@@ -47,19 +47,12 @@ cat source_file.csv >> with_bom.csv
 </RollingFile>
 ```
 
-至於如何解決 CSV 檔中文亂碼問題呢？ 關鍵在於 `&#xFEFF;`，這個就是上述的 UTF-8 BOM。這個解法最大的優點在於: 利用 Log4j2 `CsvParameterLayout` 原有的 header 屬性，借力使力輕鬆解決 Excel 開啟 CSV 中文亂碼問題。修改後如下所示:
+至於如何解決 CSV 檔中文亂碼問題呢？ 關鍵在於 `header` 欄位需加入 `&#xFEFF;`:
 
-```xml
-<RollingFile 
-  name="Chat-Appender" 
-  fileName="output.csv">
-  <CsvParameterLayout 
-      delimiter="," 
-      format="Excel"
-      header="&#xFEFF;id,question,answer\n"
-      charset="UTF-8" />
-</RollingFile>
-```
+`header="&#xFEFF;id,question,answer\n"`
+
+`&#xFEFF;` 就是上述的 UTF-8 BOM，而此解法最大的優點在於: 利用 Log4j2 `CsvParameterLayout` 原有的 header 屬性，借力使力，輕鬆解決 Excel 開啟 CSV 中文亂碼問題。
+ 
 
 ---
 ### **Reference**
