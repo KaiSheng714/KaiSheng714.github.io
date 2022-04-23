@@ -27,13 +27,13 @@ printf '\xEF\xBB\xBF' > with_bom.csv
 cat source_file.csv >> with_bom.csv
 ```
 
-雖然簡單，但這並不符合我的需求，這種解法需要多一個處理步驟，但我希望能**使用 Log4j 一氣呵成**。
+雖然簡單，但這並不符合我的需求，這種解法需要多一個處理步驟，但我希望能**使用 Log4j2 一氣呵成**。
 
-在研究無果後，我只好在 stackoverflow 上發問，所幸有一位熱心網友給了答案:
+在研究無果後，我只好在 Stackoverflow 上發問，所幸有一位熱心網友給了答案:
 
 ### **解法2. 在 header 裡加入 BOM (推薦)**
 
-`CsvParameterLayout` 是 Log4j 推出的專門給 CSV 的 Layout 類型，只需要簡單的設定就能輸出成 CSV 檔。Log4j2 版本為 2.17.0，以下是我的 log4j2.xml 程式片段:
+`CsvParameterLayout` 是 Log4j2 推出的專門給 CSV 的 Layout 類型，只需要簡單的設定就能輸出成 CSV 檔。Log4j2 版本為 2.17.0，以下是我的 log4j2.xml 程式片段:
 
 ```xml
 <RollingFile 
