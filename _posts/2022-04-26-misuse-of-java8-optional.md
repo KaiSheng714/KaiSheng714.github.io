@@ -91,4 +91,3 @@ public class Student {
 
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
-- https://stackoverflow.com/questions/71856929/i-want-to-return-a-exception-while-my-return-type-is-dto

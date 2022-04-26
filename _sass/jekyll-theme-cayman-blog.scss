@@ -244,12 +244,13 @@ a {
   }
 
   code {
-    padding: 2px 4px;
+    padding: 4px;
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 0.9rem;
-    color: $code-text-color;
-    background-color: $code-bg-color;
+    font-size: 1rem;
+    color: #1f2224;
+    background-color: #f3efef;
     border-radius: 0.3rem;
+    font-weight: 700;
   }
 
   pre {
