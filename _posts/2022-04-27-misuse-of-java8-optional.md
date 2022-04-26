@@ -2,16 +2,15 @@
 layout: post
 title: "[Java] 多此一舉! 不要這樣用 Optional"
 tagline: ""
-meta: design,clean-code,java
 author: "Kai-Sheng"
 permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 --- 
 
+Java 8 中新加入了 Optional 類別來解決 NullPointerException 與繁瑣的 null 檢查，但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+
 ![java8-optional](/assets/image/optional.png?size=large)
  
-Java 8 中加入了 Optional 新類別來解決 NullPointerException 與繁瑣的 null 檢查，但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
-
 ## 1. **if isPresent判断，再以 get 取值**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
 ### 錯誤
