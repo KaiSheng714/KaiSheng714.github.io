@@ -120,7 +120,7 @@
   list-style: none;
 
   >li {
-    margin-bottom: $spacing-unit * 1.75;
+    margin-bottom: $spacing-unit * 1.5;
   }
 
   >li>h2 {
@@ -159,7 +159,7 @@
 // in post
 p > img {
   display: block;
-  margin: 32px auto !important;
+  margin: 40px auto !important;
 }
 
 img[src*="size=large"] {
@@ -174,7 +174,6 @@ img[src*="size=small"] {
   width: 36%;
 }
  
-
 // profile
 
 .profile-ul {

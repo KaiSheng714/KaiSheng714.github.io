@@ -9,7 +9,7 @@ categories: [Design, Java]
 
 Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
-![java8-optional](/assets/image/optional.png?size=medium)
+![java8-optional](/assets/image/optional.png?size=large)
  
 ## **錯誤1. 先 if isPresent ，再 get 取值**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
