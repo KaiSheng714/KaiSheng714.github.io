@@ -7,11 +7,11 @@ permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 --- 
 
-Java 8 中新加入了 Optional 類別來解決 NullPointerException 與繁瑣的 null 檢查，讓程式邏輯看起來更簡潔易讀。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
-## 1. **先 if isPresent ，再 get 取值**
+## **錯誤1. 先 if isPresent ，再 get 取值**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
 
 ```java
@@ -36,7 +36,7 @@ public String readNameById(String id) {
 ```
 其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
 
-## **2. 參數**
+## **錯誤2. 作為參數**
 
 Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
 
@@ -61,7 +61,7 @@ public int readNameById(String id) {
 }
 ```
 
-## **3. 宣告在 class property / field**
+## **錯誤3. 宣告在 class property / field**
 
 ```java
 public class Student {
@@ -89,6 +89,6 @@ public class Student {
 
 ### **References**
 
-[java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
-[RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
-https://stackoverflow.com/questions/71856929/i-want-to-return-a-exception-while-my-return-type-is-dto
+- [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
+- [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
+- https://stackoverflow.com/questions/71856929/i-want-to-return-a-exception-while-my-return-type-is-dto
