@@ -7,7 +7,7 @@ permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 --- 
 
-Java 8 中新加入了 Optional 類別來解決 NullPointerException 與繁瑣的 null 檢查，但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+Java 8 中新加入了 Optional 類別來解決 NullPointerException 與繁瑣的 null 檢查，讓程式邏輯看起來更簡潔易讀。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
@@ -35,7 +35,7 @@ public String readNameById(String id) {
         .orElse("");
 }
 ```
-其實 Optional 是與 Java 8 lambda 寫法相輔相成的，所以使用 Optional 時，不可使用**傳統逐行指令式**的思考模式下去寫。
+其實 Optional 是與 Java 8 lambda 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
 
 ## 2. 用在參數
 
