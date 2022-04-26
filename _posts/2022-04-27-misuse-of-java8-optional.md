@@ -76,13 +76,14 @@ public class Student {
 }
 ```
 
-Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，因此在特定狀況下(如網路傳輸)，需要物件序列化時會出現問題。如果真的是可能是空值的情況下，應該將 Optional 當作 getName 的回傳型態。
+Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，因此在特定狀況下(如網路傳輸)，需要物件序列化時會出現問題。
+以 Student 為例，如果姓名可能是空值的情況下，應該將 Optional 當作 getName 的回傳型態。
 
 ```java
 public class Student {
 
     private String name;
-    
+
     public Optional<String> getName() {
 
     }
