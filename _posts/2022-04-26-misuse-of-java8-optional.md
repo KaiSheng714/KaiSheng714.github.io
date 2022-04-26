@@ -11,7 +11,7 @@ Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與�
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
-## **錯誤1. 先 if isPresent ，再 get 取值**
+## **錯誤1. 先 if isPresent，再 get 取值**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
 
 ```java
@@ -51,7 +51,7 @@ public int readNameById(Optional<String> id) {
 2. Optional 非 null，但沒有內容值
 3. 整個 Optional 是 null
 
-這種情況下請不要使用 Optional，改用我們平常用的最**純真**的類別即可:
+這種情況下請不要使用 Optional，改用我們平常用的最**純粹**的類別即可:
 
 ```java
 public int readNameById(String id) {
@@ -72,7 +72,7 @@ public class Student {
 ```
 
 Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，在特定狀況下(如網路傳輸)需要物件序列化時將會出現問題。
-以 Student 為例，如果姓名可能是空值的情況下，應該將 Optional 當作 getName 的回傳型態。
+再以 `Student` 為例，如果姓名可能是空值的情況下，應該將 Optional 當作 getName 的回傳型態。
 
 ```java
 public class Student {
@@ -80,10 +80,8 @@ public class Student {
     private String name;
 
     public Optional<String> getName() {
-
+        // ...
     }
-
-    // ...
 }
 ```
 
