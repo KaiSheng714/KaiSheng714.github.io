@@ -11,9 +11,9 @@ Java 8 中新加入了 Optional 類別來解決 NullPointerException 與繁瑣�
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
-## 1. **if isPresent判断，再以 get 取值**
+## 1. **先 if isPresent ，再 get 取值**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
-### 錯誤
+
 ```java
 public String readNameById(String id) {
     Optional<Student> student = service.readById(id);
@@ -26,8 +26,7 @@ public String readNameById(String id) {
 ```
 
 這應該是最常見的錯誤用法了，可以看到上面的寫法完全不僅多此一舉，還增加了不必要的複雜度，傳統寫法 `if (student != null)` 可能還比較好用。正確使用 Optional 方式改寫如下:
-
-### 正確
+ 
 ```java
 public String readNameById(String id) {
     return service.readById(id)
@@ -35,12 +34,11 @@ public String readNameById(String id) {
         .orElse("");
 }
 ```
-其實 Optional 是與 Java 8 lambda 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
+其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
 
-## 2. 用在參數
+## **2. 參數**
 
-Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**，而不是 null。但有些錯誤的寫法會將 Optional 作為參數，這會讓邏輯更加複雜，
-
+Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
 
 ```java
 public int readNameById(Optional<String> id) {
@@ -58,24 +56,22 @@ public int readNameById(Optional<String> id) {
 ```java
 public int readNameById(String id) {
     if (!Strings.isBlank(id)) {
-
+      // my logic
     }
-    // my logic
 }
 ```
 
-## 3. 宣告在 class property / field 
+## **3. 宣告在 class property / field**
 
 ```java
 public class Student {
 
     private Optional<String> name;
-
     // ...
 }
 ```
 
-Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，因此在特定狀況下(如網路傳輸)，需要物件序列化時會出現問題。
+Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，在特定狀況下(如網路傳輸)需要物件序列化時將會出現問題。
 以 Student 為例，如果姓名可能是空值的情況下，應該將 Optional 當作 getName 的回傳型態。
 
 ```java
@@ -93,8 +89,6 @@ public class Student {
 
 ### **References**
 
+[java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
+[RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
 https://stackoverflow.com/questions/71856929/i-want-to-return-a-exception-while-my-return-type-is-dto
-
-http://dolszewski.com/java/java-8-optional-use-cases/
-
-https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553
