@@ -8,6 +8,10 @@
   @media screen and (min-width: #{$large-breakpoint}) {
     @content;
   }
+
+  html { 
+    font-size: 18px;
+  }
 }
 
 @mixin medium {
@@ -26,9 +30,6 @@
   box-sizing: border-box;
 }
 
-html { 
-  font-size: 18px;
-}
 
 body {
   padding: 0;
