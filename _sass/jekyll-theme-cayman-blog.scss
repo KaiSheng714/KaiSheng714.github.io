@@ -130,11 +130,11 @@ a {
   margin-bottom: 0.1rem;
 
   @include large {
-    font-size: 3.25rem;
+    font-size: 3rem;
   }
 
   @include medium {
-    font-size: 2.25rem;
+    font-size: 2rem;
   }
 
   @include small {
@@ -246,9 +246,9 @@ a {
   code {
     padding: 4px;
     font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #1f2224;
-    background-color: #f3efef;
+    background-color: #e6e3f8;
     border-radius: 0.3rem;
     font-weight: 700;
   }

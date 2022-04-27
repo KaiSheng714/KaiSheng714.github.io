@@ -160,11 +160,14 @@
 p > img {
   display: block;
   margin: 40px auto !important;
+
+  @include small {
+    margin: 4px auto !important;
+  }
 }
 
 img[src*="size=large"] {
   width: 72%;
-
 
   @include small {
     width: 100%;
