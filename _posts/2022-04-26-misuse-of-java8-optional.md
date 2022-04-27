@@ -7,7 +7,7 @@ permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 --- 
 
-Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達沒有結果值。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
@@ -29,7 +29,7 @@ public static String readUpperCaseNameById(String id) {
 }
 ```
 
-這應該是最常見的錯誤用法了，可以看到上面的寫法完全不僅多此一舉，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
+這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()`寫法完全不僅多此一舉，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
  
 ```java
 public static String readUpperCaseNameById(String id) {
@@ -43,7 +43,7 @@ public static String readUpperCaseNameById(String id) {
 
 ## **錯誤2. 作為參數**
 
-Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
+Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。但有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
 
 ```java
 public int readNameById(Optional<String> id) {
@@ -56,7 +56,7 @@ public int readNameById(Optional<String> id) {
 2. Optional 非 null，但沒有內容值
 3. 整個 Optional 是 null
 
-因此在這種情況下請不要使用 Optional，改用我們平常用的最**純粹**的類別即可:
+因此在這種情況下請不要使用 Optional，改用我們平常用的最**純粹**的型態即可:
 
 ```java
 public int readNameById(String id) {
