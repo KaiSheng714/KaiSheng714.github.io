@@ -447,8 +447,7 @@ a {
 
   .my-svg-icon {
 
-    color: $body-text-color; // IE8
-    fill: $body-text-color; // IE8
+    color: rgba(0,0,0,0.6);
     width: 24px;
     height: 24px;
 
