@@ -7,10 +7,11 @@
 @mixin large {
   @media screen and (min-width: #{$large-breakpoint}) {
     @content;
-  }
 
+    
   html { 
     font-size: 18px;
+  }
   }
 }
 
