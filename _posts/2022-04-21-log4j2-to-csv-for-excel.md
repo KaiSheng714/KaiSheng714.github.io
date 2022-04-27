@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "使用 Log4j2 輸出 CSV 檔，並輕鬆解決 Excel 中文亂碼問題"
-tagline: ""
+tagline: "Java"
 author: "Kai-Sheng"
 permalink: /articles/log4j2-to-utf8-csv-for-excel
 categories: [Java]

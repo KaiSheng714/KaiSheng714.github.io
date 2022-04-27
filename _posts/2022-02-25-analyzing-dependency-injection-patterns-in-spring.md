@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "分析 Spring 的依賴注入模式 (Dependency Injection Pattern)"
-tagline: "Field v.s. Constructor based Dependency Injection Patterns"
+title: "分析 Spring 的依賴注入模式"
+tagline: ""
 meta: java,spring,test,clean-code,dependency-injection
 author: "Kai-Sheng"
 permalink: /articles/analyzing-dependency-injection-patterns-in-spring
