@@ -6,8 +6,8 @@
   max-width:         calc(#{$navbar-width} - (#{$spacing-unit} * 2));
   margin-right: auto;
   margin-left: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
+  padding-right: 0;
+  padding-left: 0;
   @extend %clearfix;
 
   @include media-query($on-laptop) {
