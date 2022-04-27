@@ -187,10 +187,10 @@ a {
   }
 
   @include large {
-    max-width: 64rem;
+    max-width: 72rem;
     padding: 3rem;
     margin: 0 auto;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
   @include medium {
