@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[Java] 多此一舉! 不要這樣用 Optional"
+title: "多此一舉! 不要這樣用 Java 8 Optional"
 tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/misuse-of-java-8-optional
