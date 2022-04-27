@@ -164,35 +164,27 @@ p > img {
 
 img[src*="size=large"] {
   width: 72%;
+
+
+  @include small {
+    width: 100%;
+  }
 }
 
 img[src*="size=medium"] {
   width: 50%;
+
+  @include small {
+    width: 75%;
+  }
 }
 
 img[src*="size=small"] {
   width: 36%;
-}
 
-@include small {
- 
-  p > img {
-    display: block;
-    margin: 15px auto !important;
+  @include small {
+    width: 55%;
   }
-
-  img[src*="size=large"] {
-    width: 100%;
-  }
-
-  img[src*="size=medium"] {
-    width: 75%;
-  }
-
-  img[src*="size=small"] {
-    width: 50%;
-  }
-
 }
  
 // profile
