@@ -7,30 +7,35 @@ permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 --- 
 
-Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達沒有結果值。但我看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
 ## **錯誤1. isPresent() and get()**
-假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
+假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名並轉換成大寫，但如果查無此人，則回傳空字串
 
 ```java
-public String readNameById(String id) {
+public static String readUpperCaseNameById(String id) {
     Optional<Student> student = service.readById(id);
     if (student.isPresent()) {
-        return student.get().getName();
+        if (student.get().getName() != null) {
+            return student.get().getName().toUpperCase();
+        } else {
+            return "";
+        }
     } else {
         return "";
     }
 }
 ```
 
-這應該是最常見的錯誤用法了，可以看到上面的寫法完全不僅多此一舉，還增加了不必要的複雜度，傳統寫法 `if (student != null)` 可能還比較好用。正確使用 Optional 方式改寫如下:
+這應該是最常見的錯誤用法了，可以看到上面的寫法完全不僅多此一舉，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
  
 ```java
-public String readNameById(String id) {
+public static String readUpperCaseNameById(String id) {
     return service.readById(id)
         .map(Student::getName)
+        .map(String::toUpperCase)
         .orElse("");
 }
 ```
@@ -51,7 +56,7 @@ public int readNameById(Optional<String> id) {
 2. Optional 非 null，但沒有內容值
 3. 整個 Optional 是 null
 
-這種情況下請不要使用 Optional，改用我們平常用的最**純粹**的類別即可:
+因此在這種情況下請不要使用 Optional，改用我們平常用的最**純粹**的類別即可:
 
 ```java
 public int readNameById(String id) {
@@ -84,6 +89,8 @@ public class Student {
     }
 }
 ```
+
+ 
 
 ### **References**
 
