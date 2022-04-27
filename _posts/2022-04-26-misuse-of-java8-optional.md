@@ -29,7 +29,7 @@ public static String readUpperCaseNameById(String id) {
 }
 ```
 
-這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()`寫法完全不僅多此一舉，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
+這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()`寫法不僅多此一舉，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
  
 ```java
 public static String readUpperCaseNameById(String id) {
@@ -90,9 +90,7 @@ public class Student {
 }
 ```
 
- 
-
-### **References**
+ ### **References**
 
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
