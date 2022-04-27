@@ -11,7 +11,7 @@ Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與�
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
-## **錯誤1. 先 if isPresent，再 get 取值**
+### **錯誤1. isPresent, get**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名，但如果查無此人，則回傳空字串
 
 ```java
@@ -61,7 +61,7 @@ public int readNameById(String id) {
 }
 ```
 
-## **錯誤3. 宣告在 class property / field**
+## **錯誤3. 宣告在 class property**
 
 ```java
 public class Student {
