@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "多此一舉! 不要這樣用 Java 8 Optional"
-tagline: "Design, Java"
+tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]

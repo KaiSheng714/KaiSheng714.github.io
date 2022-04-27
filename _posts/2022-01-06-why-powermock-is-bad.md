@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "不建議使用 PowerMock 的理由"
-tagline: "Design, Unit-testing"
+tagline: ""
 meta: java,unit-test,powermock,mockito,design,interface
 author: "Kai-Sheng"
 permalink: /articles/drawback-of-powermock

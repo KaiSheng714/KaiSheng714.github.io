@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "談談 YAGNI 設計原則"
-tagline: "Design"
+tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/yagni-principle
 categories: [Design]

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Spring + Maven + IntelliJ 多環境 (Profile) 整合技巧"
-tagline: "Maven, Spring"
+tagline: ""
 meta: java,spring,maven,intellij,profile
 author: "Kai-Sheng"
 permalink: /articles/spring-profile-with-maven-package
