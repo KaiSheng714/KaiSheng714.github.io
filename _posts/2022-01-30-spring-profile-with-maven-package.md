@@ -21,9 +21,16 @@ categories: [Maven, Spring]
 
 首先準備好所有需要的 .properties / .yml，根據自己的需求而定。例如開發環境 (dev) 、正式環境 (prod) 等，以及一個主要的 application.properties。
 
-application.properties 只有一行 **spring.profiles.active=@activeProfile@**
+application.properties 只有一行 **spring.profiles.active="@activeProfile@"**
 
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-properties.png)
+
+注意要加上雙引號，否則可能會出現
+
+```
+ScannerException: while scanning for the next token
+found character '@' that cannot start any token. (Do not use @ for indentation)
+```
 
 開發環境與正式環境，根據你的需求而定，本文以 server.port 為例。在開發環境中，我希望使用 8888 port ，而在正式環境中使用 9999 port。
 
