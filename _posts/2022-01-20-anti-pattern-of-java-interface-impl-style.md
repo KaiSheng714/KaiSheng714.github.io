@@ -28,7 +28,7 @@ categories: [Java, Design]
 
 如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，**表面**上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
 
-可以參考我寫的另一篇文章: [談談 YAGNI 設計原則](/posts/yagni-principle)
+可以參考我寫的另一篇文章: [談談 YAGNI 設計原則](/articles/yagni-principle)
 
 ### **2. 違反 DRY 原則**
 
