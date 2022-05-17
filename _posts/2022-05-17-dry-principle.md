@@ -114,9 +114,8 @@ public class Cart extends Data {
 但是，這樣做雖然減少了重複程式碼，這並不是 DRY 原則的最佳實踐，因為修改後的程式反而變得較不直觀，不能一目了然。在 DDD 的觀點，這兩個類別屬於不同的兩個 Entity，擁有不同的 domain knowledge，因此將他們獨立開會比較適合。
 
 ## **結論**
-DRY 原則所指出的論點並不僅僅是程式上的重複，更正確地來說是指知識上的重複。有些重複的程式，沒有違反 DRY 原則；有些不重複的程式，
-卻違反 DRY 原則。而盲目追尋 DRY 原則可能適得其反，導致閱讀程式時變得更不直觀。
+DRY 原則所指出的論點並不僅僅是程式上的重複，更正確地來說是指知識上的重複。有些重複的程式，沒有違反 DRY 原則；有些不重複的程式，卻違反 DRY 原則。而盲目追尋 DRY 原則可能適得其反，導致閱讀程式時變得更不直觀。
 
 ### **References**
-[Dry Revisited](https://enterprisecraftsmanship.com/posts/dry-revisited/)
-[DRY原则的误区](http://www.yinwang.org/blog-cn/2015/06/14/dry-principle)
+- [Dry Revisited](https://enterprisecraftsmanship.com/posts/dry-revisited/)
+- [DRY原则的误区](http://www.yinwang.org/blog-cn/2015/06/14/dry-principle)
