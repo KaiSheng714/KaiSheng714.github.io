@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "談談 YAGNI 設計原則"
+title: "軟體設計原則 YAGNI (You aren't gonna need it!)"
 tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/yagni-principle
