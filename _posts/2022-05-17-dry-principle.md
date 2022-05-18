@@ -117,4 +117,4 @@ DRY 原則所指出的論點並不僅僅是程式上的重複，更正確地來�
 
 ### **References** 
 - [Dry Revisited](https://enterprisecraftsmanship.com/posts/dry-revisited/)
-- [DRY原则的误区](http://www.yinwang.org/blog-cn/2015/06/14/dry-principle)
+- [DRY原則的誤區](http://www.yinwang.org/blog-cn/2015/06/14/dry-principle)
