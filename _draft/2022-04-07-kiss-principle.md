@@ -20,6 +20,7 @@ KISS 原則可以運用在很多地方，像是產品設計、簡報設計、學
  Keep it short and simple
 Keep it simple and straightforward
 
-https://blog.51cto.com/u_11956468/3007436
+本身就复杂的问题，用复杂的方法解决，并不违背 KISS 原则.
+ 
 https://www.yinxiang.com/everhub/note/3f7637f0-5d0b-4188-b398-b0b7e13c2b9b
 https://time.geekbang.org/column/article/179607
