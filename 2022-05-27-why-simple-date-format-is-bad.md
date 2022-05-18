@@ -3,13 +3,16 @@ layout: post
 title: "為何不要使用 SimpleDateFormat"
 meta: java
 author: "Kai-Sheng"
-permalink: /articles/why-not-use-simple-date-format
+permalink: /articles/why-simple-date-format-is-bad
 categories: [Java]
 --- 
 
 SimpleDateFormat is non-thread safe
 在低流量環境使用通常不會出錯，但到了高流量的環境可能會出現 parse error
 
+---
+
+![why-simple-date-format-is-bad.png](/assets/image/why-simple-date-format-is-bad.png)
 
 
 ## 解法 1. 每次都 new
