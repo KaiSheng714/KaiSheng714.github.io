@@ -13,6 +13,7 @@ categories: [Design, Spring]
 
 例如你會發現， IntelliJ 很貼心地告訴我們:
 
+
 > 
 > Field Injection is not recommended.
 > 
