@@ -9,11 +9,9 @@ categories: [Java]
 
 開發 Java 專案時經常使用時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。本文介紹幾種解決方案。
 
----
-
 ![why-simple-date-format-is-bad.png](/assets/image/why-simple-date-format-is-bad.png)
 
-我們都知道在程式中應盡量少使用 `new SimpleDateFormat` 因為頻繁使用時需要較多的效能，因此盡可能的共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
+我們都知道在程式中應盡量少使用 `new SimpleDateFormat` 因為若頻繁使用，則需要花費較多的成本，因此我們盡可能共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
  
 ```java
 public class DateUtil {
