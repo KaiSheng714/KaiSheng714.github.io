@@ -24,7 +24,7 @@ categories: [Design]
 > 我覺得這個功能，user 之後可能會提出來，雖然現在還用不到，所以我事先做出來。
 >
 
-![YAGNI](/assets/image/yagni.png?margin=vertical-medium)
+![YAGNI](/assets/image/yagni.png?size=full)
 
 -----
 

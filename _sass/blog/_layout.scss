@@ -209,6 +209,10 @@ img[src*="size=small"] {
     width: 55%;
   }
 }
+
+img[src*="size=full"] {
+  width: 100%;
+}
  
 // profile
 
