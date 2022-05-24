@@ -44,7 +44,7 @@ categories: [Java, Design]
 
 ------
 
-## **How To Fix It ?**
+### **How To Fix It ?**
 
 我認為這種 **interface-impl 不應存在**，反而使用一般的 concrete class 即可，開發程式不需要過度包裝與設計，Keep it simple, straightforword。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，**但我認為大問題往往是從小問題引起的**，一旦病入膏肓，就算想改也改不動了。因此，稱職的 clean coder 應盡量維持專案的乾淨與健康。
 
@@ -72,13 +72,13 @@ categories: [Java, Design]
 
 ------
 
-## **結語**
+### **結語**
 
 本文描述了許多人對於 java interface 的誤用，導致這種只有一個實作的介面 (interface-impl) 成對出現在許多專案中，這並沒有利用 interface 的優點，若開發者盲目遵循錯誤的設計原則，而沒有理解 interface 實際的涵義與價值，將導致許多負面影響。**並不是只要有 interface 就等於抽象、解耦**，誤用比未用更糟糕。
  
 也許你可以檢視你的專案是否有類似的情況，試著讓專案更乾淨、簡潔、明確，提高可讀性。
 
-#### **Reference**
+### **Reference**
 
 [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 

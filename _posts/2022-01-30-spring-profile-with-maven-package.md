@@ -103,7 +103,7 @@ java -jar <my-artifact>.war
 
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-env-prod.png)
 
-#### **後記**
+### **後記**
 
 透過本文介紹的方式，可以讓開發人員輕鬆的在任何環境中套用 Spring 專案中的 .properties / .yml，不需要再根據環境來手動調整。當然也可以將這方法套用在 jenkins 來做 CI/CD ，在日後千百次的打包/執行/部署的過程中，能替我們節省許多成本。
 

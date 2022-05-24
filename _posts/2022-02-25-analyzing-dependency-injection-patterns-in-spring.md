@@ -44,13 +44,9 @@ public class HelloBean {
 ```
 
 ### **優點**
-------
-
 1. 簡單方便易用，只要短短一行即可完成。
 
 ### **缺點**
-------
-
 1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知，例如** `**God Object**`
 2. 不好測試，測試環境需要透過 DI container 並加上許多 @annotation 來初始化，看起來更像整合測試了。而且編譯執行時會多一些 overhead，也較不容易除錯。
 3. 不好理解測試，以下範例程式為例
@@ -87,7 +83,7 @@ public class HelloBeanTest {
 
 只有短短幾行就讓人產生諸多疑問，理解成本較高。若使用 Constructor Based Dependency Injection 則不易產生此問題。下面會詳述。
 
-## **2. Constructor Based Dependency Injection**
+### **2. Constructor Based Dependency Injection**
 
 **此方式最大的特點就是: Bean 的建立與依賴入是同時發生的**
 
@@ -107,8 +103,6 @@ public class HelloBean {
 ```
 
 ### **優點**
-------
-
 #### **1. 容易發現 code smell**
 
 假設我們需要注入 10 個 bean ，對比 Field 注入的方式，這種方式暴露了 constructor 中含有過多的參數，正常的開發者看到 10 個參數肯定是會頭痛的，這就表示我們需要想辦法重構它。
@@ -138,7 +132,6 @@ public class HelloBeanTest {
 意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor based DI，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 ### **缺點**
-------
 
 #### **1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
 

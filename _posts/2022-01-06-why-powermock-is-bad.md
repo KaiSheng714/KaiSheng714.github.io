@@ -16,8 +16,6 @@ categories: [Design, Unit-testing]
 
 ![powermock](/assets/image/powermock.png?style=center)
 
-### **PowerMock**
-
 [**PowerMock**](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！
 
 不過，在 PowerMock 的 readme 中說了一段耐人尋味的話:
@@ -27,22 +25,16 @@ categories: [Design, Unit-testing]
 > Putting it in the hands of junior developers may cause more harm than good.
 >  
 
-既然 PowerMock 這麼強大，為什麼作者會做出此評論呢 ? 請讓我先以優缺點分析作為出發點並探討：
+既然 PowerMock 這麼強大，為什麼作者會做出此評論呢? 請讓我以優缺點分析作為出發點並探討：
 
 ### **PowerMock 的優點**
-------
-
 1. 強大的 mock 功能，能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
-
 2. 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
 ### **PowerMock 的缺點 / 不建議使用的理由**
-------
-
 #### **1. 相同的 API**
 
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
-
 
 #### **2. 同一種 Annotation 卻有不同用法**
 
@@ -72,9 +64,7 @@ categories: [Design, Unit-testing]
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
 
-
 -----
-
 
 ## **重構(Refactoring)**
 
@@ -237,8 +227,7 @@ public void testExapmle() {
 }
 ```
 
-
-## **結語**
+### **結語**
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 
