@@ -23,7 +23,7 @@ categories: [Design, Spring]
 
 接下來我會解析這兩種 Dependency Injection Pattern.
 
-## **1. Field Based Dependency Injection**
+### **1. Field Based Dependency Injection**
 
 **這種注入方式顧名思義，就是直接在 field 加上 @Autowired**
 
