@@ -13,6 +13,8 @@ categories: [Design]
 
 
 簡單設計是敏捷開發中非常重要的一項實踐，但是這條原則說起來簡單卻做起來難。因為每個程式設計師其實都是一個有完美主義的藝術家，所做軟體其實都是一件自己的藝術品，同時受到許多關於設計方面的資料的影響，所以在做設計的時候會情不自禁的加上許多「優雅特性」和「靈活性」
+
+此原則的原意是應將設計單純化，以簡化設備維護。將此涵義套用於軟體開發時，則變為 “將功能與規格單純化”，以及 “將實作手法單純化”。尤其是關於實作手法，須注意避免將目的與手段搞錯。所謂程式開發原則和規範、程式碼的美觀與一致性、設計方式等，應該是提升程式碼可讀性與強健性用的手段，但將其本身作為目的時，反而會傷害程式碼的可讀性與強健性。例如：在 reactive programming 設計中，可將包含常數值的所有數值設為 observable，但這種作法雖然在一致性的觀點上 “美化”程式碼，但相對地卻降低了程式碼的可讀性與提高了除錯的難度。
  
  
 Keep it short and simple
@@ -22,3 +24,5 @@ Keep it simple and straightforward
  
 https://www.yinxiang.com/everhub/note/3f7637f0-5d0b-4188-b398-b0b7e13c2b9b
 https://time.geekbang.org/column/article/179607
+
+https://enterprisecraftsmanship.com/posts/kiss-revisited/
