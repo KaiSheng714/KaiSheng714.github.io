@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "為何不要使用 SimpleDateFormat"
+title: "如何正確使用 SimpleDateFormat"
 meta: java
 author: "Kai-Sheng"
-permalink: /articles/why-simple-date-format-is-bad
+permalink: /articles/simple-date-format
 categories: [Java]
 --- 
 
-開發 Java 專案時經常會用到時間、日期並轉換成字串，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。本文介紹幾種解決方案。
+開發 Java 專案時經常使用時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。本文介紹幾種解決方案。
 
 ---
 
@@ -72,7 +72,7 @@ public class DateUtil {
 
 ## **解法3. 改用 DateTimeFormatter(推薦)**
 
-Java8 提供了 `DateTimeFormatter` 來代替 SimpleDateFormat。就像官方文件中說的:
+畢竟這個問題困擾很多人許久了，因此 Java 8 版本後官方就提供了 `DateTimeFormatter` 用來代替 `SimpleDateFormat`。就像官方文件中說的:
 
 > DateTimeFormatter in Java 8 is immutable and thread-safe alternative to SimpleDateFormat.
 
