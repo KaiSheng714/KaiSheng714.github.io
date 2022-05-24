@@ -11,7 +11,7 @@ categories: [Java]
 
 ![why-simple-date-format-is-bad.png](/assets/image/simple-date-format.png)
 
-我們都知道在程式中應盡量少使用 `new SimpleDateFormat` 因為若頻繁使用，則需要花費較多的成本，因此我們盡可能共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
+我們都知道在程式中應盡量少使用 `new SimpleDateFormat`，因為若頻繁使用需要花費較多的成本，因此我們盡可能共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
  
 ```java
 public class DateUtil {
@@ -34,7 +34,7 @@ public class DateUtil {
 
 幸運的是，已有許多解決方案: 
 
-## **解法 1. 每次都 new**
+### **解法 1. 每次都 new**
 
 ```java
 public class DateUtil {
@@ -48,7 +48,7 @@ public class DateUtil {
 
 這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。但有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示，一直`new SimpleDateFormat` 是成本很高的事。但因為資料有點久遠，若機器效能允許的話，也許可以考慮這個解法，畢竟簡單的作法往往是較好的。
 
-## **解法 2. 使用 ThreadLocal**
+### **解法 2. 使用 ThreadLocal**
 ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 為每個執行緒建立一個 SimpleDateFormat 的副本，每個執行緒可以獨立執行 `set`, `get`, `remove` SimpleDateFormat 的副本，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下:
 
 ```java
@@ -68,7 +68,7 @@ public class DateUtil {
 
 此方法也解決方法1.效能的問題。缺點是程式會變得比較複雜、難理解，而且 ThreadLocal 在使用上有較多需要注意的地方，若使用不慎，可能造成更多問題，例如 memory leak。
 
-## **解法3. 改用 DateTimeFormatter(推薦)**
+### **解法3. 改用 DateTimeFormatter(推薦)**
 
 畢竟這個問題困擾很多人許久了，因此 Java 8 版本後官方就提供了 `DateTimeFormatter` 用來代替 `SimpleDateFormat`。就像官方文件中說的:
 

@@ -11,7 +11,7 @@ Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與�
 
 ![java8-optional](/assets/image/optional.png?size=large)
  
-## **錯誤1. isPresent() and get()**
+### **錯誤1. isPresent() and get()**
 假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名並轉換成大寫，但如果查無此人，則回傳空字串
 
 ```java
@@ -41,7 +41,7 @@ public static String readUpperCaseNameById(String id) {
 ```
 其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
 
-## **錯誤2. 作為參數**
+### **錯誤2. 作為參數**
 
 Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。但有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
 
@@ -66,7 +66,7 @@ public int readNameById(String id) {
 }
 ```
 
-## **錯誤3. 作為 class property**
+### **錯誤3. 作為 class property**
 
 ```java
 public class Student {
