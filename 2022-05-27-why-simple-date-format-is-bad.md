@@ -49,27 +49,44 @@ public class DateUtil {
 }
 ```
 
-比較花費效能，因為每次都需要 `new SimpleDateFormat`，
+這是最簡單的做法了，但也最沒有效率，因為每次都需要 `new SimpleDateFormat`，而有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示這一件成本很高的事。
 
 ## 解法 2. ThreadLocal
-比較複雜
+```java
+static ThreadLocal<SimpleDateFormat> formatter = new ThreadLocal<SimpleDateFormat>() {
+    @Override
+    protected SimpleDateFormat initialValue() {
+        return new SimpleDateFormat("yyyy-MM-dd");
+    }
+};
+
+public String formatDate(Date date) {
+    return formatter.get().format(date);
+}
+```
+
+可以解決效能的問題，缺點是程式會變得比較複雜、難理解
+
 ## 解法3. 改用  DateTimeFormatter(推薦)
-DateTimeFormatter in Java 8 is immutable and thread-safe alternative to SimpleDateFormat.
 
+Java8 提供了 `DateTimeFormatter` 來代替 SimpleDateFormat。就像官方文件中說的:
 
-如果是Java8应用，可以使用DateTimeFormatter代替SimpleDateFormat，这是一个线程安全的格式化工具类。就像官方文档中说的，这个类 simple beautiful strong immutable thread-safe。
+> DateTimeFormatter in Java 8 is immutable and thread-safe alternative to SimpleDateFormat.
+
+簡單的範例如下
 
 ```java
-//解析日期
-String dateStr= "2016年10月25日";
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日");
-LocalDate date= LocalDate.parse(dateStr, formatter);
+String dateStr = "2022/05/24";
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+LocalDate date = LocalDate.parse(dateStr, formatter);
+```
 
-//日期转换为字符串
+日期轉成字串
+```java
 LocalDateTime now = LocalDateTime.now();
-DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm a");
-String nowStr = now .format(format);
-System.out.println(nowStr);
+DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm");
+System.out.println(now.format(format));
+```
 ```
 
 ### **References**
