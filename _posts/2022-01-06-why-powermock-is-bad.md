@@ -12,11 +12,8 @@ categories: [Design, Unit-testing]
 
 ![powermock](/assets/image/powermock.png?style=center)
 
-[PowerMock](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！
-
-不過，在 PowerMock 的 readme 中說了一段耐人尋味的話:
-
->  
+[PowerMock](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用的測試方法。PowerMock 實現了 mock private method、static final class 甚至是 constructor 等。簡而言之 Mockito 不能做到的事，PowerMock 都能一手包辦！不過，在 PowerMock 的 readme 中說了一段耐人尋味的話:
+>
 > Please note that PowerMock is mainly intended for people with expert knowledge in unit testing. 
 > Putting it in the hands of junior developers may cause more harm than good.
 >  
@@ -28,7 +25,7 @@ categories: [Design, Unit-testing]
 2. 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
 ### **PowerMock 的缺點 / 不建議使用的理由**
-#### 1. 相同的 API*
+#### 1. 相同的 API
 
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
 
@@ -69,7 +66,7 @@ categories: [Design, Unit-testing]
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
 
-#### **1. Static class / method** 
+#### 1. Static class / method
  
 我相信這應該是 PowerMock 受歡迎的最大理由，static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
 
