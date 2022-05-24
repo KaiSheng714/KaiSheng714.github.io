@@ -40,7 +40,6 @@ public class DateUtil {
 public class DateUtil {
         
     public static String format(Date date) {
-        // ...
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return simpleDateFormat.format(date);
     }
@@ -57,7 +56,7 @@ public class DateUtil {
     private static final ThreadLocal<SimpleDateFormat> formatter = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyyMMdd HHmm");
+            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         }
     };
 
