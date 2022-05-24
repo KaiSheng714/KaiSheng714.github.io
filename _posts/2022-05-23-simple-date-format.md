@@ -7,7 +7,7 @@ permalink: /articles/simple-date-format
 categories: [Java]
 --- 
 
-開發 Java 專案時經常使用時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。本文介紹幾種解決方案。
+開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。本文介紹幾種正確的用法。
 
 ![why-simple-date-format-is-bad.png](/assets/image/simple-date-format.png)
 
@@ -23,9 +23,7 @@ public class DateUtil {
     }
 }
 ```
-不幸的是，這就是最典型的錯誤用法。
-
-官方文件提到:
+不幸的是，這就是最典型的錯誤用法。官方文件提到:
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
@@ -37,7 +35,7 @@ public class DateUtil {
 
 ```java
 public class DateUtil {
-        
+
     public static String format(Date date) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return simpleDateFormat.format(date);
@@ -52,6 +50,7 @@ ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使
 
 ```java
 public class DateUtil {
+
     private static final ThreadLocal<SimpleDateFormat> formatter = new ThreadLocal<SimpleDateFormat>() {
         @Override
         protected SimpleDateFormat initialValue() {
