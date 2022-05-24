@@ -7,42 +7,28 @@ permalink: /articles/why-simple-date-format-is-bad
 categories: [Java]
 --- 
 
-開發專案經常會用到時間，Java 中最常見簡單的方式是 SimpleDateFormat。但在某些場景反而會出錯
+開發專案經常會將時間、日期轉換成字串，Java 中最常見簡單的方式是 SimpleDateFormat。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量的環境可能會出現異常。本文介紹幾種解決方案。
 
 ---
 
 ![why-simple-date-format-is-bad.png](/assets/image/why-simple-date-format-is-bad.png)
 
 
-SimpleDateFormat is non-thread safe 在低流量環境使用通常不會出錯，但到了高流量的環境可能會出現 
-
-有問題的程式碼如下
+有一個轉換日期、時間的 DateUtil，程式碼如下
  
 ```java
-public class SimpleDateFormatExample {
+public class DateUtil {
 
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm:ss");
-
-    public static void main(String[] args) {
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         
-        ExecutorService threadPool = Executors.newFixedThreadPool(10);
-        // 执行 10 次时间格式化
-        for (int i = 0; i < 10; i++) {
-            int finalI = i;
-            // 线程池执行任务
-            threadPool.execute(new Runnable() {
-                @Override
-                public void run() {
-                    // 创建时间对象
-                    Date date = new Date(finalI * 1000);
-                    // 执行时间格式化并打印结果
-                    System.out.println(simpleDateFormat.format(date));
-                }
-            });
-        }
+    public static String format(Date date) {
+        // ...
+        return simpleDateFormat.format(date);
     }
 }
 ```
+
+問題就在 `static` final SimpleDateFormat
 
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
@@ -51,14 +37,27 @@ public class SimpleDateFormatExample {
 
 ## 解法 1. 每次都 new
 
-## 解法 2. ThreadLocal
 
+```java
+public class DateUtil {
+        
+    public static String format(Date date) {
+        // ...
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        return simpleDateFormat.format(date);
+    }
+}
+```
+
+比較花費效能，因為每次都需要 `new SimpleDateFormat`，
+
+## 解法 2. ThreadLocal
+比較複雜
 ## 解法3. 改用  DateTimeFormatter(推薦)
 DateTimeFormatter in Java 8 is immutable and thread-safe alternative to SimpleDateFormat.
 
 
 如果是Java8应用，可以使用DateTimeFormatter代替SimpleDateFormat，这是一个线程安全的格式化工具类。就像官方文档中说的，这个类 simple beautiful strong immutable thread-safe。
-
 
 ```java
 //解析日期
@@ -79,4 +78,5 @@ System.out.println(nowStr);
  https://www.baeldung.com/java-simple-date-format
 
  - [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
- - [你真的會使用SimpleDateFormat嗎？](https://developer.aliyun.com/article/756625)
+
+ - [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)

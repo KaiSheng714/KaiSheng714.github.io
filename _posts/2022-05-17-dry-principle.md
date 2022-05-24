@@ -41,7 +41,7 @@ public class Order {
 }
 ```
 
-很明顯，`網站 VIP 會員享有9折優惠` 這個知識重複了，如果這個計算邏輯重複出現在許多 class 中，就確實違反 DRY 原則。因為，如果新需求要將9折修改為8折時，就得在專案中一一更改，甚至很可能漏改。因此，正確的做法是將此邏輯抽出 `calculateTotal` method，所有關於計算金額的地方都應該統一直接呼叫此 method:
+很明顯，`網站 VIP 會員享有9折優惠` 這個知識重複了，如果這個計算邏輯重複出現在許多 class 中，就確實違反 DRY 原則。因為，如果有新需求要將9折修改為8折時，就得在專案中一一更改，甚至很可能漏改。因此，正確的做法是將此邏輯抽出 `calculateTotal` method，所有關於計算金額的地方都應該統一直接呼叫此 method:
 
 ```java
 public int calculateTotal(User user, int total) {
