@@ -13,7 +13,7 @@ categories: [Java, Design]
 
 而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。我認為 interface-impl 這樣的設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
 
------- 
+
 ### **1. 違反 YAGNI 原則**
 很多人會這樣寫，是基於以下理由
 
@@ -49,7 +49,6 @@ categories: [Java, Design]
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface。換言之，避免此問題的方法其實很簡單: **等待**。
  
------ 
 
 ### **關於 interface 的正確用法**:
 
@@ -67,7 +66,6 @@ categories: [Java, Design]
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
-------
 
 ### **結語**
 
