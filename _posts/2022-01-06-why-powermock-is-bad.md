@@ -28,11 +28,11 @@ categories: [Design, Unit-testing]
 2. 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
 ### **PowerMock 的缺點 / 不建議使用的理由**
-#### **1. 相同的 API**
+#### 1. 相同的 API*
 
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不會也不該花時間 debug test code。**
 
-#### **2. 同一種 Annotation 卻有不同用法**
+#### 2. 同一種 Annotation 卻有不同用法
 
 例如 `@PrepareForTest` 是 PowerMock 特有的 Annotation，其旨在於告訴 PowerMock 要 mock 測試目標物件的 static, final 等。例如
 
@@ -50,11 +50,11 @@ categories: [Design, Unit-testing]
 @PrepareForTest(TheClassUseSystem.class)
 ```
 
-#### **3. Overhead** 
+#### 3. Overhead 
 
 良好的測試程式大多遵循 **F.I.R.S.T** 原則，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
-#### **4. 容易忽略 code design** 
+#### 4. 容易忽略 code design
 
 這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
 
@@ -93,7 +93,7 @@ if (StringUtils.isNullOrEmpty(str)) {
 }
 ```
 
-#### **2. Private method** 
+#### 2. Private method 
 
 例如你想要驗證 `getData`的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
 
@@ -126,7 +126,7 @@ public void testGetData() {
 
 回到正題，測試 private method，應該由 public method 作為入口去測試即可。
 
-#### **3. System Class** 
+#### 3. System Class
 
 假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System，如下
 
@@ -175,7 +175,7 @@ public void exampleTest() {
 }
 ```
 
-#### **4. Constructor** 
+#### 4. Constructor
 
 如下例所示，寫測試時，如果想在程式執行 `new A()` 時替換成我們自訂的 mockedA，可以使用 PowerMock 提供的 `whenNew()`：
 

@@ -100,11 +100,11 @@ public class HelloBean {
 ```
 
 ### **優點**
-#### **1. 容易發現 code smell**
+#### 1. 容易發現 code smell
 
 假設我們需要注入 10 個 bean ，對比 Field 注入的方式，這種方式暴露了 constructor 中含有過多的參數，正常的開發者看到 10 個參數肯定是會頭痛的，這就表示我們需要想辦法重構它。
 
-#### **2. 容易測試**
+#### 2. 容易測試
 
 它不需要任何 JUnit 以外的 @Annotation，這不僅讓程式是看起來更乾淨了，也降低了理解與維護成本。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂 70~80%。
 
@@ -124,13 +124,13 @@ public class HelloBeanTest {
 }
 ```
 
-#### **3. 不可變物件 (Immutable Object)**
+#### 3. 不可變物件 (Immutable Object)
 
 意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor based DI，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 ### **缺點**
 
-#### **1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
+#### 1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))
 
 只有在使用 Constructor DI 時才會造成此問題。
 

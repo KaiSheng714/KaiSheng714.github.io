@@ -61,6 +61,6 @@ categories: [Design]
 如果你開發的專案是要給其他人使用的 API、Library，或是 DB schema 時，就需要多花一點心力考慮未來可能會發生的狀況、未來可能會用到的功能，因為這種情況很容易牽一髮而動全身。以一個擁有千萬用戶的 library 為例，他們無法每次都為了更新 library 而讓他們的 APP 也得重新修改、compile、上架。這種情況下違反 YAGNI 原則是必須的，而 SOLID 之一的開放封閉原則 **Open-Closed Principle (OCP)** 在此就顯得特別重要了。
  
 
-#### **References**
+### **References**
 - [https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)
 - [https://enterprisecraftsmanship.com/posts/yagni-revisited/](https://enterprisecraftsmanship.com/posts/yagni-revisited/)
