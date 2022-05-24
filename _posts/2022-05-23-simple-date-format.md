@@ -30,8 +30,9 @@ public class DateUtil {
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
-從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到，calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高流量、多線程環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。幸運的是，有許多解決方法可以克服 : 
+從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到，calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高流量、多執行緒環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。
 
+幸運的是，已有許多解決方案: 
 
 ## **解法 1. 每次都 new**
 
@@ -48,8 +49,8 @@ public class DateUtil {
 
 這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。但有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示，一直`new SimpleDateFormat` 是成本很高的事。但因為資料有點久遠，若機器效能允許的話，也許可以考慮這個解法，畢竟簡單的作法往往是較好的。
 
-## **解法 2. ThreadLocal**
-ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 為每個執行緒建立一個 SimpleDateFormat 的副本，每個執行緒可以獨立 `set`, `get`, `remove` 這個變數，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下:
+## **解法 2. 使用 ThreadLocal**
+ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 為每個執行緒建立一個 SimpleDateFormat 的副本，每個執行緒可以獨立執行 `set`, `get`, `remove` SimpleDateFormat 的副本，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下:
 
 ```java
 public class DateUtil {
@@ -91,6 +92,7 @@ System.out.println(now.format(format));
 ```
 
 ### **References**
+- [Simpledateformat Is Slow](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)
 - [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
 - [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)
 - [When and how should I use a ThreadLocal variable?](https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable)
