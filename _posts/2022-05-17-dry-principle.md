@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "軟體設計原則 DRY (Don't repeat yourself)"
-meta: design,clean-code
 author: "Kai-Sheng"
 permalink: /articles/dry-principle
 categories: [Design]
@@ -9,9 +8,7 @@ categories: [Design]
 
 **DRY (Don't repeat yourself)**，是敏捷開發的核心設計原則。DRY 原則旨在消除程式中的重複，但此原則常常被誤解，不少人認為只要兩個程式片段長得一樣就是違反了 DRY 原則。事實上，有些情況中的重複並不是一件壞事，甚至有些沒有重複的程式卻違反 DRY 原則。本文將探討 DRY 原則的運用情境。
  
-
 ![dry-principle](/assets/image/dry-principle.png)
-
 
 ### **違反 DRY 案例 1: copy & paste**
 
