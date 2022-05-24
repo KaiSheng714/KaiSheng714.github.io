@@ -66,7 +66,7 @@ categories: [Design, Unit-testing]
 
 -----
 
-## **重構(Refactoring)**
+### **重構(Refactoring)**
 
 為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的健康是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
 

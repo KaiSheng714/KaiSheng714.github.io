@@ -8,10 +8,9 @@ permalink: /articles/analyzing-dependency-injection-patterns-in-spring
 categories: [Design, Spring]
 ---
 
- 依賴注入 (Dependency Injection, DI) 是 Spring 實現控制反轉（IoC）的重要手段。Spring 提供了數種 DI Patterns，其中最常用的是 **field based injection**，它是許多人第一次使用 Spring 時所使用的 pattern。雖然這方式簡單易用卻有不少缺點。
+依賴注入 (Dependency Injection, DI) 是 Spring 實現控制反轉（IoC）的重要手段。Spring 提供了數種 DI Patterns，其中最常用的是 **field based injection**，它是許多人第一次使用 Spring 時所使用的 pattern。雖然這方式簡單易用卻有不少缺點。
  
-
- 例如你會發現， IntelliJ 很貼心地告訴我們:
+例如你會發現， IntelliJ 很貼心地告訴我們:
 > 
 > Field Injection is not recommended.
 > 
@@ -23,8 +22,6 @@ categories: [Design, Spring]
 為何 **constructor based injection** 優於 **field based injection** 呢 ?
 
 接下來我會解析這兩種 Dependency Injection Pattern.
-
-------
 
 ## **1. Field Based Dependency Injection**
 
