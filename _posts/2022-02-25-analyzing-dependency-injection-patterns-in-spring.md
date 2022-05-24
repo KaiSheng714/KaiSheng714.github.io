@@ -10,7 +10,9 @@ categories: [Design, Spring]
 
 依賴注入 (Dependency Injection, DI) 是 Spring 實現控制反轉（IoC）的重要手段。Spring 提供了數種 DI Patterns，其中最常用的是 **field based injection**，它是許多人第一次使用 Spring 時所使用的 pattern。雖然這方式簡單易用卻有不少缺點。
  
+
 例如你會發現， IntelliJ 很貼心地告訴我們:
+
 > 
 > Field Injection is not recommended.
 > 
