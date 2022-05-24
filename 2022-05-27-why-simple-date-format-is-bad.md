@@ -7,14 +7,13 @@ permalink: /articles/why-simple-date-format-is-bad
 categories: [Java]
 --- 
 
-開發專案經常會將時間、日期轉換成字串，Java 中最常見簡單的方式是 SimpleDateFormat。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量的環境可能會出現異常。本文介紹幾種解決方案。
+開發 Java 專案時經常會用到時間、日期並轉換成字串，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。本文介紹幾種解決方案。
 
 ---
 
 ![why-simple-date-format-is-bad.png](/assets/image/why-simple-date-format-is-bad.png)
 
-
-有一個轉換日期、時間的 DateUtil，程式碼如下
+我們都知道在程式中應盡量少使用 `new SimpleDateFormat` 因為頻繁使用時需要較多的效能，因此盡可能的共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
  
 ```java
 public class DateUtil {
@@ -27,12 +26,13 @@ public class DateUtil {
     }
 }
 ```
+不幸的是，這就是最典型的錯誤用法。
 
 官方文件提到:
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
-從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中可以看到，calendar 被宣告為成員變數存在的。因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高流量、多線程環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。幸運的是，有許多解決方法可以克服 : 
+從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到，calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高流量、多線程環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。幸運的是，有許多解決方法可以克服 : 
 
 
 ## **解法 1. 每次都 new**
@@ -51,8 +51,7 @@ public class DateUtil {
 這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。但有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示，一直`new SimpleDateFormat` 是成本很高的事。但因為資料有點久遠，若機器效能允許的話，也許可以考慮這個解法，畢竟簡單的作法往往是較好的。
 
 ## **解法 2. ThreadLocal**
-
-ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 每個執行緒持有這個變數的一個副本，可以獨立 `set`, `get`, `remove` 這個變數，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下。
+ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 為每個執行緒建立一個 SimpleDateFormat 的副本，每個執行緒可以獨立 `set`, `get`, `remove` 這個變數，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下:
 
 ```java
 public class DateUtil {
