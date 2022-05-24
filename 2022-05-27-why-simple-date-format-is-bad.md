@@ -30,13 +30,9 @@ public class DateUtil {
 
 問題就在 `static` final SimpleDateFormat
 
-
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
-
-
-## 解法 1. 每次都 new
-
+## **解法 1. 每次都 new**
 
 ```java
 public class DateUtil {
@@ -51,7 +47,10 @@ public class DateUtil {
 
 這是最簡單的做法了，但也最沒有效率，因為每次都需要 `new SimpleDateFormat`，而有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示這一件成本很高的事。
 
-## 解法 2. ThreadLocal
+## **解法 2. ThreadLocal**
+
+ThreadLocal是執行緒區域性變數，和普通變數的不同在於：每個執行緒持有這個變數的一個副本，可以獨立修改（set方法）和訪問（get方法）這個變數，並且執行緒之間不會發生衝突。
+
 ```java
 static ThreadLocal<SimpleDateFormat> formatter = new ThreadLocal<SimpleDateFormat>() {
     @Override
@@ -67,33 +66,28 @@ public String formatDate(Date date) {
 
 可以解決效能的問題，缺點是程式會變得比較複雜、難理解
 
-## 解法3. 改用  DateTimeFormatter(推薦)
+## **解法3. 改用  DateTimeFormatter(推薦)**
 
 Java8 提供了 `DateTimeFormatter` 來代替 SimpleDateFormat。就像官方文件中說的:
 
 > DateTimeFormatter in Java 8 is immutable and thread-safe alternative to SimpleDateFormat.
 
-簡單的範例如下
+簡單的範例如下:
 
+將字串轉成 LocalDate
 ```java
 String dateStr = "2022/05/24";
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 LocalDate date = LocalDate.parse(dateStr, formatter);
 ```
 
-日期轉成字串
+LocalDateTime 轉成字串
 ```java
 LocalDateTime now = LocalDateTime.now();
 DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm");
 System.out.println(now.format(format));
 ```
-```
 
 ### **References**
- 
-
- https://www.baeldung.com/java-simple-date-format
-
- - [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
-
- - [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)
+- [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
+- [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)
