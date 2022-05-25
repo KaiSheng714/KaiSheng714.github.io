@@ -11,7 +11,7 @@ categories: [Java]
 
 ![why-simple-date-format-is-bad.png](/assets/image/simple-date-format.png?size=full)
 
-我們都知道在程式中應盡量少使用 `new SimpleDateFormat`，因為若頻繁使用需要花費較多的成本，因此我們盡可能共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
+我們都知道在程式中應盡量少使用 `new SimpleDateFormat`，因為若頻繁實例化，則需要花費較多的成本，因此我們盡可能共用同一個實例。假設有一個轉換日期時間的 `DateUtil` 程式碼如下
  
 ```java
 public class DateUtil {
@@ -23,7 +23,7 @@ public class DateUtil {
     }
 }
 ```
-不幸的是，這就是最典型的錯誤用法。官方文件提到:
+不幸的是，`共用 SimpleDateFormat` 就是最典型的錯誤用法。官方文件提到:
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
