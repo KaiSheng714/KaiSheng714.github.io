@@ -84,15 +84,15 @@ LocalDate date = LocalDate.parse(dateStr, formatter);
 LocalDateTime 轉成字串
 ```java
 LocalDateTime now = LocalDateTime.now();
-DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm");
-System.out.println(now.format(format));
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm");
+System.out.println(now.format(formatter));
 ```
 
 我覺得其中一種不錯的 use case 是爬蟲程式。利用`Jsoup`, `LocalDate` 與該網站的 queryString 去抓取某一個日期區間的資料:
 ```java
-DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 for (LocalDate date = LocalDate.of(2022, 1, 1); date.isBefore(LocalDate.of(2022, 5, 20)); date = date.plusDays(1)) {
-    String url = "https://www.demo.test?date=" + date.format(pattern);
+    String url = "https://www.demo.test?date=" + date.format(formatter);
     Document doc = Jsoup.connect(url).get();
     // do something
 }
