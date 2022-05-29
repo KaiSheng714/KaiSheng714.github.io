@@ -29,9 +29,11 @@ ObjectMapper 是由 Jackson library 所提供的一個功能，所以只要在 m
 </dependency>
 
 
+```java
 public String getCarString(Car car){
     ObjectMapper objectMapper = new ObjectMapper();
     String str = objectMapper.writeValueAsString(car);
     return str;
 }
+```
  
