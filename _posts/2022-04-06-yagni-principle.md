@@ -10,6 +10,11 @@ categories: [Design]
 
 **YAGNI (You aren't gonna need it!)**，是個敏捷開發的核心設計原則。此原則指出，程式開發者應該在面臨確鑿的需求時，才實作相應的功能。換言之，就是不要實作那些現在用不到的東西，也不要因為未來可能需要的理由而事先實作。
 
+
+![YAGNI](/assets/image/yagni.png?size=full)
+
+
+
 以下是違反 YAGNI 原則的經典案例:
 
 >
@@ -23,8 +28,6 @@ categories: [Design]
 >
 > 我覺得這個功能，user 之後可能會提出來，雖然現在還用不到，所以我事先做出來。
 >
-
-![YAGNI](/assets/image/yagni.png?size=full)
 
 上述為了未來而預先做的設計，有很大的機率事與願違，或是畫虎不成反類犬。
 
