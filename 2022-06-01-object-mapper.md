@@ -30,10 +30,15 @@ ObjectMapper 是由 Jackson library 所提供的一個功能，所以只要在 m
 
 
 ```java
-public String getCarString(Car car){
-    ObjectMapper objectMapper = new ObjectMapper();
-    String str = objectMapper.writeValueAsString(car);
-    return str;
+public class Student {
+
+    private String name;
+    private int age;
+
+    public String toJson() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(this);
+    }
 }
 ```
  
