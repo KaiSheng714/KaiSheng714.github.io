@@ -6,34 +6,10 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 json 和 Java 的 Object 的互相轉換。ObjectMapper 的應用非常廣泛，所以錯誤的寫法也層出不窮，如果沒有按照 Best Practice，將容易導致問題，本文將描述如何改善。
-
+ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 json 和 java 的 Object 的互相轉換。ObjectMapper 的應用非常廣泛，就連 Spring boot 是預設使用 ObjectMapper，可見其影響力。因為用的人多，所以錯誤的寫法也層出不窮，如果沒有按照 Best Practice，將容易導致問題，本文將描述如何改善。
 
 
 ![json](/assets/image/object-mapper.png?size=full)
-
-
-使用 Jackson 前，需要在 pom.xml 加入 dependency，如果是使用 Spring boot，可以直接引用 `spring-boot-starter-web`，因為 Spring boot 執行序列化/反序列化預設使用 Jackson，從這點就不難看出 Jackson 的影響力:
-
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-web</artifactId>
-</dependency>
-```
-
-如果不是使用 Spring boot，就要使用這個 dependency:
-
-```xml
-<dependency>
-    <groupId>com.fasterxml.jackson.core</groupId>
-    <artifactId>jackson-databind</artifactId>
-</dependency>
-```
-
-備註
-- 序列化 (Serialize): 將 Object 轉成 json
-- 反序列化 (Deserialize) : 將 json 轉成 Object
  
 ## **問題描述**
 
