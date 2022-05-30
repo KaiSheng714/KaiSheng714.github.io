@@ -30,9 +30,9 @@ Deserialize : 將 json 轉換成 Java Object
 </dependency>
 ```
  
-## 問題
+## **問題描述**
 
-下面一段程式碼這是很經典的錯誤，這種錯誤充斥在各處，而且很多人沒有注意到
+你能看出這段程式碼有什麼問題嗎?
 
 ```java
 public String toJson(Something something) throws JsonProcessingException {
@@ -41,15 +41,16 @@ public String toJson(Something something) throws JsonProcessingException {
 }
 ```
 
-執行 `new ObjectMapper()` 是非常昂貴的，如果系統流量大，就會出現效能瓶頸。根據[這篇](https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/) 的實驗，如果每次序列化/反序列化都 `new ObjectMapper`，比起共用一個 ObjectMapper，執行時間至少相差五倍。因此要盡量修正這樣的程式。
+答案是 `new ObjectMapper()`
+
+這段程式碼這是很經典的錯誤，而且這種錯誤充斥在各處，很多人卻沒有注意到。執行 `new ObjectMapper()` 是非常昂貴的，若系統流量較大，這種寫法很容易會出現效能瓶頸。根據[這篇](https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/)的實驗，如果每次序列化/反序列化都 `new ObjectMapper`，比起共用一個 ObjectMapper，執行時間至少相差五倍，因此要盡量修正這樣的程式。
 
 ---
 
-根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)， ObjectMapper 在 multi-thread 環境下是安全的，因此最好是共用同一個實例
-
-我常用的作法有
+## **解法**
+解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)， ObjectMapper 在 multi-thread 環境下是安全的，因此最好是共用同一個實例。 我常用的作法有
  
-## 方式1. 設定 Bean
+### **方式1. 設定 Bean**
 
 如果需要全域設定而且有多種 ObjectMapper，建議使用此方法
 
@@ -83,7 +84,7 @@ public class MyService {
 }
 ```
  
-## 方式2. 包裝成 Util
+## **方式2. 包裝成 Util**
 
 如果需要全域只有一種 ObjectMapper 時，可以包裝成 Util，方便使用。例外處理的部分，就依各個專案需求而定。沒有最佳的設計，只有最適合的設計。例外拋出給 caller 處理也是選項之一`configure` 可依個人設定，若都不設定也是可以的，ObjectMapper 將會套用預設值，其實就能符合大部分的需求。
 
@@ -127,8 +128,6 @@ Student student = JsonUtil.toObject(studentJson, Student.class);
 ```
  
 ### **References**
-
-
 - https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field
 - https://developer.51cto.com/article/706590.html
 - https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/
