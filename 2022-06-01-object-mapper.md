@@ -6,7 +6,7 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 JSON 和 Object 互相轉換。ObjectMapper 的應用非常廣泛，就連 Spring Framwork 是預設使用 ObjectMapper，可見其影響力之高。畢竟使用的人多，所以錯誤的寫法也層出不窮，如果沒有按照 best practice，將容易導致問題，本文將描述如何改善。
+ObjectMapper 是一個相當實用的工具，它可以幫助我們完成 JSON 和 Object 之間的轉換。ObjectMapper 的應用非常廣泛，就連 Spring Framwork 也預設使用 ObjectMapper，可見其影響力之高。但畢竟使用的人多，錯誤的寫法也層出不窮，如果沒有按照 best practice，將很容易導致問題，本文將描述如何避免與改善。
 
 
 ![json](/assets/image/object-mapper.png?size=full)
@@ -24,7 +24,7 @@ public String toJson(Something something) throws JsonProcessingException {
 
 問題在於 `new ObjectMapper()`
 
-這段程式碼這是很經典的錯誤，而且這種錯誤充斥在各處，很多人卻沒注意到。事實上，執行 `new ObjectMapper()` 是非常昂貴的，若系統流量較大，這種寫法很容易會出現效能瓶頸。根據[這篇文章](https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/)的實驗，如果每次序列化/反序列化都 `new ObjectMapper`，比起共用一個 ObjectMapper，執行時間至少相差五倍，因此要盡量修正這樣的程式。
+這段程式碼是很經典的錯誤，而且這種錯誤隨處可見，很多人卻沒注意到。事實上，執行 `new ObjectMapper()` 是非常昂貴的，若系統流量較大，這種寫法很容易出現效能瓶頸。根據[這篇文章](https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/)的實驗，若每次序列化/反序列化都使用 `new ObjectMapper`，比起共用一個 ObjectMapper，執行時間至少相差五倍，因此要盡快修正。
 
 ---
 
@@ -33,13 +33,13 @@ public String toJson(Something something) throws JsonProcessingException {
  
 ### **解法1. 共用成員變數**
 
-如果你要用預設的 ObjectMapper，其實 Spring 已經幫我們建好了，直接注入即可，需注意的是，這種寫法不能 `configure`:
+若你的 ObjectMapper 不需要任何 configure，其實 Spring 已經幫我們建好一個預設的，直接注入即可:
 
 ```java
 @Service
 public class MyService {
 
-    private final ObjectMapper objectMapper;
+    private final ObjectMappe robjectMapper;
     @Autowired
     public MyService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -68,7 +68,7 @@ public class MyService {
 
 ### **解法2. Configuration**
 
-如果你需要全域設定，或是有多種不同設定的 ObjectMapper，建議使用此方法，並且注入時要用 `@Qualifier`，否則會注入預設的 ObjectMapper Bean。
+如果你需要全域設定，或是有多個不同設定的 ObjectMapper，建議使用此方法，並且注入時要用 `@Qualifier`，否則將會注入預設的 ObjectMapper Bean。
 
 ```java
 @Configuration
@@ -84,7 +84,7 @@ public class JacksonConfiguration {
 }
 ``` 
 ### **解法3. 包裝成 Util**
-這是我最常用的作法，我在專案中通常都只需要共用一個 ObjectMapper 就夠了，這時可包裝成 Util ，如此可以很方便的全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合的設計，當然例外拋給 caller 處理也是選項之一。
+這是我最常用的作法，我在專案中通常都只有一個 ObjectMapper，因此共用它就夠了，這時可包裝成 Util，如此可方便的給全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合自己的設計。
 
 ```java
 public class JsonUtil {
@@ -126,7 +126,7 @@ Something something = JsonUtil.toObject(json, Something.class);
 ```
  
 ## 結論
-不要在每次序列化/反序列化使用時都 ` new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，本文介紹的解法的概念上是一樣的，就是`共用`同一個 ObjectMapper ，這是很重要的，別小看它，也許一個小動作可以拯救你的一天。
+不要在每次序列化/反序列化使用時都 ` new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，本文所介紹的解法，概念上是一樣的，就是`共用`同一個 ObjectMapper，這是很重要的，別小看它，也許一個小動作可以拯救你的一天。
 
 ### **References**
 - [Should I declare Jackson's ObjectMapper as a static field?](https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field)
