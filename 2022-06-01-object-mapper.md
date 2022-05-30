@@ -126,7 +126,7 @@ Something something = JsonUtil.toObject(json, Something.class);
 ```
  
 ## 結論
-不要在每次使用時都 ` new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，因此共用同一個 ObjectMapper 是很重要的，別小看這簡單的作法，也許一個小動作可以拯救你的一天。
+不要在每次序列化/反序列化使用時都 ` new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，因此共用同一個 ObjectMapper 是很重要的，別小看這簡單的作法，也許一個小動作可以拯救你的一天。
 
 ### **References**
 - [Should I declare Jackson's ObjectMapper as a static field?](https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field)
