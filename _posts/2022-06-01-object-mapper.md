@@ -6,7 +6,7 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-ObjectMapper 是一個相當實用的工具，它可以幫助我們完成 JSON 和 Object 之間的轉換。ObjectMapper 的應用非常廣泛，就連 Spring Framwork 也預設使用 ObjectMapper，可見其影響力之高。但畢竟使用的人多，錯誤的寫法也層出不窮，如果沒有按照 best practice，將很容易導致問題，本文將描述如何避免與改善。
+ObjectMapper 是一個相當實用的工具，它可以幫助我們完成 JSON 和 Object 之間的轉換。ObjectMapper 的應用非常廣泛，Spring Framework 的序列化/反序列化就預設使用 ObjectMapper，可見其影響力。但畢竟使用的人多，錯誤的寫法也就層出不窮，如果沒有按照正確做法，將很容易導致問題，本文將描述如何避免與改善。
 
 
 ![json](/assets/image/object-mapper.png?size=full)
@@ -31,7 +31,7 @@ public String toJson(Something something) throws JsonProcessingException {
 ## **解法**
 解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)指出，ObjectMapper 是 thread-safe，因此只要共用同一個實例，而不要每次都 `new` 即可，否則代價很高。我常用的作法有:
  
-### **解法1. 共用成員變數**
+### **解法1. 宣告成員變數**
 
 若你的 ObjectMapper 不需要任何 configure，其實 Spring 已經幫我們建好一個預設的，直接注入即可:
 
@@ -39,7 +39,8 @@ public String toJson(Something something) throws JsonProcessingException {
 @Service
 public class MyService {
 
-    private final ObjectMappe robjectMapper;
+    private final ObjectMapper objectMapper;
+    
     @Autowired
     public MyService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -85,7 +86,7 @@ public class JacksonConfiguration {
 ``` 
 
 ### **解法3. 包裝成 Util**
-這是我最常用的作法，我在專案中通常都只有一個 ObjectMapper，因此共用它就夠了，這時可包裝成 Util，如此可方便的給全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合自己的設計。
+這是我最常用的作法，我在專案中通常都只有一個 ObjectMapper，因此共用它就夠了，這時可包裝成 Util 方便全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合自己的設計。
 
 ```java
 public class JsonUtil {

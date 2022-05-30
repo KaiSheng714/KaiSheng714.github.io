@@ -131,7 +131,7 @@ public void testGetData() {
 // bad design. hard to test.
 public boolean isLate() {
   long now = System.currentTimeMillis();
-  if (now > 1500000L)
+  if (now > 1500000L) {
     return true;
   } else {
     return false;

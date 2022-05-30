@@ -7,12 +7,10 @@ permalink: /articles/anti-pattern-of-java-interface-impl-style
 categories: [Java, Design]
 --- 
 
-在 java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 Foo, Bar, Service :
+在 Java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 FooImpl, BarImpl, ServiceImpl，
+而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。我認為 interface-impl 的設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?margin=vertical-medium)
-
-而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。我認為 interface-impl 這樣的設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
-
 
 ### **1. 違反 YAGNI 原則**
 很多人會這樣寫，是基於以下理由
