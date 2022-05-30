@@ -33,7 +33,7 @@ public String toJson(Something something) throws JsonProcessingException {
  
 ### **方式1. 共用成員變數**
 
-如果你要用預設的 ObjectMapper，其實 Spring 已經幫我們建好了，直接注入即可:
+如果你要用預設的 ObjectMapper，其實 Spring 已經幫我們建好了，直接注入即可，需注意的是，這種寫法不能 `configure`:
 
 ```java
 @Service
@@ -41,7 +41,7 @@ public class MyService {
 
     private final ObjectMapper objectMapper;
     @Autowired
-    public MyService(@ObjectMapper objectMapper) {
+    public MyService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
     }
 
@@ -51,7 +51,7 @@ public class MyService {
 }
 ```
 
-或是你要直接宣告並 config
+這種寫法可以在 new 的同時一起做 configure:
 
 ```java
 @Service
