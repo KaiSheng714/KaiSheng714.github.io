@@ -6,7 +6,6 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-
  
 ObjectMapper類是Jackson庫的主要類。它提供一些功能將轉換成Java對象匹配JSON結構，反之亦然。它使用JsonParser和JsonGenerator的實例實現JSON實際的讀/寫。
 市面上用于在 Java 中解析 Json 的第三方库，随便一搜不下几十种，其中的佼佼者有 Google 的 Gson， Alibaba 的 Fastjson 以及本文的 jackson。
@@ -26,10 +25,12 @@ ObjectMapper類是Jackson庫的主要類。它提供一些功能將轉換成Java
 Serialize : 將 Java Object 轉換成 json
 Deserialize : 將 json 轉換成 Java Object
 在 Spring Boot 裡使用 ObjectMapper
+
 ObjectMapper 是由 Jackson library 所提供的一個功能，所以只要在 maven 中加入 spring-boot-starter-web 的 dependency 就可以了
 
 
 如果是使用 Spring boot，可以使用這包就可以直接使用 Jackson
+
 ```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
@@ -37,8 +38,9 @@ ObjectMapper 是由 Jackson library 所提供的一個功能，所以只要在 m
 </dependency>
 ```
  
+## 錯誤
 
-這種錯誤充斥在各處
+這是很經典的錯誤，這種錯誤充斥在各處，而且很多人沒有注意到
 
 ```java
 public class Student {
@@ -53,10 +55,15 @@ public class Student {
 }
 ```
 
+根據[這篇](https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/) 的實驗，如果每次序列化/反序列化都 `new ObjectMapper`，比起共用一個 ObjectMapper，執行時間至少相差五倍。
+
+---
+
+根據官方文件， ObjectMapper 在 multi-thread 環境下是安全的，因此最好是共用同一個實例
 
 我常用的作法有
-
-### 方式1. 設定 Bean
+ 
+## 方式1. 設定 Bean
 
 如果需要全域設定而且有多種 ObjectMapper，建議使用此方法
 
@@ -68,13 +75,6 @@ public class JacksonConfiguration {
     public ObjectMapper customObjectMapper() {
         return new ObjectMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
-    }
-
-    @Bean("anotherObjectMapper")
-    public ObjectMapper anotherObjectMapper() {
-        return new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true)
             .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
     }
 
@@ -97,18 +97,11 @@ public class MyService {
 }
 ```
  
-### 方式2. 包裝成 Util
+## 方式2. 包裝成 Util
 
-
-如果需要全域只有一種 ObjectMapper 時，可以包裝成 Util，方便使用
-
-例外處理的部分，就依各個專案需求而定。沒有最佳的設計，只有最適合的設計。例外拋出給 caller 處理也是選項之一。
-
-`configure` 可依個人設定，若都不設定也是可以的，ObjectMapper 將會套用預設值，其實就能符合大部分的需求。
-
+如果需要全域只有一種 ObjectMapper 時，可以包裝成 Util，方便使用。例外處理的部分，就依各個專案需求而定。沒有最佳的設計，只有最適合的設計。例外拋出給 caller 處理也是選項之一`configure` 可依個人設定，若都不設定也是可以的，ObjectMapper 將會套用預設值，其實就能符合大部分的需求。
 
 ```java
-@Log4j2
 public class JsonUtil {
 
     private final static ObjectMapper objectMapper = 
@@ -139,6 +132,8 @@ public class JsonUtil {
     }
 }
 ```
+
+使用起來非常方便簡單，封裝性也較佳。
 
 ```java
 String studentJson = JsonUtil.toJson(student);
