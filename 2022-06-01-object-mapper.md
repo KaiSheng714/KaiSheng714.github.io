@@ -6,7 +6,7 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 json 和 java 的 Object 的互相轉換。ObjectMapper 的應用非常廣泛，就連 Spring boot 是預設使用 ObjectMapper，可見其影響力。因為用的人多，所以錯誤的寫法也層出不窮，如果沒有按照 Best Practice，將容易導致問題，本文將描述如何改善。
+ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 json 和 java 的 Object 的互相轉換。ObjectMapper 的應用非常廣泛，就連 Spring Framwork 是預設使用 ObjectMapper，可見其影響力。因為用的人多，所以錯誤的寫法也層出不窮，如果沒有按照 Best Practice，將容易導致問題，本文將描述如何改善。
 
 
 ![json](/assets/image/object-mapper.png?size=full)
@@ -51,7 +51,7 @@ public class MyService {
 }
 ```
 
-這種寫法可以在 new 的同時一起做 configure:
+ObjectMapper 強大的地方在於，它有很多參數可視需求設定。這種寫法可以在 new 的同時一起做 configure:
 
 ```java
 @Service
@@ -84,8 +84,8 @@ public class JacksonConfiguration {
 }
 ``` 
 ### **方式3. 包裝成 Util**
+這是我最常用的作法，我在專案中通常都只需要共用一個 ObjectMapper 就夠了，這時可包裝成 Util ，如此可以很方便的全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合的設計，當然例外拋給 caller 處理也是選項之一。
 
-如果專案中只有一種 ObjectMapper 時，可以包裝成 Util 就可以很方便的全域使用。例外處理的部分，就依各個專案需求而定，沒有最佳的設計，只有最適合的設計，例外拋出給 caller 處理也是選項之一。`configure` 則視專案需求，若都不設定也是可以的。
 ```java
 public class JsonUtil {
 
@@ -125,7 +125,9 @@ String json = JsonUtil.toJson(something);
 Something something = JsonUtil.toObject(json, Something.class);
 ```
  
+## 結論
+不要在每次使用時都 ` new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，因此共用同一個 ObjectMapper 是很重要的，別小看這簡單的作法，也許一個小動作可以拯救你的一天。
+
 ### **References**
-- https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field
-- https://developer.51cto.com/article/706590.html
-- https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/
+- [Should I declare Jackson's ObjectMapper as a static field?](https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field)
+- [Jackson ObjectMapper performance pitfall](]https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/)
