@@ -66,7 +66,7 @@ public class MyService {
 }
 ```
 
-### **解法2. Configuration**
+### **解法2. @Configuration**
 
 如果你需要全域設定，或是有多個不同設定的 ObjectMapper，建議使用此方法，並且注入時要用 `@Qualifier`，否則將會注入預設的 ObjectMapper Bean。
 
@@ -83,6 +83,7 @@ public class JacksonConfiguration {
 
 }
 ``` 
+
 ### **解法3. 包裝成 Util**
 這是我最常用的作法，我在專案中通常都只有一個 ObjectMapper，因此共用它就夠了，這時可包裝成 Util，如此可方便的給全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合自己的設計。
 
@@ -91,8 +92,7 @@ public class JsonUtil {
 
     private final static ObjectMapper objectMapper = 
                 new ObjectMapper()
-                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-                    .configure(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE, false);
+                    .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private JsonUtil() {
 
@@ -126,7 +126,7 @@ Something something = JsonUtil.toObject(json, Something.class);
 ```
  
 ## 結論
-不要在每次序列化/反序列化使用時都 ` new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，本文所介紹的解法，概念上是一樣的，就是`共用`同一個 ObjectMapper，這是很重要的，別小看它，也許一個小動作可以拯救你的一天。
+不要在每次序列化/反序列化使用時都 `new ObjectMapper();`，這樣的代價是昂貴的，效能可以相差很多倍。ObjectMapper 是 thread-safe，本文所介紹的解法，概念上是一樣的，就是`共用`同一個 ObjectMapper。這是很重要的，別小看它，也許一個小動作可以拯救你的一天。
 
 ### **References**
 - [Should I declare Jackson's ObjectMapper as a static field?](https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field)
