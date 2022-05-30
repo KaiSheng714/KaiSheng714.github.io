@@ -43,30 +43,34 @@ public String toJson(Something something) throws JsonProcessingException {
 ---
 
 ## **解法**
-解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)， ObjectMapper 是 thread-safe，因此最好是共用同一個實例。我常用的作法有:
+解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)，ObjectMapper 是 thread-safe，因此最好是共用同一個實例。我常用的作法有:
  
-### 方式1. 宣告成員變數
+### **方式1. 共用成員變數**
 
-可以直接宣告成員變數，或是注入 Spring boot 已經幫我們建好的 ObjectMapper:
+直接宣告成員變數，或是注入 Spring boot 已經預設建好的 ObjectMapper，並且共用它:
 
 ```java
 @Service
 public class MyService {
+
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    // 或是直接注入 Spring boot 已經幫我們建好的 ObjectMapper
-
+    // 或是直接注入 Spring boot 已經預設建好的 ObjectMapper
     private final ObjectMapper objectMapper;
     @Autowired
     public MyService(@ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
+    }
+
+    public String toJson(Something something) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(something);
     }
 }
 ```
 
 ### **方式2. 設定 Bean**
 
-如果你需要全域設定，或是有多種不同設定的 ObjectMapper，建議使用此方法
+如果你需要全域設定，或是有多種不同設定的 ObjectMapper，建議使用此方法，並且注入時要用 `@Qualifier`，否則會注入預設的 ObjectMapper Bean。
 
 ```java
 @Configuration
@@ -80,28 +84,10 @@ public class JacksonConfiguration {
     }
 
 }
-```
-
-設定 Bean 後，再注入 Service 就可以了。值得注意的是，因為 Spring boot 已經是先幫我們建立好預設的 ObjectMapper，所以如果不使用 `@Qualifier` 注入，則會注入 Spring boot 所建立好預設的 ObjectMapper Bean。
-
-```java
-@Service
-public class MyService {
-
-    private final ObjectMapper customObjectMapper;
-
-    @Autowired
-    public MyService(@Qualifier("customObjectMapper") ObjectMapper customObjectMapper) {
-        this.customObjectMapper = customObjectMapper;
-    }
-
-}
-```
- 
+``` 
 ### **方式3. 包裝成 Util**
 
-如果專案中只有一種 ObjectMapper 時，可以包裝成 Util，就可以方便使用。例外處理的部分，就依各個專案需求而定。沒有最佳的設計，只有最適合的設計，例外拋出給 caller 處理也是選項之一。`configure` 是專案需求，若都不設定也是可以的，ObjectMapper 將會套用預設值，其實就能符合大部分的需求。
-
+如果專案中只有一種 ObjectMapper 時，可以包裝成 Util，就可以方便使用。例外處理的部分，就依各個專案需求而定。沒有最佳的設計，只有最適合的設計，例外拋出給 caller 處理也是選項之一。`configure` 是專案需求，若都不設定也是可以的。
 ```java
 public class JsonUtil {
 
@@ -137,8 +123,8 @@ public class JsonUtil {
 使用起來非常方便簡單，封裝性也較佳。
 
 ```java
-String studentJson = JsonUtil.toJson(student);
-Student student = JsonUtil.toObject(studentJson, Student.class);
+String json = JsonUtil.toJson(something);
+Something something = JsonUtil.toObject(json, Something.class);
 ```
  
 ### **References**
