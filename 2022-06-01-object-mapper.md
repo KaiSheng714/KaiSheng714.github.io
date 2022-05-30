@@ -6,7 +6,7 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 json 和 java 的 Object 的互相轉換。ObjectMapper 的應用非常廣泛，就連 Spring Framwork 是預設使用 ObjectMapper，可見其影響力。因為用的人多，所以錯誤的寫法也層出不窮，如果沒有按照 Best Practice，將容易導致問題，本文將描述如何改善。
+ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 JSON 和 Object 互相轉換。ObjectMapper 的應用非常廣泛，就連 Spring Framwork 是預設使用 ObjectMapper，可見其影響力之高。畢竟使用的人多，所以錯誤的寫法也層出不窮，如果沒有按照 best practice，將容易導致問題，本文將描述如何改善。
 
 
 ![json](/assets/image/object-mapper.png?size=full)
