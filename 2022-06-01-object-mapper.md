@@ -6,17 +6,14 @@ permalink: /articles/object-mapper
 categories: [Java]
 --- 
 
-ObjectMapper 是一款非常好用的 json 轉換工具，可以幫助我們完成 json 和 Java 的 Object 的互相轉換，但如果沒有按照 Best Practice，將容易出現問題而不自知。
+ObjectMapper 是一款相當受歡迎而且非常好用的工具，可以幫助我們完成 json 和 Java 的 Object 的互相轉換，ObjectMapper 的應用非常廣泛，所以錯誤的寫法也層出不窮，如果沒有按照 Best Practice，將容易導致問題，本文將描述如何改善。
+
+
 
 ![json](/assets/image/object-mapper.png?size=full)
 
 
-使用 Jackson 前，需要在 pom.xml 加入 dependency，如果是使用 Spring boot，可以直接引用 `spring-boot-starter-web`，因為 Spring boot 執行序列化/反序列化預設使用 Jackson，從這點就不難看出 Jackson 的影響力，所以學習 Jackson 是非常有必要的。
-
-什麼是 Serialize 和 Deserialize？
-Serialize : 將 Java Object 轉換成 json
-Deserialize : 將 json 轉換成 Java Object
-在 Spring Boot 裡使用 ObjectMapper
+使用 Jackson 前，需要在 pom.xml 加入 dependency，如果是使用 Spring boot，可以直接引用 `spring-boot-starter-web`，因為 Spring boot 執行序列化/反序列化預設使用 Jackson，從這點就不難看出 Jackson 的影響力:
 
 ```xml
 <dependency>
@@ -24,10 +21,14 @@ Deserialize : 將 json 轉換成 Java Object
     <artifactId>spring-boot-starter-web</artifactId>
 </dependency>
 ```
+
+備註
+- 序列化 (Serialize): 將 Object 轉成 json
+- 反序列化 (Deserialize) : 將 json 轉成 Object
  
 ## **問題描述**
 
-你能看出這段程式碼有什麼問題嗎?
+你能看出這段程式碼有什麼問題嗎 ?
 
 ```java
 public String toJson(Something something) throws JsonProcessingException {
@@ -43,19 +44,16 @@ public String toJson(Something something) throws JsonProcessingException {
 ---
 
 ## **解法**
-解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)，ObjectMapper 是 thread-safe，因此最好是共用同一個實例。我常用的作法有:
+解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)指出，ObjectMapper 是 thread-safe，因此只要共用同一個實例，而不要每次都 `new` 即可。我常用的作法有:
  
 ### **方式1. 共用成員變數**
 
-直接宣告成員變數，或是注入 Spring boot 已經預設建好的 ObjectMapper，並且共用它:
+如果你要用預設的 ObjectMapper，其實 Spring 已經幫我們建好了，直接注入即可:
 
 ```java
 @Service
 public class MyService {
 
-    private static final ObjectMapper objectMapper = new ObjectMapper();
-
-    // 或是直接注入 Spring boot 已經預設建好的 ObjectMapper
     private final ObjectMapper objectMapper;
     @Autowired
     public MyService(@ObjectMapper objectMapper) {
@@ -68,7 +66,22 @@ public class MyService {
 }
 ```
 
-### **方式2. 設定 Bean**
+或是你要直接宣告並 config
+
+```java
+@Service
+public class MyService {
+
+    private static final ObjectMapper objectMapper =
+         new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+    public String toJson(Something something) throws JsonProcessingException {
+        return objectMapper.writeValueAsString(something);
+    }
+}
+```
+
+### **方式2. Configuration**
 
 如果你需要全域設定，或是有多種不同設定的 ObjectMapper，建議使用此方法，並且注入時要用 `@Qualifier`，否則會注入預設的 ObjectMapper Bean。
 
@@ -87,7 +100,7 @@ public class JacksonConfiguration {
 ``` 
 ### **方式3. 包裝成 Util**
 
-如果專案中只有一種 ObjectMapper 時，可以包裝成 Util，就可以方便使用。例外處理的部分，就依各個專案需求而定。沒有最佳的設計，只有最適合的設計，例外拋出給 caller 處理也是選項之一。`configure` 是專案需求，若都不設定也是可以的。
+如果專案中只有一種 ObjectMapper 時，可以包裝成 Util 就可以很方便的全域使用。例外處理的部分，就依各個專案需求而定，沒有最佳的設計，只有最適合的設計，例外拋出給 caller 處理也是選項之一。`configure` 則視專案需求，若都不設定也是可以的。
 ```java
 public class JsonUtil {
 
