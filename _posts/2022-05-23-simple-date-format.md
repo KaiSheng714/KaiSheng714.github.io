@@ -43,7 +43,7 @@ public class DateUtil {
 }
 ```
 
-這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。但有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示，一直`new SimpleDateFormat` 是成本很高的事。但因為資料有點久遠，若機器效能允許的話，也許可以考慮這個解法，畢竟簡單的作法往往是較好的。
+這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。但有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示，一直`new SimpleDateFormat` 是成本很高的事。但因為資料有點久遠，若專案對於效能要求不高，也許可以考慮這個解法，畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
 
 ### **正確用法 2. 使用 ThreadLocal**
 ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 為每個執行緒建立一個 SimpleDateFormat 的副本，每個執行緒可以獨立執行 `set`, `get`, `remove` SimpleDateFormat 的副本，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下:
