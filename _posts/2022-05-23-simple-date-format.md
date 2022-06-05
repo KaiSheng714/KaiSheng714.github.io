@@ -59,16 +59,16 @@ public class DateUtil {
 首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format`。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
 
 ### **正確用法 3. 使用 ThreadLocal 容器**
-ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當於給每個 thread 都開了一個獨立的存儲空間，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
+ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當於給每個 thread 都開了一個獨立的存儲空間，既然 thread 之間互相隔離，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
 
 ```java
 public class DateUtil {
     // 可以把 ThreadLocal<SimpleDateFormat> 視為一個全域 Map<Thread, SimpleDateFormat>，key 就是 current thread
-    // 類似於 current thread 專屬、獨立的 cache。
+    // 意義上相當於 currentThread 專屬、獨立的 cache。
     private static ThreadLocal<SimpleDateFormat> local = new ThreadLocal<>();
 
     private static SimpleDateFormat getDateFormat() {
-        // current thread 從自己的 ThreadLocalMap 取得 SimpleDateFormat。
+        // currentThread 從自己的 ThreadLocalMap 取得 SimpleDateFormat。
         // 如果是 null，則建立 SimpleDateFormat 並放入自己的 ThreadLocalMap 中。
         SimpleDateFormat dateFormat = local.get();
         if (dateFormat == null) {
@@ -84,7 +84,7 @@ public class DateUtil {
 }
 ```
 
-這個方法的缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，而不是用完後就被銷毀，否則效果會和方法1差不多。
+舉例來說，如果 thread pool 有 10 個 thread，程式就會建立 10 個 SimpleDateFormat 實例，並在每次任務中重複使用。但要注意一點，該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，否則效果會和方法1差不多。這個方法的缺點是程式會變得較複雜。
 
 ### **正確用法4. 改用 DateTimeFormatter(推薦)**
 
