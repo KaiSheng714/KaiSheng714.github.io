@@ -84,7 +84,7 @@ public class DateUtil {
 }
 ```
 
-舉例來說，如果 thread pool 有 10 個 thread，程式就會建立 10 個 SimpleDateFormat 實例，並在每次任務中重複使用。但要注意一點，該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，否則效果會和方法1差不多。這個方法的缺點是程式會變得較複雜。
+舉例來說，如果 thread pool 有 10 個 thread，程式就會建立 10 個 SimpleDateFormat 實例，並在每次任務中重複使用各自的 SimpleDateFormat。但要注意一點，該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，否則效果會和方法1差不多。這個方法的缺點是程式會變得較複雜。
 
 ### **正確用法4. 改用 DateTimeFormatter(推薦)**
 
