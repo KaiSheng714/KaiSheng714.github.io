@@ -47,7 +47,7 @@ public class DateUtil {
 
 
 ### **正確用法 2. 使用 ThreadLocal 容器**
-ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，ThreadLocal 顧名思義就是專屬於該 thread 的區域變數，因此其他 thread 是無法存取的，除了可以保證 thread-safety，也可以避免使用 `synchronized`，進而影響效能。SimpleDateFormat 正好是最常見的例子，自然而然解決了 race condition 的問題。程式碼如下:
+ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，ThreadLocal 顧名思義就是專屬於該 thread 的區域變數，因此其他 thread 是無法存取的，這個容器除了可以保證 thread-safety 外，也可以讓開法者避免使用 `synchronized`，進而影響效能。SimpleDateFormat 正好是最常見的例子，若將 SimpleDateFormat 放入 ThreadLocal 中，自然而然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat。程式碼如下:
 
 
 ```java
@@ -66,8 +66,8 @@ public class DateUtil {
 }
 ```
 
-這段程式碼將 SimpleDateFormat 儲存在 ThreadLocal 中，以便讓該 thread 重複使用 SimpleDateFormat 實例，而不必如同方法1般每次都執行 `new SimpleDateFormat`，
-缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完 request 後，thread 會再回到 thread pool)，而不是用完後就被銷毀。
+這段程式碼將 SimpleDateFormat 儲存在 ThreadLocal 中，讓該 thread 重複使用 SimpleDateFormat 實例，而不必如同方法1般每次都執行 `new SimpleDateFormat`，
+缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，而不是用完後就被銷毀。
 
 ### **正確用法3. 改用 DateTimeFormatter(推薦)**
 
