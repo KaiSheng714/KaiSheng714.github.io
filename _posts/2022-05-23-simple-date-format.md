@@ -59,18 +59,19 @@ public class DateUtil {
 首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format`。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
 
 ### **正確用法 3. 使用 ThreadLocal 容器**
-ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它可以確保每個 thread 都可以得到單獨的 SimpleDateFormat，每個 thread 都擁有一個自己的 ThreadLocalMap，類似專屬 cache 的概念，因此其他 thread 是無法存取的。若將 SimpleDateFormat 放入 ThreadLocal 中，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
-
+ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當於給每個 thread 都開了一個獨立的存儲空間，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
 
 ```java
 public class DateUtil {
+    // 可以把 ThreadLocal<SimpleDateFormat> 視為一個全域 Map<Thread, SimpleDateFormat>，key 就是 current thread，類似於 current thread 專屬的 cache。
     private static ThreadLocal<SimpleDateFormat> local = new ThreadLocal<>();
 
     private static SimpleDateFormat getDateFormat() {
-        SimpleDateFormat dateFormat = local.get();          // current thread 從自己的 ThreadLocalMap 取得 SimpleDateFormat
+        // current thread 從自己的 ThreadLocalMap 取得 SimpleDateFormat。如果是 null，則建立 SimpleDateFormat 並放入自己的 ThreadLocalMap 中。
+        SimpleDateFormat dateFormat = local.get();
         if (dateFormat == null) {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            local.set(dateFormat);                          // current thread 將 SimpleDateFormat 放入自己的 ThreadLocalMap 中
+            local.set(dateFormat);
         }
         return dateFormat;
     }
