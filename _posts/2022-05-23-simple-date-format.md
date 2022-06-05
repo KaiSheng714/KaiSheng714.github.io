@@ -27,7 +27,7 @@ public class DateUtil {
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
-從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到，calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高併發環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。
+從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到它是有狀態的，而且其中 calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高併發環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。
 
 幸運的是，已有許多解決方案: 
 
@@ -43,35 +43,49 @@ public class DateUtil {
 }
 ```
 
-這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。若專案對於效能要求不高，也許可以考慮這個解法，畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
+這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數是 thread-safe。若專案對於效能要求不高，也許可以考慮這個解法，或直到出現效能問題時再考慮其他方法。畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
 
-
-### **正確用法 2. 使用 ThreadLocal 容器**
-ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，ThreadLocal 顧名思義就是專屬於該 thread 的區域變數，因此其他 thread 是無法存取的，這個容器除了可以保證 thread-safety 外，也可以讓開法者避免使用 `synchronized`，進而影響效能。SimpleDateFormat 正好是最常見的例子，若將 SimpleDateFormat 放入 ThreadLocal 中，自然而然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat。程式碼如下:
-
-
+### **正確用法 2. 使用 synchronized**
 ```java
 public class DateUtil {
+    private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-    private static final ThreadLocal<SimpleDateFormat> formatter = new ThreadLocal<SimpleDateFormat>() {
-        @Override
-        protected SimpleDateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        }
-    };
-
-    public static String format(Date date) {
-        return formatter.get().format(date);
+    synchronized public static String format(Date date) {
+        return simpleDateFormat.format(date);
     }
 }
 ```
 
-這段程式碼將 SimpleDateFormat 儲存在 ThreadLocal 中，讓該 thread 重複使用 SimpleDateFormat 實例，而不必如同方法1般每次都執行 `new SimpleDateFormat`，
-缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，而不是用完後就被銷毀。
+首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format`。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
 
-### **正確用法3. 改用 DateTimeFormatter(推薦)**
+### **正確用法 3. 使用 ThreadLocal 容器**
+ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它可以確保每個 thread 都可以得到單獨的 SimpleDateFormat，每個 thread 都擁有一個自己的 ThreadLocalMap，類似專屬 cache 的概念，因此其他 thread 是無法存取的。若將 SimpleDateFormat 放入 ThreadLocal 中，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
 
-雖然有點文不對題，畢竟這個問題困擾很多人許久了，因此 Java 8 版本後官方就提供了 `DateTimeFormatter` 物件用來代替 `SimpleDateFormat`。就像官方文件中說的:
+
+```java
+public class DateUtil {
+    private static ThreadLocal<SimpleDateFormat> local = new ThreadLocal<>();
+
+    private static SimpleDateFormat getDateFormat() {
+        SimpleDateFormat dateFormat = local.get();          // current thread 從自己的 ThreadLocalMap 取得 SimpleDateFormat
+        if (dateFormat == null) {
+            dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            local.set(dateFormat);                          // current thread 將 SimpleDateFormat 放入自己的 ThreadLocalMap 中
+        }
+        return dateFormat;
+    }
+
+    public static String format(Date date) {
+        return getDateFormat().format(date);
+    }
+}
+```
+
+這段程式碼讓該 thread 重複使用 SimpleDateFormat 實例，而不必如同方法1般每次都執行 `new SimpleDateFormat`，缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，而不是用完後就被銷毀，否則效果會和方法1差不多。
+
+### **正確用法4. 改用 DateTimeFormatter(推薦)**
+
+雖然有點文不對題，畢竟這個問題困擾很多人許久了，因此在 Java 8 版本後官方就提供了 `DateTimeFormatter` 物件用來代替 `SimpleDateFormat`。就像官方文件中說的:
 
 > DateTimeFormatter in Java 8 is immutable and thread-safe alternative to SimpleDateFormat.
 
