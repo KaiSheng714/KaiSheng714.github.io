@@ -63,11 +63,13 @@ ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當�
 
 ```java
 public class DateUtil {
-    // 可以把 ThreadLocal<SimpleDateFormat> 視為一個全域 Map<Thread, SimpleDateFormat>，key 就是 current thread，類似於 current thread 專屬的 cache。
+    // 可以把 ThreadLocal<SimpleDateFormat> 視為一個全域 Map<Thread, SimpleDateFormat>，key 就是 current thread
+    // 類似於 current thread 專屬、獨立的 cache。
     private static ThreadLocal<SimpleDateFormat> local = new ThreadLocal<>();
 
     private static SimpleDateFormat getDateFormat() {
-        // current thread 從自己的 ThreadLocalMap 取得 SimpleDateFormat。如果是 null，則建立 SimpleDateFormat 並放入自己的 ThreadLocalMap 中。
+        // current thread 從自己的 ThreadLocalMap 取得 SimpleDateFormat。
+        // 如果是 null，則建立 SimpleDateFormat 並放入自己的 ThreadLocalMap 中。
         SimpleDateFormat dateFormat = local.get();
         if (dateFormat == null) {
             dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -82,7 +84,7 @@ public class DateUtil {
 }
 ```
 
-這段程式碼讓該 thread 重複使用 SimpleDateFormat 實例，而不必如同方法1般每次都執行 `new SimpleDateFormat`，缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，而不是用完後就被銷毀，否則效果會和方法1差不多。
+這個方法的缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，而不是用完後就被銷毀，否則效果會和方法1差不多。
 
 ### **正確用法4. 改用 DateTimeFormatter(推薦)**
 
