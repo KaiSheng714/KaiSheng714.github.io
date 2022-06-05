@@ -7,7 +7,7 @@ permalink: /articles/simple-date-format
 categories: [Java]
 --- 
 
-開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在低流量環境使用通常不會出錯，但到了高流量、多執行緒的環境就可能會出現異常。
+開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在一般環境下使用通常不會出錯，但在高併發（High Concurrency）的環境下就可能會出現異常。
 
 ![why-simple-date-format-is-bad.png](/assets/image/simple-date-format.png?size=full)
 
@@ -27,7 +27,7 @@ public class DateUtil {
 
 > Date formats are not synchronized. It is recommended to create separate format instances for each thread. If multiple threads access a format concurrently, it must be synchronized externally.
 
-從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到，calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高流量、多執行緒環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。
+從 SimpleDateFormat 的[原始碼](https://developer.classpath.org/doc/java/text/SimpleDateFormat-source.html)中也可以看到，calendar 被宣告為成員變數，因此呼叫 `format`, `parse` 等 method 時會多次存取此 calendar。在高併發環境下，將會造成 race condition，結果值就會不符預期，甚至拋出 exception。
 
 幸運的是，已有許多解決方案: 
 
@@ -43,10 +43,12 @@ public class DateUtil {
 }
 ```
 
-這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。但有[資料](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)表示，一直`new SimpleDateFormat` 是成本很高的事。但因為資料有點久遠，若專案對於效能要求不高，也許可以考慮這個解法，畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
+這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數一直都是 thread-safe。若專案對於效能要求不高，也許可以考慮這個解法，畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
 
-### **正確用法 2. 使用 ThreadLocal**
-ThreadLocal 最典型的用法就是處理 non-thread safe object，且無法使用 `synchronized` 的情況，SimpleDateFormat 正好是最常見的例子。ThreadLocal 為每個執行緒建立一個 SimpleDateFormat 的副本，每個執行緒可以獨立執行 `set`, `get`, `remove` SimpleDateFormat 的副本，並且執行緒之間不會發生衝突，自然而然解決了 race condition 的問題。程式碼如下:
+
+### **正確用法 2. 使用 ThreadLocal 容器**
+ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，ThreadLocal 顧名思義就是專屬於該 thread 的區域變數，因此其他 thread 是無法存取的，除了可以保證 thread-safety，也可以避免使用 `synchronized`，進而影響效能。SimpleDateFormat 正好是最常見的例子，自然而然解決了 race condition 的問題。程式碼如下:
+
 
 ```java
 public class DateUtil {
@@ -64,7 +66,8 @@ public class DateUtil {
 }
 ```
 
-此方法也解決方法1.效能的問題。缺點是程式會變得比較複雜、難理解，而且 ThreadLocal 在使用上有較多需要注意的地方，若使用不慎，可能造成更多問題，例如 memory leak。
+這段程式碼將 SimpleDateFormat 儲存在 ThreadLocal 中，以便讓該 thread 重複使用 SimpleDateFormat 實例，而不必如同方法1般每次都執行 `new SimpleDateFormat`，
+缺點是程式會變得比較複雜一些。但要注意的是，前提是該 thread 能夠重複被使用(例如 server 在處理完 request 後，thread 會再回到 thread pool)，而不是用完後就被銷毀。
 
 ### **正確用法3. 改用 DateTimeFormatter(推薦)**
 
@@ -99,7 +102,6 @@ for (LocalDate date = LocalDate.of(2022, 1, 1); date.isBefore(LocalDate.of(2022,
 ```
 
 ### **References**
-- [Simpledateformat Is Slow](https://askldjd.wordpress.com/2013/03/04/simpledateformat-is-slow/)
 - [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
 - [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)
 - [When and how should I use a ThreadLocal variable?](https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable)
