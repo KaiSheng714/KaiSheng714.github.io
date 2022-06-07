@@ -56,7 +56,7 @@ public class DateUtil {
 }
 ```
 
-首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format`。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
+首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format` (mutual exclusion)。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
 
 ### **正確用法 3. 使用 ThreadLocal 容器**
 ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當於給每個 thread 都開了一個獨立的存儲空間，既然 thread 之間互相隔離，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
