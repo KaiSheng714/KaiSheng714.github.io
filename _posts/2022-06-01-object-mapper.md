@@ -33,7 +33,7 @@ public String toJson(Something something) throws JsonProcessingException {
  
 ### **解法1. 宣告成員變數**
 
-若你的 ObjectMapper 不需要任何 configure，其實 Spring 已經幫我們建好一個預設的，直接注入即可:
+若你的 ObjectMapper 不需要任何 configure，其實 Spring 已經幫我們建好一個預設的，直接注入即可，當然這裡還是建議使用 Constructor Based Dependency Injection，可以看我寫的[這篇文章](/articles/analyzing-dependency-injection-patterns-in-spring):
 
 ```java
 @Service
