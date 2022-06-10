@@ -82,7 +82,7 @@ public int readNameById(String id) {
 }
 ```
 
-但有此一說，`Optional` 若作為 API 的參數更能表達該參數是`非必要`的，例如: 
+但有此一說，`Optional` 若作為 Spring controller API 的參數更能表達該參數是`非必要`的，例如: 
 
 ```java
 @RequestMapping (value = "/submit/id/{id}", method = RequestMethod.GET, produces="text/xml")
@@ -91,7 +91,7 @@ public String showLoginWindow(@PathVariable("id") String id,
                               @RequestParam("password") Optional<String> password) { ... }
 ```
 
-這種情況下 Spring 會幫我們處理好 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
+在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
 
 ### **錯誤3. 作為 class property**
 
