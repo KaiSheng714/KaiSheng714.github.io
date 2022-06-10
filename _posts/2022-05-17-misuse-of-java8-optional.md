@@ -67,7 +67,7 @@ public int readNameById(Optional<String> id) {
 }
 ```
 
-因為這會讓參數有三種狀態:
+因為這會讓 `Optional<String> id `參數有三種狀態:
 1. Optional 非 null，且有內容值
 2. Optional 非 null，但沒有內容值
 3. 整個 Optional 是 null
@@ -81,6 +81,17 @@ public int readNameById(String id) {
     }
 }
 ```
+
+但有此一說，`Optional` 若作為 API 的參數更能表達該參數是`非必要`的，例如: 
+
+```java
+@RequestMapping (value = "/submit/id/{id}", method = RequestMethod.GET, produces="text/xml")
+public String showLoginWindow(@PathVariable("id") String id,
+                              @RequestParam("username") Optional<String> username,
+                              @RequestParam("password") Optional<String> password) { ... }
+```
+
+這種情況下 Spring 會幫我們處理好 Optional，它將會不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
 
 ### **錯誤3. 作為 class property**
 
@@ -109,4 +120,5 @@ public class Student {
  ### **References**
 
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
+- [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
 - [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
