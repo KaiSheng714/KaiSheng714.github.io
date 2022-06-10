@@ -72,7 +72,7 @@ public int readNameById(Optional<String> id) {
 2. Optional 非 null，但沒有內容值
 3. 整個 Optional 是 null
 
-因此在這種情況下請不要使用 Optional，改用我們平常用的最**純粹**的型態即可:
+因此在這種情況下請不要使用 Optional，改用我們平常用的最純粹(不要過度包裝)的型態即可:
 
 ```java
 public int readNameById(String id) {
