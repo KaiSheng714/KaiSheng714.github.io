@@ -6,6 +6,7 @@ meta: java,spring,maven,intellij,profile
 author: "Kai-Sheng"
 permalink: /articles/spring-profile-with-maven-package
 categories: [Maven, Spring]
+image: /assets/image/spring-maven-index.png
 ---
 
 在 Spring 專案中，profile 是用於區分各種環境的，例如本機環境、開發環境、測試環境、正式環境等等。本文介紹一個透過 profile 來達成自動適應環境的開發與部署方式。此方法可以減少不必要的人工步驟，從開發到部署，透過指令就可以輕易完成。

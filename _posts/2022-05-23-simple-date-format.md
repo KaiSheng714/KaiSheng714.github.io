@@ -5,6 +5,7 @@ meta: java
 author: "Kai-Sheng"
 permalink: /articles/simple-date-format
 categories: [Java]
+image: /assets/image/simple-date-format.png
 --- 
 
 開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在一般環境下使用通常不會出錯，但在高併發（High Concurrency）的環境下就可能會出現異常。
