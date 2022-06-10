@@ -12,7 +12,23 @@ Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與�
 ![java8-optional](/assets/image/optional.png?size=full)
  
 ### **錯誤1. isPresent() and get()**
-假設有一個 service 用 id 來查詢學生，回傳 `Optional<Student>`，而我們需要取得他的姓名並轉換成大寫，但如果查無此人，則回傳空字串
+假設有一個 service 用 id 來查詢學生資料並回傳，接著我們需要取得學生的姓名並轉換成大寫，但如果查無此人，則回傳空字串，傳統式的寫法會像這樣:
+
+```java
+public static String readUpperCaseNameById(String id) {
+    Student student = service.readById(id);
+    if (student != null) {
+        if (student.getName() != null) {
+            return student.get().getName().toUpperCase();
+        } else {
+            return "";
+        }
+    } else {
+        return "";
+    }
+}
+```
+如果帶入 Java 8 的 `Optional` 寫法，會像這樣 :
 
 ```java
 public static String readUpperCaseNameById(String id) {
@@ -29,7 +45,7 @@ public static String readUpperCaseNameById(String id) {
 }
 ```
 
-這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()`寫法不僅多此一舉，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
+很不幸的是，這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()`寫法不僅多此一舉，也傳統寫法沒有太大的區別，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
  
 ```java
 public static String readUpperCaseNameById(String id) {
@@ -39,7 +55,7 @@ public static String readUpperCaseNameById(String id) {
         .orElse("");
 }
 ```
-其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
+其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 等等的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
 
 ### **錯誤2. 作為參數**
 
