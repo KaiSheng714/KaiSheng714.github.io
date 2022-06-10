@@ -28,7 +28,7 @@ public static String readUpperCaseNameById(String id) {
     }
 }
 ```
-許多工程師為了帶入不用做 null check，而引入 Java 8 的 `Optional` 新寫法，但很可能會寫成這樣 :
+許多工程師為了不做 null check 而引入 Java 8 的 `Optional` 新寫法，但很可能會寫成這樣 :
 
 ```java
 public static String readUpperCaseNameById(String id) {
