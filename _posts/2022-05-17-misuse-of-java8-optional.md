@@ -7,16 +7,16 @@ permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 --- 
 
-Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null 檢查，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null check，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
 ![java8-optional](/assets/image/optional.png?size=full)
  
 ### **錯誤1. isPresent() and get()**
-假設有一個 service 用 id 來查詢學生資料並回傳，接著我們需要取得學生的姓名並轉換成大寫，但如果查無此人，則回傳空字串。傳統式的寫法，開發 Java 的工程師們幾乎都遇過`NullPointerException Exception`，為了避免發生這樣的問題就得做 null check，因此傳統寫法會像這樣:
+假設有一個 `studentService` 利用 id 查詢學生的資料、取得學生的姓名、轉換成大寫後回傳，但如果查無此學生，則回傳空字串。開發 Java 的工程師們幾乎都遇過`NullPointerException Exception`，為了避免發生這樣的問題就得在 `studentService` 回傳資料時做 null check，因此傳統寫法會像這樣:
 
 ```java
 public static String readUpperCaseNameById(String id) {
-    Student student = service.readById(id);
+    Student student = studentService.readById(id);
     if (student != null) {
         if (student.getName() != null) {
             return student.get().getName().toUpperCase();
@@ -32,7 +32,7 @@ public static String readUpperCaseNameById(String id) {
 
 ```java
 public static String readUpperCaseNameById(String id) {
-    Optional<Student> student = service.readById(id);
+    Optional<Student> student = studentService.readById(id);
     if (student.isPresent()) {
         if (student.get().getName() != null) {
             return student.get().getName().toUpperCase();
@@ -49,7 +49,7 @@ public static String readUpperCaseNameById(String id) {
  
 ```java
 public static String readUpperCaseNameById(String id) {
-    return service.readById(id)
+    return studentService.readById(id)
         .map(Student::getName)
         .map(String::toUpperCase)
         .orElse("");
