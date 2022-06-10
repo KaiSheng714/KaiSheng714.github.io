@@ -91,7 +91,7 @@ public String showLoginWindow(@PathVariable("id") String id,
                               @RequestParam("password") Optional<String> password) { ... }
 ```
 
-這種情況下 Spring 會幫我們處理好 Optional，它將會不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
+這種情況下 Spring 會幫我們處理好 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
 
 ### **錯誤3. 作為 class property**
 
