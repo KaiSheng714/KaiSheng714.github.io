@@ -12,7 +12,7 @@ Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與�
 ![java8-optional](/assets/image/optional.png?size=full)
  
 ### **錯誤1. isPresent() and get()**
-假設有一個 service 用 id 來查詢學生資料並回傳，接著我們需要取得學生的姓名並轉換成大寫，但如果查無此人，則回傳空字串，傳統式的寫法會像這樣:
+假設有一個 service 用 id 來查詢學生資料並回傳，接著我們需要取得學生的姓名並轉換成大寫，但如果查無此人，則回傳空字串。傳統式的寫法，開發 Java 的工程師們幾乎都遇過`NullPointerException Exception`，為了避免發生這樣的問題就得做 null check，因此傳統寫法會像這樣:
 
 ```java
 public static String readUpperCaseNameById(String id) {
@@ -28,7 +28,7 @@ public static String readUpperCaseNameById(String id) {
     }
 }
 ```
-如果帶入 Java 8 的 `Optional` 寫法，會像這樣 :
+許多工程師為了帶入不用做 null check，而引入 Java 8 的 `Optional` 新寫法，但很可能會寫成這樣 :
 
 ```java
 public static String readUpperCaseNameById(String id) {
@@ -45,7 +45,7 @@ public static String readUpperCaseNameById(String id) {
 }
 ```
 
-很不幸的是，這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()`寫法不僅多此一舉，也傳統寫法沒有太大的區別，還增加了不必要的複雜度。正確使用 Optional 方式改寫如下:
+很不幸的是，這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()` 和傳統寫法沒有太大的區別，本質上是一樣的，還增加了不必要的複雜度，可謂多此一舉。正確使用 Optional 方式改寫如下:
  
 ```java
 public static String readUpperCaseNameById(String id) {
