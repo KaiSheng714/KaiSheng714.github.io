@@ -44,7 +44,7 @@ image: /assets/image/interface-impl.png
 
 如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mock library，如 [Mocktio](https://site.mockito.org/)，如此就不必特地為了單元測試而建立新的實作，以致於可以刪除這個 interface，使專案保持簡潔。
 
-因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要一個 interface 時再進行 extract interface，只要滑鼠點幾下就可以達成，幾乎無成本，隨時都可以 extract interface。換言之，避免此問題的方法其實很簡單: **等待**。
+因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要 interface 時再利用工具進行 extract interface 即可，這幾乎無成本，很容易就能生出一個 interface。換言之，避免此問題的方法其實很簡單: **等待**、**延遲決定**。
  
 
 ### **關於 interface 的正確用法**:
