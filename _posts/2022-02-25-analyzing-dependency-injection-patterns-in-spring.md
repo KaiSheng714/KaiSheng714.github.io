@@ -48,7 +48,7 @@ public class HelloBean {
 1. 簡單方便易用，只要短短一行即可完成。
 
 ### **缺點**
-1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知，例如** `**God Object**`
+1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知，例如** `God Object`
 2. 不好測試，測試環境需要透過 DI container 並加上許多 @annotation 來初始化，看起來更像整合測試了。而且編譯執行時會多一些 overhead，也較不容易除錯。
 3. 不好理解測試，以下範例程式為例
 
@@ -78,7 +78,7 @@ public class HelloBeanTest {
 }
 ```
 
-* @InjectMocks 做了什麼?
+* `@InjectMocks` 做了什麼?
 * 是否需要將待測物件 HelloBean 實體化呢 ?
 * 如果有兩個 `AnotherBean`怎麼辦 ?
 
@@ -99,7 +99,7 @@ public class HelloBean {
        this.anotherBean = anotherBean;
    }
    
-   // ....
+   // ...
 }
 ```
 
