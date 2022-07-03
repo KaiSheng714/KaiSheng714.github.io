@@ -221,15 +221,16 @@ public void testExapmle() {
 }
 ```
 
+### **什麼時候該用 Powermock**
+已經沒有招式能用、無法重構 production code 的時候。
+
 ### **結語**
 
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 
-![powermock](/assets/image/powermock-think.png?style=center)
-
 PowerMock 是個功能強大、非常實用的單元測試工具，但也不可否認的，若使用不當，容易使讓開發人員忽略程式碼品質，導致後續消耗更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
 
-如果你的測試充斥著 PowerMock，表示你的 production code 可能已經有許多 bad smell 。因此，考慮到專案未來的發展，我建議你不要使用 PowerMock ，而是藉由 refactoring，並在開發時遵循良好的設計原則，避免寫出 anti-pattern 與 bad smell。撰寫單元測試時，若有必要，使用一般的 mock framework (如 Mockito) 即可。
+如果你的測試充斥著 PowerMock，表示你的 production code 可能已經有許多 bad smell 。因此，考慮到專案未來的發展，我建議你不要使用 PowerMock ，而是藉由重構或 TDD，在開發時遵循良好的設計原則，避免寫出 anti-pattern 與 bad smell。撰寫單元測試時，若有必要，使用一般的 mock framework (如 Mockito) 即可。
 
 更重要的是，在撰寫程式時，稱職的 **clean coder 們應時常思考什麼才是好的設計。**
  
