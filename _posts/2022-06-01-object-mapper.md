@@ -8,6 +8,7 @@ image: /assets/image/interface-impl.png
 --- 
 
 ObjectMapper 是一個相當實用的工具，它可以幫助我們完成 JSON 和 Object 之間的轉換。ObjectMapper 的應用非常廣泛，Spring Framework 的序列化/反序列化就預設使用 ObjectMapper，可見其影響力。但畢竟使用的人多，錯誤的寫法也就層出不窮，如果沒有按照正確做法，將很容易導致問題，本文將描述如何避免與改善。
+
  
 ## **問題描述**
 
