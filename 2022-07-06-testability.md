@@ -49,26 +49,25 @@ TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼�
 
 TDD 是一門高深的學問，之後我會再寫一篇文章專門介紹 TDD。
 
+Practice TDD! I'm surprised TDD wasn't really brought up in this video. TDD more fully covers all of the topics discussed here (such as dependencies / decoupling / mocking / faking, unit testing, coverage etc). "Uncle Bob" (Robert C. Martin) has many good talks about how to practice TDD and the benefits of it here on YouTube. FYI
+
+
 ### **符合 Single Responsibility Principle(SRP)**
 
-單一職責意味著每個 class 應該有一個且只有一個職責（或被改變的理由），也意味著內聚力較高。這些都使得單元測試更容易。
+單一職責意味著每個 class 應該有一個且只有一個職責（或被改變的理由），也意味著內聚力較高，這些都使得單元測試更容易。
+ 
+若一個 class / method 同時實作了好幾個功能，這會大大提升測試的難度，因為功能多，依賴就會變多，而且需要驗證的結果變多，導致測試變得複雜。但 SRP 並不如想像中的簡單，關鍵在於怎麼控制顆粒度，若切太細會創造出冗餘的 class；切得太大就不這麼單純。所以要怎麼適當的分配職責，還是得依實際情況而定。
 
-首先，它是關於選擇正確的概念進行操作。在域級別上，這些是您的問題空間的概念。這些概念在很大程度上是相互獨立的。當您談論購買物品時，您不會考慮它的存儲方式。這些概念的實現也應該彼此獨立。 如果您更改數據庫，則不必修復使用數據庫功能的每個地方。
-
-一個 class 如果顆粒度太大，同時實現了好幾個功能，會大大提升測試的難度，一來這是因為功能多必然入參數也多，測試的時候參數初始化難度就會變大，二來結果驗證的關注點也會同時變多，容易出現更多的組合驗證，嚴重的時候會出現組合爆炸。
-
-以剛才某銀行系統的例子，提款功能應屬於 `WithdrawService` 的職責，發出內部警示功能應屬於 `NotificationService` 的職責，兩者各司其職、權責分明、彼此獨立，不應互相干涉。
+以剛才某銀行系統的例子，提款功能應屬於 `WithdrawService` 的職責，發出內部警示功能應屬於 `NotifyService` 的職責，兩者各司其職、權責分明、彼此獨立。
 
 
-### **移除 anti-pattern (bad smell)**
-參數太多
-不一致命名規則
-代碼重複
-Shotgun surgery:
-要清晰的架構
-避免 long method
+### **移除 bad smell**
 
-時常 code review, Refactoring
+容易影響可測試性的 bad smell 有:
+
+Long Parameter List, Divergent Change, Long Method, Large Class...
+
+解決方式之一就是團隊要時常 code review，而且要熟悉**重構手法**。如果不重構，除了難以測試外，久而久之就會變成技術債。
  
 
 ### **符合 YAGNI 原則**
@@ -76,10 +75,12 @@ Shotgun surgery:
 
 https://kaisheng714.github.io/articles/yagni-principle
 
+
 ### **Dependency injection**
 makes mocking easier
 
 最近十年來很流行的Dependency Injection或是Inversion of Control設計原則，因為藉由外部注入相依性物件提升了待測程式的可控制性，不但提升了執行期間改變系統行為的彈性，也因此提升了可測試性。
+
 
 避免高耦合 避免混雜 new 與邏輯
 
@@ -87,42 +88,34 @@ makes mocking easier
 
 可用工廠方法
 
-可以參考[分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
+延伸閱讀: [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
 
 ### **避免在 constructor 中包含任何邏輯**
-constructor 應該只專注於初始化，而不會有任何邏輯。若 constructor 不僅初始化，還呼叫 API、查詢 DB，初始化變得很困難，可測試性就降低了。
+constructor 應該只專注於初始化，而不會有任何邏輯。若 constructor 不僅初始化、if-else，還呼叫 API、查詢 DB，這就使得初始化成本提高，難以隔絕外部依賴，可測試性就降低了。
 
-在單元測試中想要改寫或是 mock constructor 是不容易的，雖然現在有些測試框架可以替換 constructor 的行為，但通常不建議使用。
+此外，在單元測試中想要改寫或是 mock constructor 是不容易的，雖然現在有些測試框架可以替換 constructor 的行為，但通常不建議使用。延伸閱讀: [不建議使用 PowerMock 的理由](/articles/drawback-of-powermock) 
 
-一個好的 constructor 應該像是這樣的:
+一個好的 constructor 應該像是這樣的: **沒有任何邏輯，只做依賴注入**。
 
 ```java
-    public BankService(WithdrawService withdrawService, DepositeService depositeService) {
-        this.withdrawService = withdrawService;
-        this.depositeService = depositeService;
-    }
+public BankService(WithdrawService withdrawService, NotifyService notifyServic, ...) {
+  this.withdrawService = withdrawService;
+  this.notifyService = notifyService;
+  ...
+}
 ```
  
-### **避免使用 singleton / static**
-要在測試中替換一個靜態方法的行為,是非常困難的。
-要處理這種情況,我們可以使用抽取和重寫的方法進行重構,把這個靜態方法抽像出去。
-一個更為極端的做法是:避免使用任何的靜態方法。這樣的話,每一段邏輯都是一個類實例的一部分,使得這段邏輯更容易替換。有些進行單元測試或者測試驅動開發的人不喜歡使用單例,原因之一就是單例缺少可替換性。單例是靜態的公共共享資源,很難重寫它們。
-要完全避免使用靜態方法可能會過於困難,但是你可以嘗試在應用程序中盡量少使用單例或者靜態方法,這樣在測試時會變得容易一些。
- 
------ 
+### **避免使用 Singleton / static**
+要在測試中替換一個 static method 是非常困難的。Singleton Pattern 容易造成難以維護的 global state。雖然 Singleton / static 很方便，但它無形之中也帶來了提高耦合度的問題，這兩者都是造成不好測的原因，有可能讓我們難以立即發現問題，畢竟單元測試就是不斷研究如何隔離外部相依。有時候要完全避免使用 static 方法可能還蠻難的，如果可以，那就盡量減少使用頻率。
 
-## **結語**
+但有時若是真的不得已，Mockito 3.4 版也提供了 `Mockito.mockStatic`，讓我們可以在單元測試中替換 static 的行為，代價就是測試程式會變得比較複雜、執行測試的時間也會提高。
 
-把「寫自動化單元測試程式碼很困難」當成理由的人，其主要的原因不是出在測試程式碼，而是在被測程式上。
+-----
 
-公司很多人在實踐單元測試中總覺的很困難的一個很重要的原因就是其代碼本身不具有可測試性。他們往往會走入一個誤區。面對一個幾千行、邏輯混亂的方法而抓耳撓腮的想著用十八般武藝，各種框架去寫這個方法的單元測試，而最終不得不以失敗而告終，耗費了大量的時間卻徒勞而無功。其實是他們忽略了這個方法的本身是不具有可測試性的。 讓測試的結果驗證變得困難，
-
-整個團隊的觀念、基本功如果沒有到位，要在組織內推動單元測試是很困難的。 即使觀念到位了，同時還要其他的條件配合（例如客戶，專案時程等）
-
-而更重要的是，能被自動化測試的程式，通常具備了好的設計特質，而好的設計特質也能帶來好的可測試性。因此，對程式設計者來說，你值得花點心思想一想，和了解各種增加可測試性的方式和手法。
-
-TDD搭配持續整合(CI)一同使用，可以提升團隊開發的效率。提高可測試性，才能有好的測試程式，才有辦法享受自動化測試帶來的甜美果實。
-
+## **結論**
+- 整個團隊的觀念、基本功如果沒有到位，要在組織內推動單元測試是很困難的。
+- 若工程師覺得單元測試很難寫，原因通常不是不會寫測試，而是產品程式的可測試性太低。他們往往會走入一個誤區，面對一個幾千行、邏輯混亂的方法而想著用十八般武藝、各種框架去寫這個方法的單元測試，結果通常是耗費了大量的時間卻徒勞而無功。
+- 必須先提高可測試性，才會有好的測試程式，接著才能享受自動化測試帶來的甜美果實。
 
 ### **References**
 
