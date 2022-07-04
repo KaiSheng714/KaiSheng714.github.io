@@ -7,7 +7,7 @@ categories: [Design, Unit-testing]
 image: /assets/image/testability.png
 --- 
  
-眾所皆知，寫單元測試有非常多好處，但有些主管會問，為什麼寫測試會讓工程師額外花這麼多時間？除了本身對單元測試技術不熟悉以外，追根究柢是因為產品程式碼的可測試性太低，導致工程師寫測試時很難將精力投入在對的地方，甚至放棄寫單元測試。要寫出優秀的單元測試有一定的難度與門檻，關鍵就在於工程師要思考如何提高程式碼的可測試性，進而讓寫單元測試變得簡單。
+眾所皆知，寫單元測試有非常多好處，但有些主管會問，為什麼寫測試會讓工程師額外花這麼多時間？除了本身對單元測試技術不熟悉以外，追根究柢是因為產品程式碼的可測試性太低，導致工程師寫測試時很難將精力投入在對的地方，甚至導致放棄寫單元測試。要寫出優秀的單元測試有一定的難度與門檻，關鍵就在於工程師要思考如何提高程式碼的可測試性，進而讓寫單元測試變得簡單。
 
 
 ## **什麼是軟體的可測試性?**
@@ -89,10 +89,10 @@ public BankService(WithdrawService withdrawService, NotifyService notifyServic, 
 ```
  
 ### **減少使用 Singleton / static**
-要在測試中替換一個 static method 是非常困難的。Singleton Pattern 容易造成難以維護的 global state。例如:
+要在測試中替換一個 static method 是困難的。此外，濫用 Singleton Pattern 容易造成難以維護的 global state。例如:
 
-```jav
-DbManager.getConnection()...
+```java
+DbManager.getConnection().doSomething()...
 ```
 
 雖然 Singleton / static 很方便，但它無形之中也帶來了提高耦合度的問題，這兩者都是造成不好測的原因，它有可能讓我們難以立即發現問題，畢竟單元測試就是**探討如何隔離外部相依**。有時候要完全避免使用 static 方法可能蠻難的，如果可以，那就盡量減少使用頻率。
