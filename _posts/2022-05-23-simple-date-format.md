@@ -32,7 +32,7 @@ public class DateUtil {
 
 幸運的是，已有許多解決方案: 
 
-### **正確用法 1. 每次都 new**
+## **正確用法 1. 每次都 new**
 
 ```java
 public class DateUtil {
@@ -46,7 +46,7 @@ public class DateUtil {
 
 這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數是 thread-safe。若專案對於效能要求不高，也許可以考慮這個解法，或直到出現效能問題時再考慮其他方法。畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
 
-### **正確用法 2. 使用 synchronized**
+## **正確用法 2. 使用 synchronized**
 ```java
 public class DateUtil {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -59,7 +59,7 @@ public class DateUtil {
 
 首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format` (mutual exclusion)。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
 
-### **正確用法 3. 使用 ThreadLocal 容器**
+## **正確用法 3. 使用 ThreadLocal 容器**
 ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當於給每個 thread 都開了一個獨立的存儲空間，既然 thread 之間互相隔離，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
 
 ```java
@@ -87,7 +87,7 @@ public class DateUtil {
 
 舉例來說，如果 thread pool 有 10 個 thread，程式就會建立 10 個 SimpleDateFormat 實例，這些 thread 們在每次的任務中重複使用各自的 SimpleDateFormat。但要注意一點，該 thread 能夠重複被使用(例如 server 在處理完一次 request 後，thread 會再回到 thread pool 待命)，否則效果會和方法1差不多。這個方法的缺點是程式會變得較複雜。
 
-### **正確用法4. 改用 DateTimeFormatter(推薦)**
+## **正確用法4. 改用 DateTimeFormatter(推薦)**
 
 雖然有點文不對題，畢竟這個問題困擾很多人許久了，因此在 Java 8 版本後官方就提供了 `DateTimeFormatter` 物件用來代替 `SimpleDateFormat`。就像官方文件中說的:
 
@@ -119,7 +119,7 @@ for (LocalDate date = LocalDate.of(2022, 1, 1); date.isBefore(LocalDate.of(2022,
 }
 ```
 
-### **References**
+## **References**
 - [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
 - [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)
 - [When and how should I use a ThreadLocal variable?](https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable)

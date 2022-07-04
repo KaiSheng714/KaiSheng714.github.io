@@ -14,7 +14,7 @@ image: /assets/image/log4j.png
 
 ------
 
-###  **解法1. 用 shell 指令在檔頭加入 BOM**
+##  **解法1. 用 shell 指令在檔頭加入 BOM**
 
 網路上大部分的解法都是像這樣，以事後透過指令或程式手動在檔頭補上 BOM。如下所示，以下這段指令是先將 BOM 碼寫入一個空的檔案內，再將 CSV 資料倒入這個檔案中，這方法看似簡單卻又帶有設計巧思。
 
@@ -32,7 +32,7 @@ cat source_file.csv >> with_bom.csv
 
 在研究無果後，我只好在 Stackoverflow 上發問，所幸有一位熱心網友給了答案:
 
-### **解法2. 在 header 裡加入 BOM (推薦)**
+## **解法2. 在 header 裡加入 BOM (推薦)**
 
 `CsvParameterLayout` 是 Log4j2 推出的專門給 CSV 的 Layout 類型，只需要簡單的設定就能輸出成 CSV 檔。Log4j2 版本為 2.17.0，以下是我的 log4j2.xml 程式片段:
 
@@ -56,10 +56,7 @@ cat source_file.csv >> with_bom.csv
  
 
 ---
-### **References**
-
-[Byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark)
-
-[Adding BOM to UTF-8 files](https://stackoverflow.com/q/3127436/5485454)
-
-[Log4j2 write to CSV for Excel without garbled characters](https://stackoverflow.com/q/71943217/5485454)
+## **References**
+- [Byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark)
+- [Adding BOM to UTF-8 files](https://stackoverflow.com/q/3127436/5485454)
+- [Log4j2 write to CSV for Excel without garbled characters](https://stackoverflow.com/q/71943217/5485454)

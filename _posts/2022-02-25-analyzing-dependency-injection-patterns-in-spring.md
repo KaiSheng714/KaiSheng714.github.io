@@ -27,7 +27,7 @@ image: /assets/image/spring-di.png
 
 接下來我會解析這兩種 Dependency Injection Pattern.
 
-### **1. Field Based Dependency Injection**
+## **1. Field Based Dependency Injection**
 
 **這種注入方式顧名思義，就是直接在 field 加上 @Autowired**
 
@@ -84,7 +84,7 @@ public class HelloBeanTest {
 
 只有短短幾行就讓人產生諸多疑問，理解成本較高。若使用 Constructor Based Dependency Injection 則不易產生此問題。下面會詳述。
 
-### **2. Constructor Based Dependency Injection**
+## **2. Constructor Based Dependency Injection**
 
 **此方式最大的特點就是: Bean 的建立與依賴入是同時發生的**
 
@@ -104,11 +104,11 @@ public class HelloBean {
 ```
 
 ### **優點**
-#### 1. 容易發現 code smell
+### **1. 容易發現 code smell**
 
 假設我們需要注入 10 個 bean ，對比 Field 注入的方式，這種方式暴露了 constructor 中含有過多的參數，正常的開發者看到 10 個參數肯定是會頭痛的，這就表示我們需要想辦法重構它。
 
-#### 2. 容易測試
+### **2. 容易測試**
 
 它不需要任何 JUnit 以外的 @Annotation，這不僅讓程式是看起來更乾淨了，也降低了理解與維護成本。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂 70~80%。
 
@@ -128,13 +128,13 @@ public class HelloBeanTest {
 }
 ```
 
-#### 3. 不可變物件 (Immutable Object)
+### **3. 不可變物件 (Immutable Object)**
 
 意思是 Bean 在被創造之後，它的內部 state, field 等就無法被改變。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor based DI，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 ### **缺點**
 
-#### 1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))
+###** 1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
 
 只有在使用 Constructor DI 時才會造成此問題。
 
@@ -144,11 +144,11 @@ public class HelloBeanTest {
 
 但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這反而是個不錯的缺點。
 
-### **總結**
+## **總結**
 
 本文介紹了兩種依賴注入模式。最常見的是 field based DI，很不幸的這種注入方式會造成程式的不良影響與 code smell，但依舊有許多人使用此方式。另外，Spring 官方團隊建議開發者使用 **constructor based DI**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊。
 
-### **References**
+## **References**
 
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
 - [What exactly is field injection and how to avoid it](https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it/39891473)  

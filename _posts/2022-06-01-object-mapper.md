@@ -125,7 +125,7 @@ String json = JsonUtil.toJson(something);
 Something something = JsonUtil.toObject(json, Something.class);
 ```
  
-## 結論
+## **結論**
 盡量不要在每次序列化/反序列化使用時都 `new ObjectMapper();`，這樣的代價是昂貴的，比起共用同一個實例，兩者的效能可以相差很多倍。ObjectMapper 是 thread-safe 的物件，所以本文介紹的解法概念上是一樣的，就是請放心的`共用`同一個 ObjectMapper 實例。這是很重要的，雖然簡單但別小看它，也許一個小動作可以拯救你的一天。
 
 ### **References**

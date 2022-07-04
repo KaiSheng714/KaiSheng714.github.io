@@ -12,7 +12,7 @@ Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與�
 
 ![java8-optional](/assets/image/optional.png?size=full)
  
-### **錯誤1. isPresent() and get()**
+## **錯誤1. isPresent() and get()**
 假設有一個 `studentService` 利用 id 查詢學生的資料、取得學生的姓名、轉換成大寫後回傳，但如果查無此學生，則回傳空字串。開發 Java 的工程師們幾乎都遇過`NullPointerException Exception`，為了避免發生這樣的問題就得在 `studentService` 回傳資料時做 null check，因此傳統寫法會像這樣:
 
 ```java
@@ -58,7 +58,7 @@ public static String readUpperCaseNameById(String id) {
 ```
 其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 等等的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
 
-### **錯誤2. 作為參數**
+## **錯誤2. 作為參數**
 
 Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。但有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
 
@@ -94,7 +94,7 @@ public String showLoginWindow(@PathVariable("id") String id,
 
 在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
 
-### **錯誤3. 作為 class property**
+## **錯誤3. 作為 class property**
 
 ```java
 public class Student {
@@ -118,7 +118,7 @@ public class Student {
 }
 ```
 
- ### **References**
+ ## **References**
 
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
