@@ -227,7 +227,7 @@ public void execute_some_example() {
 ```
 
 ### **什麼時候該用 Powermock ?**
-已經沒有招式能用、無法重構 production code 的時候。
+已經沒有招式能用、無法重構 production code、對眼前的糟糕程式投降的時候。
 
 ### **結語**
 
