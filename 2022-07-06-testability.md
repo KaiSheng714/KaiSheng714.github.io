@@ -51,6 +51,14 @@ image: /assets/image/testability.png
 
 以剛才某銀行系統的例子，提款功能應屬於 `WithdrawService` 的職責，發出內部警示功能應屬於 `NotifyService` 的職責，兩者各司其職、權責分明、彼此獨立。
 
+### **依賴注入 (Dependency Injection)**
+
+定義: **由外部提供待測物件所需的依賴，而待測物件不必自己建立它們。**
+
+這是一種可以大幅提升可測試性的重要手段，降低了物件之間的耦合度，也避免 `new` 關鍵字與重要的業務邏輯混雜在一起。藉由外部注入相依性物件，提升了待測程式的可控制性，我們就可以輕鬆的建立測試替身並注入到待測程式中。
+
+一般而言，有3種 dependency injection pattern，而我建議使用透過 constructor 注入依賴的模式。延伸閱讀: [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
+
 
 ### **移除 Bad Smell**
 
@@ -60,27 +68,10 @@ Long Parameter List, Divergent Change, Long Method, Large Class...
 
 解決方式之一就是團隊要時常 code review，而且要熟悉**重構手法**。如果不重構，除了難以測試外，久而久之就會變成技術債。
  
-
 ### **符合 YAGNI 原則**
 工程師應該在面臨確鑿的需求時，才實作相應的功能。例如某人在 method 中增加了**現在用不到、未來有可能用到**的 if 分支，請問我們現在該不該測它呢？
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it!)](https://kaisheng714.github.io/articles/yagni-principle)
-
-### **Dependency Injection**
-
-最近十年來很流行的Dependency Injection或是Inversion of Control設計原則，因為藉由外部注入相依性物件提升了待測程式的可控制性，不但提升了執行期間改變系統行為的彈性，也因此提升了可測試性。
-
-
-避免高耦合 避免混雜 new 與邏輯
-
-依賴注入把對象構建與對象注入分開。因此創建對象的 new 關鍵字也可消失了。
-
-makes mocking easier
-
-可用工廠方法
-
-延伸閱讀: [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
-
 
 ### **不在 Constructor 中包含任何邏輯**
 Constructor 應該只專注於初始化，而不會有任何邏輯。若 constructor 不僅初始化、if-else，還呼叫 API、查詢 DB，這就使得初始化成本提高，難以隔絕外部依賴，可測試性就降低了。
@@ -114,7 +105,7 @@ TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼�
 - 本文解釋了可測試性及其重要性，並介紹了許多實務上可以提高可測試性的方法。
 - 若工程師覺得單元測試很難寫，原因通常不是不會寫測試，而是產品程式的可測試性太低。他們往往會走入一個誤區，面對一個幾千行、邏輯混亂的方法而想著用十八般武藝、各種框架去寫這個方法的單元測試，結果通常是耗費了大量的時間卻徒勞而無功。
 - 若整個團隊的觀念、基本功如果沒有到位，也不懂如何提高程式的可測試性，則要在組織內推動單元測試是很困難的。
-- 必須先提高可測試性，才會有好的測試程式，接著才能享受自動化測試帶來的甜美果實。
+- 提高產品程式的可測試性，較容易寫出優秀的測試程式，接著才能享受自動化測試帶來的甜美果實。
 
 ### **References**
 - [Software testability](https://en.wikipedia.org/wiki/Software_testability)
