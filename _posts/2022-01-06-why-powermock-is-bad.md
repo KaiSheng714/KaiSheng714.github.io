@@ -111,9 +111,10 @@ private Data getData(String key) {
 }
 
 @Test
-public void testGetData() {
+public void data_should_be_blabla() {
   // arrange
   doNothing().when(myClass, method(MyClass.class, "processA")) ...
+
   // act
   Data result = myClass.getData(key);
   ...
@@ -141,13 +142,17 @@ public boolean isLate() {
 
 @Runwith(PowermockRunner.class)
 @PrepareforTest(MyClass.class)
-@Test
-public void exampleTest() {
-  // arrange
-  Powermockito.mockStatic(System.class);
-  when(System.currentTimeMillis()).thenReturn(1500001L);
-  ...
+public class ExampleTest {
+
+  // ...
+  @Test
+  public void exceed_some_time_is_late() {
+    Powermockito.mockStatic(System.class);
+    when(System.currentTimeMillis()).thenReturn(1500001L);
+  }
+
 }
+
 ```
 
 而比較好的做法是：不讓 method 自己去請求 System 提供現在時間，而是由 caller 傳遞進去，有點像 Dependency Injection (DI) 的觀念，透過 DI 能夠使我們更容易建立 mock object。經過重構後的程式碼如下(甚至連 mock framework 都不需要了，如果能不依賴於 framework，會是個更好的 practice)
@@ -160,7 +165,7 @@ public boolean isLate(long now) {
 }
 
 @Test
-public void exampleTest() {
+public void exceed_some_time_is_late() {
   // arrange 
   long now = 1600000L;
   MyClass myClass = new MyClass();
@@ -185,7 +190,7 @@ public int process() {
 }
 
 @Test
-public void testExapmle() {
+public void execute_some_example() {
   // arrange
   A mockedA = mock(A.class); 
   PowerMockito.whenNew(A.class).withNoArguments().thenReturn(mockedA);
@@ -210,7 +215,7 @@ public int process() {
 }
 
 @Test
-public void testExapmle() {
+public void execute_some_example() {
  // arrange    
  InterfaceA mockedA = mock(InterfaceA.class);
  MyClass myClass = new MyClass(mockedA);
@@ -221,7 +226,7 @@ public void testExapmle() {
 }
 ```
 
-### **什麼時候該用 Powermock**
+### **什麼時候該用 Powermock ?**
 已經沒有招式能用、無法重構 production code 的時候。
 
 ### **結語**
