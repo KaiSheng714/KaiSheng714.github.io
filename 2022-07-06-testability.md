@@ -52,7 +52,7 @@ image: /assets/image/testability.png
 以剛才某銀行系統的例子，提款功能應屬於 `WithdrawService` 的職責，發出內部警示功能應屬於 `NotifyService` 的職責，兩者各司其職、權責分明、彼此獨立。
 
 
-### **移除 bad smell**
+### **移除 Bad Smell**
 
 容易影響可測試性的 bad smell 有:
 
@@ -62,13 +62,11 @@ Long Parameter List, Divergent Change, Long Method, Large Class...
  
 
 ### **符合 YAGNI 原則**
-工程師應該在面臨確鑿的需求時，才實作相應的功能。
+工程師應該在面臨確鑿的需求時，才實作相應的功能。例如某人在 method 中增加了**現在用不到、未來有可能用到**的 if 分支，請問我們現在該不該測它呢？
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it!)](https://kaisheng714.github.io/articles/yagni-principle)
 
-
-### **Dependency injection**
-makes mocking easier
+### **Dependency Injection**
 
 最近十年來很流行的Dependency Injection或是Inversion of Control設計原則，因為藉由外部注入相依性物件提升了待測程式的可控制性，不但提升了執行期間改變系統行為的彈性，也因此提升了可測試性。
 
@@ -77,16 +75,19 @@ makes mocking easier
 
 依賴注入把對象構建與對象注入分開。因此創建對象的 new 關鍵字也可消失了。
 
+makes mocking easier
+
 可用工廠方法
 
 延伸閱讀: [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
 
-### **避免在 constructor 中包含任何邏輯**
-constructor 應該只專注於初始化，而不會有任何邏輯。若 constructor 不僅初始化、if-else，還呼叫 API、查詢 DB，這就使得初始化成本提高，難以隔絕外部依賴，可測試性就降低了。
+
+### **不在 Constructor 中包含任何邏輯**
+Constructor 應該只專注於初始化，而不會有任何邏輯。若 constructor 不僅初始化、if-else，還呼叫 API、查詢 DB，這就使得初始化成本提高，難以隔絕外部依賴，可測試性就降低了。
 
 此外，在單元測試中想要改寫或是 mock constructor 是不容易的，雖然現在有些測試框架可以替換 constructor 的行為，但通常不建議使用。延伸閱讀: [不建議使用 PowerMock 的理由](/articles/drawback-of-powermock) 
 
-一個好的 constructor 應該像是這樣的: **沒有任何邏輯，只做依賴注入**。
+一個好的 constructor 應該是 **沒有任何邏輯，只做依賴注入與狀態初始化**:
 
 ```java
 public BankService(WithdrawService withdrawService, NotifyService notifyServic, ...) {
@@ -96,7 +97,7 @@ public BankService(WithdrawService withdrawService, NotifyService notifyServic, 
 }
 ```
  
-### **避免使用 Singleton / static**
+### **減少使用 Singleton / static**
 要在測試中替換一個 static method 是非常困難的。Singleton Pattern 容易造成難以維護的 global state。雖然 Singleton / static 很方便，但它無形之中也帶來了提高耦合度的問題，這兩者都是造成不好測的原因，有可能讓我們難以立即發現問題，畢竟單元測試就是不斷研究如何隔離外部相依。有時候要完全避免使用 static 方法可能還蠻難的，如果可以，那就盡量減少使用頻率。
 
 但有時若是真的不得已，Mockito 3.4 版也提供了 `Mockito.mockStatic`，讓我們可以在單元測試中替換 static 的行為，代價就是測試程式會變得比較複雜、執行測試的時間也會提高。
@@ -105,12 +106,12 @@ public BankService(WithdrawService withdrawService, NotifyService notifyServic, 
 
 TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼的開發手法**。因為 TDD 讓開發者換位思考，從使用者的角度出發，就更容易了解到該怎麼設計才能讓 class / API 更易用。為了先寫出測試，開發者就必須先去思考如何進行測試，他不僅了解需求，還要逐步解構需求成一個個單純、小的 test case。若熟練 TDD 技術，就能大幅提高軟體可測試性。
 
-上手 TDD 其實並不簡單，其實以上討論的議題都包含在 TDD 的領域之中，之後我會再寫一篇文章專門介紹 TDD。
+上手 TDD 並不容易，其實以上討論的議題都包含在 TDD 的領域之中，之後我會再寫一篇文章專門介紹 TDD。
 
 -----
 
 ## **結論**
-- 本文介紹了許多實務上可以提高可測試性的方法
+- 本文解釋了可測試性及其重要性，並介紹了許多實務上可以提高可測試性的方法。
 - 若工程師覺得單元測試很難寫，原因通常不是不會寫測試，而是產品程式的可測試性太低。他們往往會走入一個誤區，面對一個幾千行、邏輯混亂的方法而想著用十八般武藝、各種框架去寫這個方法的單元測試，結果通常是耗費了大量的時間卻徒勞而無功。
 - 若整個團隊的觀念、基本功如果沒有到位，也不懂如何提高程式的可測試性，則要在組織內推動單元測試是很困難的。
 - 必須先提高可測試性，才會有好的測試程式，接著才能享受自動化測試帶來的甜美果實。
