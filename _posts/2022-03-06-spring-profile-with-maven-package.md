@@ -18,7 +18,7 @@ image: /assets/image/spring-maven-index.png
 
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-index.png?size=medium)
 
-### **1. 開發階段 — 準備各環境的 application.properties**
+## **1. 開發階段 — 準備各環境的 application.properties**
 
 首先準備好所有需要的 .properties / .yml，根據自己的需求而定。例如開發環境 (dev) 、正式環境 (prod) 等，以及一個主要的 application.properties。
 
@@ -66,7 +66,7 @@ found character '@' that cannot start any token. (Do not use @ for indentation)
   </profiles>
 ```
 
-### **2. 開發階段 — 設定 IntelliJ**
+## **2. 開發階段 — 設定 IntelliJ**
 
 在開發的階段，我們必須告訴 IDE，請它套用適合本機開發環境的 profile。設定 Run Configuration，‘Active profiles’ 填入 dev
 
@@ -76,7 +76,7 @@ found character '@' that cannot start any token. (Do not use @ for indentation)
 
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-env-dev.png)
 
-### **3. 部署階段 - Maven**
+## **3. 部署階段 - Maven**
 
 當我們開發完成，利用 mvn package / install 指令來打包時，需加入 -P 參數，告訴 maven 幫我們將 application.properties 的 '**@activeProfile@' 字串替換成 ‘prod’，**指令如下:
 
@@ -104,7 +104,7 @@ java -jar <my-artifact>.war
 
 ![Spring + Maven + IntelliJ profile integration 多環境 (Profile) 整合技巧](/assets/image/spring-maven-env-prod.png)
 
-### **結論**
+## **結論**
 
 透過本文介紹的方式，可以讓開發人員輕鬆的在任何環境中套用 Spring 專案中的 .properties / .yml，不需要再根據環境來手動調整。當然也可以將這方法套用在 jenkins 來做 CI/CD ，在日後千百次的打包/執行/部署的過程中，能替我們節省許多成本。
 

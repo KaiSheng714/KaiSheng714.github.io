@@ -134,7 +134,7 @@ public class HelloBeanTest {
 
 ### **缺點**
 
-###** 1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
+### ** 1. 循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
 
 只有在使用 Constructor DI 時才會造成此問題。
 
