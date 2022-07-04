@@ -62,9 +62,9 @@ Long Parameter List, Divergent Change, Long Method, Large Class...
  
 
 ### **符合 YAGNI 原則**
-程式開發者應該在面臨確鑿的需求時，才實作相應的功能
+工程師應該在面臨確鑿的需求時，才實作相應的功能。
 
-https://kaisheng714.github.io/articles/yagni-principle
+延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it!)](https://kaisheng714.github.io/articles/yagni-principle)
 
 
 ### **Dependency injection**
@@ -101,12 +101,11 @@ public BankService(WithdrawService withdrawService, NotifyService notifyServic, 
 
 但有時若是真的不得已，Mockito 3.4 版也提供了 `Mockito.mockStatic`，讓我們可以在單元測試中替換 static 的行為，代價就是測試程式會變得比較複雜、執行測試的時間也會提高。
 
-
 ### **Test-Driven Development (TDD)**
 
 TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼的開發手法**。因為 TDD 讓開發者換位思考，從使用者的角度出發，就更容易了解到該怎麼設計才能讓 class / API 更易用。為了先寫出測試，開發者就必須先去思考如何進行測試，他不僅了解需求，還要逐步解構需求成一個個單純、小的 test case。若熟練 TDD 技術，就能大幅提高軟體可測試性。
 
-TDD 是一門不容易的技術，以上討論的議題其實都包含在 TDD 的領域之中，之後我會再寫一篇文章專門介紹 TDD。
+上手 TDD 其實並不簡單，其實以上討論的議題都包含在 TDD 的領域之中，之後我會再寫一篇文章專門介紹 TDD。
 
 -----
 
@@ -117,16 +116,10 @@ TDD 是一門不容易的技術，以上討論的議題其實都包含在 TDD �
 
 ### **References**
 
-https://en.wikipedia.org/wiki/Software_testability
-
-https://docs.microsoft.com/zh-tw/archive/msdn-magazine/2008/december/patterns-in-practice-design-for-testability
-
-https://teddy-chen-tw.blogspot.com/2013/04/blog-post_4.html
-
-https://www.ithome.com.tw/voice/88062
-
-https://www.youtube.com/watch?v=fr1E9aVnBxw
-
-https://www.youtube.com/watch?v=wEhu57pih5w
-
-[不建議使用 PowerMock 的理由](/articles/drawback-of-powermock)
+- [Software testability](https://en.wikipedia.org/wiki/Software_testability)
+- [Patterns in Practice: Design For Testability - Microsoft Docs](https://docs.microsoft.com/zh-tw/archive/msdn-magazine/2008/december/patterns-in-practice-design-for-testability)
+- [如何提升軟體的可測試性-搞笑談軟工](https://teddy-chen-tw.blogspot.com/2013/04/blog-post_4.html)
+- [程式碼的可測性](https://www.ithome.com.tw/voice/88062)
+- [Effective Unit Testing by Eliotte Rusty Harold](https://www.youtube.com/watch?v=fr1E9aVnBxw)
+- [The Clean Code Talks -- Unit Testing](https://www.youtube.com/watch?v=wEhu57pih5w)
+ 
