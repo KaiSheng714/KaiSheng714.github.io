@@ -43,15 +43,6 @@ image: /assets/image/testability.png
 
 ## **如何提高軟體可測試性**
 
-### **Test-Driven Development (TDD)**
-
-TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼的開發手法**。因為 TDD 讓開發者換位思考，從使用者的角度出發，就更容易了解到該怎麼設計才能讓 class / API 更易用。為了先寫出測試，開發者就必須先去思考如何進行測試，他不僅了解需求，還要逐步解構需求成一個個單純、小的 test case。若熟練 TDD 技術，就能大幅提高軟體可測試性。
-
-TDD 是一門高深的學問，之後我會再寫一篇文章專門介紹 TDD。
-
-Practice TDD! I'm surprised TDD wasn't really brought up in this video. TDD more fully covers all of the topics discussed here (such as dependencies / decoupling / mocking / faking, unit testing, coverage etc). "Uncle Bob" (Robert C. Martin) has many good talks about how to practice TDD and the benefits of it here on YouTube. FYI
-
-
 ### **符合 Single Responsibility Principle(SRP)**
 
 單一職責意味著每個 class 應該有一個且只有一個職責（或被改變的理由），也意味著內聚力較高，這些都使得單元測試更容易。
@@ -109,6 +100,13 @@ public BankService(WithdrawService withdrawService, NotifyService notifyServic, 
 要在測試中替換一個 static method 是非常困難的。Singleton Pattern 容易造成難以維護的 global state。雖然 Singleton / static 很方便，但它無形之中也帶來了提高耦合度的問題，這兩者都是造成不好測的原因，有可能讓我們難以立即發現問題，畢竟單元測試就是不斷研究如何隔離外部相依。有時候要完全避免使用 static 方法可能還蠻難的，如果可以，那就盡量減少使用頻率。
 
 但有時若是真的不得已，Mockito 3.4 版也提供了 `Mockito.mockStatic`，讓我們可以在單元測試中替換 static 的行為，代價就是測試程式會變得比較複雜、執行測試的時間也會提高。
+
+
+### **Test-Driven Development (TDD)**
+
+TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼的開發手法**。因為 TDD 讓開發者換位思考，從使用者的角度出發，就更容易了解到該怎麼設計才能讓 class / API 更易用。為了先寫出測試，開發者就必須先去思考如何進行測試，他不僅了解需求，還要逐步解構需求成一個個單純、小的 test case。若熟練 TDD 技術，就能大幅提高軟體可測試性。
+
+TDD 是一門不容易的技術，以上討論的議題其實都包含在 TDD 的領域之中，之後我會再寫一篇文章專門介紹 TDD。
 
 -----
 
