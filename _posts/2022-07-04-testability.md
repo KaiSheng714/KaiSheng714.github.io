@@ -4,7 +4,7 @@ title: "如何提高程式碼的可測試性 (Testability)"
 author: "Kai-Sheng"
 permalink: /articles/testability
 categories: [Design, Unit-testing]
-image: /assets/image/testability.png
+image: /assets/image/cover4.png
 --- 
  
 眾所皆知，寫單元測試有非常多好處，但有些主管會問，為什麼寫測試會讓工程師額外花這麼多時間？除了本身對單元測試技術不熟悉以外，追根究柢是因為產品程式碼的可測試性太低，導致工程師寫測試時很難將精力投入在對的地方，甚至導致放棄寫單元測試。要寫出優秀的單元測試有一定的難度與門檻，關鍵就在於工程師要思考如何提高程式碼的可測試性，進而讓寫單元測試變得簡單。
@@ -87,7 +87,7 @@ public BankService(WithdrawService withdrawService, NotifyService notifyServic, 
 ```
  
 ### **減少使用 Singleton / static**
-要在測試中替換一個 static method 是困難的。此外，濫用 Singleton Pattern 容易造成難以維護的 global state。例如:
+要在測試中替換一個 static method 是困難的。此外，濫用 Singleton Pattern 容易產生難以維護的 global state。例如:
 
 ```java
 DbManager.getConnection().doSomething();
@@ -110,7 +110,7 @@ TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼�
 
 ## **結論**
 - 本文解釋了程式碼的可測試性及其重要性，並介紹了許多實務上可以提高可測試性的方法。
-- 若工程師覺得單元測試很難寫，原因通常不是不會寫測試，而是產品程式的可測試性太低。他們往往會走入一個誤區，面對一個幾千行、邏輯混亂的 method，想出各種 mock 技巧去寫這個方法的單元測試，但通常結果是耗費了大量時間卻徒勞而無功。
+- 若工程師覺得單元測試很難寫，原因通常不是不會寫測試，而是產品程式的可測試性太低。
 - 若整個團隊的觀念、基本功如果沒有到位，也不懂如何提高程式的可測試性，則要在組織內推動單元測試是很困難的。
 - 提高產品程式的可測試性，較容易寫出優秀的測試程式，接著才能享受自動化測試帶來的甜美果實。
 

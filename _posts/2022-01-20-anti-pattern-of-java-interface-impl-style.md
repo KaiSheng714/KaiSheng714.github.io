@@ -5,7 +5,7 @@ tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/anti-pattern-of-java-interface-impl-style
 categories: [Java, Design]
-image: /assets/image/interface-impl.png
+image: /assets/image/cover0.png
 --- 
 
 在 Java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 FooImpl, BarImpl, ServiceImpl，
@@ -60,8 +60,6 @@ image: /assets/image/interface-impl.png
 因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
 再者，如果你的專案並沒有開放給外部使用，在實務上，大部分的情況下是不需要 interface 的。除非你開發的是如 library, SDK 給外部 client 使用，就可以利用 interface 定義出你的系統邊界，讓外部 client 知道如何透過 interface 去使用、界接你的專案。
-
-![常見的 Interface 錯誤用法](/assets/image/interface-impl.png?style=center)
 
 
 ## **結語**
