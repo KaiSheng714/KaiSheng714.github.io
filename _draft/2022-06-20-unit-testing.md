@@ -93,3 +93,4 @@ image: /assets/image/cover3.png
 ### **References**
 - [Software testability](https://en.wikipedia.org/wiki/Software_testability)
  
+https://ithelp.ithome.com.tw/articles/10102264
