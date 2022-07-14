@@ -25,6 +25,7 @@ image: /assets/image/cover3.png
 - 盡量不要使用同事可能不懂的寫法、技術。開發時也要考慮到**人的因素**
 - 盡量將程式碼寫得**平鋪直敘、平易近人、看起來不怎樣**，且沒有壞味道
 - 若必要時，可以寫註解
+- 遵循 SRP (Single Responsibility Principle)
 - 盡可能減少 method 的循環複雜度（Cyclomatic complexity）
 - 將複雜的 if 組合條件抽成一個命名良好的 method
 - 減少物件的內部狀態。狀態往往會帶來更多複雜性
