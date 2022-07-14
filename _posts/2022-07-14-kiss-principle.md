@@ -12,7 +12,8 @@ image: /assets/image/cover3.png
 ## **意義**
 首先引用 Martin Fowler 的名言：
 > Any fool can write code that a computer can understand. Good programmers write code that humans can understand.
-> 任何傻子都能寫出電腦看得懂的程式。好的程式設計師則會寫出讓人類看得懂的程式。
+
+任何傻子都能寫出電腦看得懂的程式。好的程式設計師則會寫出讓人類看得懂的程式。
 
 對於大多數人而言，讀程式、寫程式的時間比例通常約 8:2，若程式碼夠簡單、直觀、清晰，就意味著很容易讀懂，也容易開發與維護，bug 也容易被找出來，修復成本較低。一個能將其意圖清楚地傳達給讀者的程式碼，才能稱作好的程式碼，KISS 原則的目的即是如此。因此遵循 KISS 原則是有效提升程式品質的關鍵。更重要的是，我們還要避免在程式裡增加不必要的複雜性，因為這帶來的負面影響有可能會是指數性成長的，例如層層疊加的 if/else 巢狀結構。
 
