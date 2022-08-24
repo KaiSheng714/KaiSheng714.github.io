@@ -119,7 +119,7 @@ public class Student {
 ```
 
 ## **錯誤4. 容器中的容器**
-因為 Optional<T> 本身就是一個容器，如果 T 又是另一個容器，例如 `Optional<List<T>>` ，不僅看起來比較複雜以外，在語意上還代表著三種可能:
+因為 `Optional` 本身就是一個容器，如果內容又是另一個容器，例如 `Optional<List<Student>>`，不僅會看起來比較複雜以外，在語意上還代表著三種可能的回傳值:
 1. 一個有內容的 List
 2. 一個空的 List
 3. Optional.empty()
