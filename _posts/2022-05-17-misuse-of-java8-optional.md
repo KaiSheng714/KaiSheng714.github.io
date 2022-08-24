@@ -70,7 +70,7 @@ public int readNameById(Optional<String> id) {
 
 因為這會讓 `Optional<String> id `參數有三種狀態:
 1. Optional 非 null，且有內容值
-2. Optional 非 null，但沒有內容值
+2. Optional.empty()
 3. 整個 Optional 是 null
 
 因此在這種情況下請不要使用 Optional，改用我們平常用的最純粹(不要過度包裝)的型態即可:
@@ -119,7 +119,7 @@ public class Student {
 ```
 
 ## **錯誤4. 容器中的容器**
-因為 Optional<T> 本身就是一個容器，如果 T 又是另一個容器，例如 `Optional<List<T>>`，不僅看起來比較複雜以外，在語意上還代表著三種可能:
+因為 Optional<T> 本身就是一個容器，如果 T 又是另一個容器，例如 `Optional<List<T>>` ，不僅看起來比較複雜以外，在語意上還代表著三種可能:
 1. 一個有內容的 List
 2. 一個空的 List
 3. Optional.empty()
@@ -140,7 +140,7 @@ public List<Student> readAllStudents(String classId) {
 
 像這種錯誤用法都會提高不必要的複雜性。
 
- ## **References**
+## **References**
 
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
