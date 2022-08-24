@@ -32,7 +32,7 @@ image: /assets/image/cover3.png
 - 減少物件的內部狀態。狀態往往會帶來更多複雜性
 - 少用繼承，多用組合 （Composition over Inheritance）
 - 避免過多的抽象層。過多的抽象往往意味著不直觀
-- 先不要急著過度優化效能，除非真的遇到效能瓶頸 (Premature Optimization Is the Root of All Evil)
+- 先不要急著優化效能，除非有證據顯示該寫法會造成效能瓶頸 (Premature Optimization Is the Root of All Evil)
 - 時常動手簡化專案 code base（重構、單元測試）
 - code review。如果在 code review 時，同事對你的程式碼有很多疑問，那就說明你的程式碼可能不夠簡單
 
