@@ -42,7 +42,7 @@ image: /assets/image/cover0.png
 
 我認為這種 **interface-impl 不應存在**，反而使用一般的 concrete class 即可，開發程式不需要過度包裝與設計，Keep it simple, straightforword。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，**但我認為大問題往往是從小問題引起的**，一旦病入膏肓，就算想改也改不動了。因此，稱職的 clean coder 應盡量維持專案的乾淨與健康。
 
-如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mock library，如 [Mocktio](https://site.mockito.org/)，如此就不必特地為了單元測試而建立新的實作，以致於可以刪除這個 interface，使專案保持簡潔。
+如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mock library，如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要 interface 時再利用工具進行 extract interface 即可，這幾乎無成本，很容易就能生出一個 interface。換言之，避免此問題的方法其實很簡單: **等待**、**延遲決定**。
  
