@@ -20,15 +20,15 @@ image: /assets/image/cover0.png
 > 先寫出 interface，之後可以替換不同實作，較有彈性。
 >
 
-但設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，更沒有解耦**，也失去了使用 interface 的初衷與目的。
+但設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦**，也失去了使用 interface 的初衷與目的，over design。
 
-你可以參考我寫的另一篇文章: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
+延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
 ### **2. 違反 DRY 原則**
 
 當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次。這不僅是程式的重複，也是知識上的重複，違反了 DRY 原則。
 
-你可以參考我寫的另一篇文章: [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle) 
+延伸閱讀: [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle) 
 
 ### **3. 不必要的干擾**
 
