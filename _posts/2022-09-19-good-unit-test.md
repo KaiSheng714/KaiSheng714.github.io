@@ -21,17 +21,125 @@ image: /assets/image/cover4.png
 - 不清楚：小明很難確定哪出了問題、如何修復，以及這些測試最初應該做什麽。
 
 
-
 ## **Best Practice**
 
 0. 一個測試案例只驗證一個行為
 0. 第1種驗證方式(回傳值)所佔的比例應要最高
 0. 測試案例之間無相依性
 0. 測試案例的命名盡量清楚、口語化
+
+```java
+@Test
+@DisplayName("我的測試")
+
+```
 0. 測試案例不具備邏輯
+
+```java
+@Test
+public void shouldNavigateToAlbumsPage() {
+    String baseUrl = "http://photos.google.com/";
+    Navigator nav = new Navigator(baseUrl);
+    nav.goToAlbumPage();
+    assertThat(nav.getCurrentUrl()).isEqualTo(baseUrl + "/albums");
+}
+
+
+@Test
+public void shouldNavigateToPhotosPage() {
+    Navigator nav = new Navigator("http://photos.google.com/");
+    nav.goToPhotosPage();
+    assertThat(nav.getCurrentUrl()))
+    .isEqualTo("http://photos.google.com//albums"); // Oops!
+}
+```
+
+
 0. 驗證時，不過度指定  (over specification)
+```java
+
+
+@Test 
+public void display_greeting_render_userName() {
+    when(mockUserService.getUserName()).thenReturn("Fake User");
+
+    userGreeter.displayGreeting(); 
+        
+    verify(userPrompt, times(1)).setText("Fake User", "Good morning!", "Version 2.1");
+    verify(userPrompt, times(1)).setIcon(IMAGE_SUNSHINE);
+}
+```
+
+
+```java
+@Test 
+public void displayGreeting_renderUserName() {    
+    when(mockUserService.getUserName()).thenReturn("Fake User");
+
+    userGreeter.displayGreeting(); 
+
+    // 只驗證我們真正在意的 userName
+    verify(userPrompter).setText(eq("Fake User"), any(), any());
+}
+
+
+@Test 
+public void displayGreeting_timeIsMorning_useMorningSettings() {
+    setTimeOfDay(TIME_MORNING);
+
+    userGreeter.displayGreeting(); 
+    
+    // 只驗證我們真正在意的 "早安、早晨的 icon"
+    verify(userPrompt).setText(any(), eq("Good morning!"), any());
+    verify(userPrompt).setIcon(IMAGE_SUNSHINE);
+}
+```
+
 0. 不過度依賴 mock framework
+```java
+@Test 
+public void credit_card_is_charged() {    
+    // 過度依賴 mock framework
+    paymentProcessor =
+        new PaymentProcessor(mockCreditCardServer, mockTransactionProcessor);    
+    when(mockCreditCardServer.isServerAvailable()).thenReturn(true);
+    when(mockTransactionProcessor.beginTransaction()).thenReturn(transaction);
+    when(mockCreditCardServer.initTransaction(transaction)).thenReturn(true);
+    when(mockCreditCardServer.pay(transaction, creditCard, 500)).thenReturn(false);
+    when(mockTransactionProcessor.endTransaction()).thenReturn(true);
+
+    paymentProcessor.processPayment(creditCard, Money.dollars(500));
+
+    // 太多假的行為，根本不曉得 transaction 有沒有真正成功，即測試結果可能不準確
+    verify(mockCreditCardServer, times(1)).pay(transaction, creditCard, 500);
+}
+```
+
+
 0. 進行互動驗證時，只驗證會改變外部的行為
+
+```java
+@Test 
+public void grant_user_permission() {   
+    // ... arrange, act ...
+
+    verify(mockPermissionDatabase, times(1)).addPermission(FAKE_USER, USER_ACCESS);
+    verify(mockPermissionDatabase, times(1)).getPermission(FAKE_USER);
+}
+```
+
+```java
+@Test 
+public void grant_user_permission() {   
+    // ... arrange, act ...
+
+    // 合理, 應該只要 verify "會影響外界"的行為
+    verify(mockPermissionDatabase, times(1)).addPermission(FAKE_USER, USER_ACCESS);
+
+    // 不應 verify "不會影響外界"的行為
+    verify(mockPermissionDatabase, times(1)).getPermission(FAKE_USER);
+}
+```
 
 
 
@@ -40,3 +148,13 @@ image: /assets/image/cover4.png
 
 ### **References**
 - [Software Engineering at Google: Lessons Learned from Programming Over Time](https://www.amazon.com/Software-Engineering-Google-Lessons-Programming/dp/1492082791)
+
+
+ 
+
+
+
+
+
+
+
