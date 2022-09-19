@@ -70,7 +70,7 @@ public int readNameById(Optional<String> id) {
 
 因為這會讓 `Optional<String> id `參數有三種狀態:
 1. Optional 非 null，且有內容值
-2. Optional 非 null，但沒有內容值
+2. Optional.empty()
 3. 整個 Optional 是 null
 
 因此在這種情況下請不要使用 Optional，改用我們平常用的最純粹(不要過度包裝)的型態即可:
@@ -118,8 +118,31 @@ public class Student {
 }
 ```
 
- ## **References**
+## **錯誤4. 容器中的容器**
+因為 `Optional` 本身就是一個容器，如果內容又是另一個容器，例如 `Optional<List<Student>>`，不僅會看起來比較複雜以外，在語意上還代表著三種可能的回傳值:
+1. 一個有內容的 List
+2. 一個空的 List
+3. Optional.empty()
+
+這容易造成程式複雜與混淆，也讓 caller 還要多處理一層 Optional 容器。比較好的方式是：如果真的沒有回傳值，那就回傳一個`空的容器`就好了：
+
+```java
+public List<Student> readAllStudents(String classId) {   
+    // ... 
+    return result.isEmpty() ? Collections.emptyList(): new ArrayList<>(result);
+}
+```
+ 
+另外，也不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 map.get(key) 會有三種可能的回傳值:
+1. 一個 Student 
+2. Optional.empty()
+3. null
+
+像這種錯誤用法都會提高不必要的複雜性。
+
+## **References**
 
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
 - [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
+- Item 55: Return optionals judiciously (Effective Java 3rd)
