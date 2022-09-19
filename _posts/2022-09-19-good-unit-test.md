@@ -9,7 +9,7 @@ image: /assets/image/good-unit-test.png
 
 單元測試已是軟體工程師必備的技能，但在我的經驗中，有些人寫的單元測試看起來好像有那麼一回事，但實際上並沒測到重點，而且還很容易因為重構而導致測試失敗。如果像這樣的不良測試持續增加，不僅沒有帶來好處，還使專案更不穩健，因此遵循 Best Practice 是很重要的。
 
- ![good-unit-test](/assets/image/good-unit-test.png?style=center)
+
 
 想像一下這樣的場景：
 
@@ -28,6 +28,8 @@ image: /assets/image/good-unit-test.png
 - 測試意義不清楚：小明很難確定哪出了問題、如何修復，以及這些測試最初應該做什麽。
 
 這種案例層出不窮，我也當過小明，世界上也不會有最後一個小明。要如何盡量避免這種情況發生呢? 先舉一個大家一定都能體會的例子--**新冠快篩**
+
+![good-unit-test](/assets/image/good-unit-test.png?style=center)
 
 ## **好用的新冠快篩**
 新冠快篩 (COVID-19 rapid test kit)，大家應該都用過吧，但你有注意到嗎? 它也是一種測試 (Test)，大家可以自己問自己：你會想買什麼樣的快篩呢？不外乎有以下幾個特點:
