@@ -70,8 +70,9 @@ image: /assets/image/good-unit-test.png
 ```java
 @Test
 @DisplayName("我的測試")
-void my_test() { ... }
-
+void my_test() { 
+    // ... 
+}
 ```
 
 ### **測試案例不具備邏輯運算**
@@ -84,14 +85,14 @@ public void shouldNavigateToAlbumsPage() {
     String baseUrl = "http://photos.google.com/";
     Navigator nav = new Navigator(baseUrl);
     nav.goToAlbumPage();    
-    assertThat(nav.getCurrentUrl()).isEqualTo(baseUrl + "/albums"); // Oops!，這個結果會多一個 slash
+    assertThat(nav.getCurrentUrl()).isEqualTo(baseUrl + "/albums"); // 這個結果會多一個 slash 
 }
 ```
 
 看到了嗎，這個例子用字串 `+` 運算把 bug 也埋進來了。測試案例就是應該清楚直觀，盡量將預期結果直接 hard code 清楚的寫出來，而不要用運算的。
 
 
-### **進行相依驗證時，只驗證會改變外部的行為**
+### **進行相依驗證時，只驗證有 side-effect 的行為**
 
 實務上我們常用 `Mockito.verify` 來驗證待測物件 (SUT) 與相依物件 (DOC) 的互動。例如有一支 grant user 程式的單元測試如下：
 
@@ -105,10 +106,10 @@ public void grant_user_permission() {
 }
 ```
 
-其實 `getPermission` 是不用 `verify` 的。我們應該要想清楚這個測試在驗證什麼？什麼才是我們最關心的？通常就是會影響外界的行為，或著是這個 method 有沒有 side-effect，有 side-effect 的行為我們才需要 verify。這是個**取捨(trade-off)**，如果程式每個路徑都去 verify，確實最有可能會抓到 bug、保護力最高。但是我的經驗是，這樣容易導致讓測試變得太敏感，就像剛剛小明的例子一樣，動不動就失敗。因此比較好的做法是 **只 verify 有 side-effect** 的行為。
+其實 `getPermission` 是不用 `verify` 的。我們應該要想清楚這個測試在驗證什麼？什麼才是我們最關心的？通常就是這個 method 有沒有 side-effect，有 side-effect 的行為我們才需要 verify。這是個**取捨(trade-off)**，如果程式每個路徑都去 verify，確實最有可能會抓到 bug、保護力最高，但這樣卻更容易導致讓測試變得太敏感，就像剛剛小明的例子一樣，就連重構也可能導致測試失敗。因此比較好的做法是只 verify 有 side-effect的行為。
 
 ### **驗證時，不過度指定  (over specification)**
-如果我們驗證的時候過度指定，會讓測試程式變得很敏感，也容易出現不準確的問題。例如有一個說早安的程式，測試如下：
+如果我們驗證的時候過度指定，就會讓測試程式變得很敏感，也容易出現不準確的問題。例如有一個說早安的程式，測試如下：
 
 ```java
 @Test 
@@ -156,7 +157,7 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
 
 ```java
 @Test 
-public void credit_card_is_charged() {    
+public void credit_card_is_charged() {
     paymentProcessor =
         new PaymentProcessor(mockCreditCardServer, mockTransactionProcessor);    
     when(mockCreditCardServer.isServerAvailable()).thenReturn(true);
@@ -173,7 +174,7 @@ public void credit_card_is_charged() {
 
 可以看到過度依賴 mock framework 了。太多假的行為，根本不曉得 transaction 有沒有真正成功，即測試結果可能不準確。這樣看起來好像有在測，但測試實際給予我們的信心卻很低，講白了就是**太假了**。因此這個測試案例可能無法測出真實的問題。
 
-解決辦法就是不要寫單元測試，應該將它昇華到**整合測試**階段，雖然整合測試的成本較高，但結果也會比較貼近真實、有價值。
+解決辦法就是不要寫單元測試，應該將它提升到**整合測試**階段，雖然整合測試的成本較高，但結果也會比較貼近真實、有價值，尤其是這個案例與錢有關，所以需要更多、更嚴謹的測試。
 
 
 ### **盡可能驗證回傳值**
