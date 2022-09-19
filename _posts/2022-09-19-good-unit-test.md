@@ -93,7 +93,7 @@ public void shouldNavigateToAlbumsPage() {
 
 ### **進行相依驗證時，只驗證會改變外部的行為**
 
-實務上我們常用 `Mockito.verify` 來驗證帶測物件與相依物件的互動。例如有一支 grant user 程式的單元測試如下：
+實務上我們常用 `Mockito.verify` 來驗證待測物件 (SUT) 與相依物件 (DOC) 的互動。例如有一支 grant user 程式的單元測試如下：
 
 ```java
 @Test 
