@@ -1,13 +1,13 @@
 ---
 layout: post
-title: "如何寫出優秀的單元測試"
+title: "如何寫出優秀的單元測試 (Best Practice)"
 author: "Kai-Sheng"
 permalink: /articles/good-unit-test
 categories: [Design, Unit-testing]
 image: /assets/image/good-unit-test.png
 --- 
 
-單元測試已是軟體工程師必備的技能，但在我的經驗中，有些測試看起來好像有那麼一回事，但實際上沒測到重點，而且還很容易測試失敗。如果像這樣的不良測試持續增加，不僅沒有帶來好處，還使專案更不穩健，因此遵循 Best Pracetice 是很重要的。
+單元測試已是軟體工程師必備的技能，但在我的經驗中，有些測試看起來好像有那麼一回事，但實際上沒測到重點，而且還很容易測試失敗。如果像這樣的不良測試持續增加，不僅沒有帶來好處，還使專案更不穩健，因此遵循 Best Practice 是很重要的。
 
  ![good-unit-test](/assets/image/good-unit-test.png?style=center)
 
