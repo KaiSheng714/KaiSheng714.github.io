@@ -7,7 +7,7 @@ categories: [Design, Unit-testing]
 image: /assets/image/good-unit-test.png
 --- 
 
-單元測試已是軟體工程師必備的技能，但在我的工作經驗中，曾看過許多新進同仁寫的單元測試，看起來好像有那麼一回事，但實際上好像又沒測到重點，而且還很容易測試失敗。如果這樣的測試持續增長，單元測試不僅沒有帶來好處，反而使專案更不穩健，優秀的軟體開發者應知道如何寫出優秀的單元測試。有趣的是，優秀的單元測試和新冠快篩居然有異曲同工之妙。
+單元測試已是軟體工程師必備的技能，但在我的工作經驗中，曾看過許多新進同仁寫的單元測試，看起來好像有那麼一回事，但實際上好像又沒測到重點，而且還很容易測試失敗。如果這樣的測試持續增長，單元測試不僅沒有帶來好處，反而使專案更不穩健，因此遵循 Best Pracetice 是很重要的。有趣的是，優秀的單元測試和新冠快篩居然有異曲同工之妙。
 
  ![good-unit-test](/assets/image/good-unit-test.png?style=center)
 
@@ -23,7 +23,7 @@ image: /assets/image/good-unit-test.png
 > 本應很快完成的工作卻花了小明好幾天。扼殺了他的工作效率，也挫傷了他的士氣。
 >
 
-大家都知道單元測試帶來的好處，前輩們也很負責的將產品加入了許多單元測試，但不幸的是，他們寫的這些單元測試卻產生了反效果
+大家都知道單元測試有許多好處，前輩們也很負責的將產品加入了許多單元測試。但不幸的是，他們寫的這些單元測試卻產生了反效果
 - 測試結果不準確：這次的更改並沒有加入真正的 bug，但是測試卻失敗了。
 - 測試意義不清楚：小明很難確定哪出了問題、如何修復，以及這些測試最初應該做什麽。
 
@@ -33,12 +33,12 @@ image: /assets/image/good-unit-test.png
 新冠快篩 (COVID-19 rapid test kit)，大家應該都用過吧，但你有注意到嗎? 它也是一種測試 (Test)，大家可以自己問自己：你會想買什麼樣的快篩呢？不外乎有以下幾個特點:
 
 - 準確: 一條線就是陰性，沒有感染新冠；兩條線就是陽性，確診新冠。好的快篩就是要準確率高，不會結果不一、時好時壞、偽陰偽陽 (false negative, false positive)
-- 價格便宜: 能以低成本的方式輕鬆取用。一支快篩如果很貴，例如1000台幣，而且每個月還要多繳100，我想應該沒有人想買。
-- 快速: 好用的快篩，應該要很快就有結果，越快越好。如果某人疑似確診，快篩驗完要還等個3~5天才有結果，那他在這段期間有可能造成更多的感染。
+- 價格便宜: 能以低成本的方式輕鬆取用。一支快篩如果要價1000台幣，而且每個月還要多繳100，我想應該沒有人想買。
+- 快速: 好用的快篩，應該要很快就有結果，越快越好。如果某人疑似確診，快篩驗完要還等個3~5天才有結果，那他在這段期間有可能造成更多的感染，讓結果惡化。
 - 結果一目了然: 一條線就是陰性，沒有感染新冠；兩條線就是陽性，確診新冠。結果簡單清楚一目了然，不允許有難以判讀的情況，不應該有三條線或沒有線。檢驗結果也要鐵口直斷，不能將兩條線說明成B肝、愛滋等等不相干的疾病。
 
 ## **優秀的單元測試如同好用的新冠快篩**
-同理可證，你希望產品中有什麼樣子的單元測試呢？不外乎有以下幾個特點:
+同理可證，你希望產品中有什麼樣子的單元測試呢？通常不外乎有以下幾個特點:
 
 - 準確: 有 bug 時就要盡可能抓出來；沒有 bug 就不應該亮紅燈。
 - 維護成本便宜。一旦寫好後就不會再改，除非產品需求異動。
@@ -55,15 +55,15 @@ image: /assets/image/good-unit-test.png
 ## **優秀的單元測試之設計原則**
 
 ### **良好的結構** 
-盡量以 `Arrange, Act, Assert` 或 `Given, When, Then` 的 pattern 去寫單元測試。透過這樣的 pattern 讓開發者比較能表達`正在驗證一種行為`，會比較貼近使用者，畢竟單元測試就是在**模擬使用者如何使用該產品程式碼**。
+盡量以 `Arrange, Act, Assert` 或 `Given, When, Then` 的 pattern 去寫單元測試。透過這樣的 pattern 讓開發者比較能表達**正在驗證一種行為**，會比較貼近使用者，畢竟單元測試就是在**模擬使用者如何使用該產品程式碼**。
 
-### 一個測試案例只驗證一個行為
+### **一個測試案例只驗證一個行為**
 如同好的快篩應只能篩一種病，一個測試案例也應只驗證一種行為；如果不是這個測試案例要檢驗的行為，就不應該把它們寫在一起，而是把它們拆分成多個測試案例(test case)。
 
-### 測試案例之間無相依性
+### **測試案例之間無相依性**
 測試案例之間應該要各自獨立。如果測試案例相依，萬一發生測試失敗時，容易火燒連環船、一發不可收拾，無法快速釐清問題以及很難發現問題的根源。
 
-### 測試案例的命名盡量清楚、口語化
+### **測試案例的命名盡量清楚、口語化**
 
 命名是一件很高深的學問，對於母語非英語的我們更是難以做出清楚的命名。不過幸好 Junit 5 之後就可以透過 `@DisplayName` 來命名中文 test case，而且它也會被輸出到 test report 中，相當實用：
 
@@ -74,29 +74,25 @@ void my_test() { ... }
 
 ```
 
+### **測試案例不具備邏輯運算**
 
-### **測試案例不具備邏輯**
+如果在測試案例中加入邏輯運算，例如 `if`, `else`, 加減乘除等等運算，甚至迴圈，會讓測試變得更複雜。試問：萬一測試的一段邏輯有 bug，到底是產品程式出問題？還是測試本身的問題？ 這是一個在測試中加入邏輯的不良示範：
 
 ```java
 @Test
 public void shouldNavigateToAlbumsPage() {
     String baseUrl = "http://photos.google.com/";
     Navigator nav = new Navigator(baseUrl);
-    nav.goToAlbumPage();
-    assertThat(nav.getCurrentUrl()).isEqualTo(baseUrl + "/albums");
+    nav.goToAlbumPage();    
+    assertThat(nav.getCurrentUrl()).isEqualTo(baseUrl + "/albums"); // Oops!，這個結果會多一個 slash
 }
 
-
-@Test
-public void shouldNavigateToPhotosPage() {
-    Navigator nav = new Navigator("http://photos.google.com/");
-    nav.goToPhotosPage();
-    assertThat(nav.getCurrentUrl()))
-    .isEqualTo("http://photos.google.com//albums"); // Oops!
-}
+看到了嗎，這個例子用字串 `+` 運算把 bug 也埋進來了。測試案例就是應該清楚直觀，將驗證的結果直接 hard code 清楚的寫出來，而不要用運算的。
+ 
 ```
 
 ### 驗證時，不過度指定  (over specification)
+例如有一個打招呼的程式，測試如下：
 
 ```java
 @Test 
@@ -109,6 +105,9 @@ public void display_greeting_render_userName() {
     verify(userPrompt, times(1)).setIcon(IMAGE_SUNSHINE);
 }
 ```
+
+
+比較好的做法是將我們關心的事情分開來，一個測試就測一件事：
 
 ```java
 @Test 
@@ -133,6 +132,8 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
     verify(userPrompt).setIcon(IMAGE_SUNSHINE);
 }
 ```
+
+如果我們驗證的時候過度指定，會讓測試程式變得很敏感，也容易出現不準確的問題。
 
 ### 不過度依賴 mock framework
 
