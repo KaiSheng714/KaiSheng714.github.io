@@ -153,3 +153,8 @@ public class HelloBeanTest {
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
 - [What exactly is field injection and how to avoid it](https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it/39891473)  
 - [Circular dependencies in spring](https://www.baeldung.com/circular-dependencies-in-spring)
+
+## **更多你可能會感興趣的文章**
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [如何提高程式碼的可測試性 (Testability)](/articles/testability)
+- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/testability)

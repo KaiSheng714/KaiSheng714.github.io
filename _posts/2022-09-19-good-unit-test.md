@@ -1,15 +1,17 @@
 ---
 layout: post
-title: "如何寫出優秀的單元測試"
+title: "優秀的單元測試如同好用的快篩"
 author: "Kai-Sheng"
 permalink: /articles/good-unit-test
 categories: [Design]
-image: /assets/image/cover4.png
+image: /assets/image/good-unit-test.png
 --- 
 
-我看過許多新進同仁寫的單元測試看起來好像有那麼一回事，但實際上好像又沒測到重點。如果這樣的測試持續增長，單元測試不僅沒有帶來好處，反而還讓專案變得更不可靠。雖然寫出優秀的單元測試是一件不容易的事，優秀的開發者不可不知。
+單元測試已是軟體工程師必備的技能，但在我的工作經驗中，看過許多新進同仁寫的單元測試看起來好像有那麼一回事，但實際上好像又沒測到重點，而且還很容易測試失敗。如果這樣的測試持續增長，單元測試不僅沒有帶來好處，反而還讓專案變得更不可靠。寫出優秀的單元測試是一件不容易的事，但優秀的開發者不可不知。有趣的是，單元測試和新冠快篩有異曲同工之妙。
 
  
+![good-unit-test](/assets/image/good-unit-test.png?style=center)
+
 想像一下這樣的場景：
 
 > 新人小明的第一個任務是新增一個簡單的功能，也許只需要10幾行程式。
@@ -19,6 +21,9 @@ image: /assets/image/cover4.png
 前人寫的這些單元測試產生了反效果
 - 不準確：這次的更改並沒有加入真正的 bug，但是測試卻失敗了。
 - 不清楚：小明很難確定哪出了問題、如何修復，以及這些測試最初應該做什麽。
+
+
+## **優秀的單元測試就像好用的快篩**
 
 
 ## **Best Practice**
@@ -56,9 +61,8 @@ public void shouldNavigateToPhotosPage() {
 
 
 0. 驗證時，不過度指定  (over specification)
+
 ```java
-
-
 @Test 
 public void display_greeting_render_userName() {
     when(mockUserService.getUserName()).thenReturn("Fake User");
@@ -96,6 +100,7 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
 ```
 
 0. 不過度依賴 mock framework
+
 ```java
 @Test 
 public void credit_card_is_charged() {    
@@ -141,20 +146,14 @@ public void grant_user_permission() {
 }
 ```
 
-
-
 ## **後記**
  
 
 ### **References**
 - [Software Engineering at Google: Lessons Learned from Programming Over Time](https://www.amazon.com/Software-Engineering-Google-Lessons-Programming/dp/1492082791)
 
-
  
-
-
-
-
-
-
-
+## **更多你可能會感興趣的文章**
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [如何提高程式碼的可測試性 (Testability)](/articles/testability)
+- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/testability)
