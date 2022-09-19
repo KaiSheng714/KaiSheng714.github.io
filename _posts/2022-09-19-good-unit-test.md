@@ -151,7 +151,7 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
 - 如果是第一個測試失敗，我就可以明確知道，我的程式沒有把名字寫對。
 - 如果是第二個測試失敗，我就可以明確知道，我的程式可能把圖案設錯。
 
-### **不過度依賴 mock framework**
+### **不過度依賴 mocking framework**
 過度依賴 mock framework 是很多人會犯的錯，因為大家都想把單元測試寫出來，所以用了各式各樣的 mock 技巧，但如果 mock 越多，越會讓測試結果與事實結果越背離。例如有一個刷卡交易的程式，驗證信用卡是否有被扣款的單元測試如下：
 
 ```java
