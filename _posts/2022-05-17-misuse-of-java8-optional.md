@@ -140,8 +140,15 @@ public List<Student> readAllStudents(String classId) {
 
 像這種錯誤用法都會提高不必要的複雜性。
 
-## **References**
+## **結語**
+Optional 在使用上有許多需要注意的地方，不幸的是，許多人的用法都是錯的，而造成了反效果。當我們學習到一項新技術或框架，有時候是出於一種貨物崇拜（Cargo Cults）的心理，就急著把它應用於工作中，這是不好的，凡事一定先要掌握、了解透徹，否則容易多此一舉。當我們面對問題時，如果一項新技術沒辦法真正解決問題，或是有其他好的更簡單替代方案，那就乾脆不要用它吧。
 
+### **更多你可能會感興趣的文章**
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [如何提高程式碼的可測試性 (Testability)](/articles/testability)
+- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/testability)
+
+## **References**
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
 - [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
