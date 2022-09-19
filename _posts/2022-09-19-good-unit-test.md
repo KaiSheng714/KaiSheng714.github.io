@@ -91,6 +91,22 @@ public void shouldNavigateToAlbumsPage() {
 看到了嗎，這個例子用字串 `+` 運算把 bug 也埋進來了。測試案例就是應該清楚直觀，盡量將預期結果直接 hard code 清楚的寫出來，而不要用運算的。
 
 
+### **進行相依驗證時，只驗證會改變外部的行為**
+
+實務上我們常用 `Mockito.verify` 來驗證帶測物件與相依物件的互動。例如有一支 grant user 程式的單元測試如下：
+
+```java
+@Test 
+public void grant_user_permission() {   
+    // ... arrange, act ...
+
+    verify(mockPermissionDatabase, times(1)).addPermission(FAKE_USER, USER_ACCESS);
+    verify(mockPermissionDatabase, times(1)).getPermission(FAKE_USER);
+}
+```
+
+其實 `getPermission` 是不用 `verify` 的。我們應該要想清楚這個測試在驗證什麼？什麼才是我們最關心的？通常就是會影響外界的行為，或著是這個 method 有沒有 side-effect，有 side-effect 的行為我們才需要 verify。這是個取捨，如果程式每個路徑都去 verify，確實最有可能會抓到 bug、保護力最高。但是我的經驗是，這樣容易導致讓測試變得太敏感，就像剛剛小明的例子一樣，動不動就失敗。因此比較好的做法是 **只 verify 有 side-effect** 的行為。
+
 ### **驗證時，不過度指定  (over specification)**
 如果我們驗證的時候過度指定，會讓測試程式變得很敏感，也容易出現不準確的問題。例如有一個打招呼的程式，測試如下：
 
@@ -115,7 +131,7 @@ public void displayGreeting_renderUserName() {
 
     userGreeter.displayGreeting(); 
 
-    // 只驗證我們真正在意的 userName
+    // 只驗證我們真正在意的第一件事: userName
     verify(userPrompter).setText(eq("Fake User"), any(), any());
 }
 
@@ -126,18 +142,17 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
 
     userGreeter.displayGreeting(); 
     
-    // 只驗證我們真正在意的 "早安、早晨的 icon"
-    verify(userPrompt).setText(any(), eq("Good morning!"), any());
+    // 只驗證我們真正在意的第2件事: icon
     verify(userPrompt).setIcon(IMAGE_SUNSHINE);
 }
 ```
 
 這樣做的好處是：
-- 如果是上面的測試結果是錯的，我就可以明確知道，我的程式有錯，沒有把人家的名字寫對。
+- 如果是上面的測試結果是錯的，我就可以明確知道，我的程式沒有把名字寫對。
 - 如果是下面的測試結果是錯的，我就可以明確知道，我的程式可能把早安說成晚安了。
 
 ### **不過度依賴 mock framework**
-過度依賴 mock framework 是很多人會犯的錯，因為大家都想把單元測試寫出來，所以用了各式各樣的 mock 技巧，但如果 mock 越多，越會造成與愈事實結果背離的問題。例如有一個刷卡交易的程式，驗證信用卡是否有被扣款的單元測試如下：
+過度依賴 mock framework 是很多人會犯的錯，因為大家都想把單元測試寫出來，所以用了各式各樣的 mock 技巧，但如果 mock 越多，越會讓測試結果與事實結果越背離。例如有一個刷卡交易的程式，驗證信用卡是否有被扣款的單元測試如下：
 
 ```java
 @Test 
@@ -156,25 +171,10 @@ public void credit_card_is_charged() {
 }
 ```
 
-可以看到過度依賴 mock framework 了。太多假的行為，根本不曉得 transaction 有沒有真正成功，即測試結果可能不準確。這樣看起來好像有在測，但測試給予我們的信心卻很低，講白了就是**太假了**。因此這個測試案例可能無法測出真實的問題。
+可以看到過度依賴 mock framework 了。太多假的行為，根本不曉得 transaction 有沒有真正成功，即測試結果可能不準確。這樣看起來好像有在測，但測試實際給予我們的信心卻很低，講白了就是**太假了**。因此這個測試案例可能無法測出真實的問題。
 
 解決辦法就是不要寫單元測試，應該將它昇華到**整合測試**階段，雖然整合測試的成本較高，但結果也會比較貼近真實、有價值。
 
-### **進行相依驗證時，只驗證會改變外部的行為**
-
-實務上我們常用 `Mockito.verify` 來驗證帶測物件與相依物件的互動。例如有一支 grant user 程式的單元測試如下：
-
-```java
-@Test 
-public void grant_user_permission() {   
-    // ... arrange, act ...
-
-    verify(mockPermissionDatabase, times(1)).addPermission(FAKE_USER, USER_ACCESS);
-    verify(mockPermissionDatabase, times(1)).getPermission(FAKE_USER);
-}
-```
-
-其實 `getPermission` 是不用 `verify` 的。我們應該要想清楚這個測試在驗證什麼？什麼才是我們最關心的？通常就是會影響外界的行為，或著是這個 method 有沒有 side-effect，有 side-effect 的行為我們才需要 verify。這是個取捨，如果程式每個路徑都去 verify，確實最有可能會抓到 bug、保護力最高。但是我的經驗是，這樣容易導致讓測試變得太敏感，就像剛剛小明的例子一樣，動不動就失敗。因此比較好的做法是 **只 verify 有 side-effect** 的行為。
 
 ### **盡可能驗證回傳值**
 如同前面幾個例子，用 `verify` 作為單元測試的驗證有很多需要注意的細節，所以盡量測那些有回傳值的行為，例如能用 `assertEquals`, `assertTrue` 等方式驗證。畢竟有回傳值，一翻兩瞪眼，是非分明。 
