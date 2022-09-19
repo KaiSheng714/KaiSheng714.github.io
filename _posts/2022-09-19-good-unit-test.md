@@ -54,7 +54,7 @@ image: /assets/image/good-unit-test.png
 
 ## **優秀的單元測試之設計原則**
 
-### **良好的結構** 
+### **行為式的結構** 
 盡量以 `Arrange, Act, Assert` 或 `Given, When, Then` 的 pattern 去寫單元測試。透過這樣的 pattern 讓測試案例比較能表達**一種行為**，會比較貼近使用者，畢竟單元測試就是在**模擬使用者如何使用該產品程式碼**。
 
 ### **一個測試案例只驗證一個行為**
@@ -65,7 +65,7 @@ image: /assets/image/good-unit-test.png
 
 ### **測試案例的命名盡量清楚、口語化**
 
-命名是一件很高深的學問，對於母語非英語的我們更是難以做出清楚的命名。不過幸好 Junit 5 之後就可以透過 `@DisplayName` 來命名中文 test case，而且它也會被輸出到 test report 中，相當實用：
+命名是一件很高深的學問，對於母語非英語的我們更是難以做出清楚的命名。不過幸好 Junit 5 之後就可以透過 `@DisplayName` 來命名中文的測試案例，而且它也會被輸出到測試報告中，相當實用：
 
 ```java
 @Test
