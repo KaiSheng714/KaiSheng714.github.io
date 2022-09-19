@@ -3,7 +3,7 @@ layout: post
 title: "優秀的單元測試如同好用的新冠快篩"
 author: "Kai-Sheng"
 permalink: /articles/good-unit-test
-categories: [Design]
+categories: [Design, Unit-testing]
 image: /assets/image/good-unit-test.png
 --- 
 
@@ -53,15 +53,19 @@ image: /assets/image/good-unit-test.png
 - 延伸閱讀: [如何提高程式碼的可測試性 (Testability)](/articles/testability)
 
 ## **優秀的單元測試之設計原則**
-0. 一個測試案例只驗證一個行為
-如同上述，好的快篩應只能篩一種病。同理，一個測試案例也應只驗證一個行為；如果不是這個測試案例要檢驗的行為，就不應該把它們寫在一起，而是把它們猜成多個測試案例(test case)。
 
-0. 測試案例之間無相依性
+### **良好的結構** 
+盡量以 `Arrange, Act, Assert` 或 `Given, When, Then` 的 pattern 去寫單元測試。透過這樣的 pattern 讓開發者比較能表達`正在驗證一種行為`，會比較貼近使用者，畢竟單元測試就是在**模擬使用者如何使用該產品程式碼**。
+
+### 一個測試案例只驗證一個行為
+如同好的快篩應只能篩一種病，一個測試案例也應只驗證一種行為；如果不是這個測試案例要檢驗的行為，就不應該把它們寫在一起，而是把它們拆分成多個測試案例(test case)。
+
+### 測試案例之間無相依性
 測試案例之間應該要各自獨立。如果測試案例相依，萬一發生測試失敗時，容易火燒連環船、一發不可收拾，無法快速釐清問題以及很難發現問題的根源。
 
-0. 測試案例的命名盡量清楚、口語化
+### 測試案例的命名盡量清楚、口語化
 
-命名是一件很高深的學問，對於母語非英語的我們更是難以做出清楚的命名。不過幸好 Junit 5 之後就可以透過 `@DisplayName` 來命名 test case，而且它也會被輸出到 test report 中，相當實用：
+命名是一件很高深的學問，對於母語非英語的我們更是難以做出清楚的命名。不過幸好 Junit 5 之後就可以透過 `@DisplayName` 來命名中文 test case，而且它也會被輸出到 test report 中，相當實用：
 
 ```java
 @Test
@@ -69,7 +73,9 @@ image: /assets/image/good-unit-test.png
 void my_test() { ... }
 
 ```
-0. 測試案例不具備邏輯
+
+
+### **測試案例不具備邏輯**
 
 ```java
 @Test
@@ -90,7 +96,7 @@ public void shouldNavigateToPhotosPage() {
 }
 ```
 
-0. 驗證時，不過度指定  (over specification)
+### 驗證時，不過度指定  (over specification)
 
 ```java
 @Test 
@@ -128,7 +134,7 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
 }
 ```
 
-0. 不過度依賴 mock framework
+### 不過度依賴 mock framework
 
 ```java
 @Test 
@@ -150,7 +156,7 @@ public void credit_card_is_charged() {
 ```
 
 
-0. 進行互動驗證時，只驗證會改變外部的行為
+### 進行互動驗證時，只驗證會改變外部的行為
 
 ```java
 @Test 
@@ -175,9 +181,8 @@ public void grant_user_permission() {
 }
 ```
 
-8. 回傳值驗證所佔的比例應要最高
-
-## **後記**
+### 盡可能驗證回傳值
+如同前面幾個例子，用 `verify` 作為單元測試的驗證有很多需要注意的細節，所以盡量測那些有回傳值的行為，用 `assertEquals`, `assertTrue` 等方式驗證。畢竟有回傳值，一翻兩瞪眼，是非分明。
  
 
 ### **References**
