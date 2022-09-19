@@ -91,7 +91,7 @@ public void shouldNavigateToAlbumsPage() {
  
 ```
 
-### 驗證時，不過度指定  (over specification)
+### **驗證時，不過度指定  (over specification)**
 如果我們驗證的時候過度指定，會讓測試程式變得很敏感，也容易出現不準確的問題。例如有一個打招呼的程式，測試如下：
 
 ```java
@@ -136,7 +136,7 @@ public void displayGreeting_timeIsMorning_useMorningSettings() {
 - 如果是上面的測試結果是錯的，我就可以明確知道，我的程式有錯，沒有把人家的名字寫對。
 - 如果是下面的測試結果是錯的，我就可以明確知道，我的程式可能把早安說成晚安了。
 
-### 不過度依賴 mock framework
+### **不過度依賴 mock framework**
 過度依賴 mock framework 是很多人會犯的錯，因為大家都想把單元測試寫出來，所以用了各式各樣的 mock 技巧，但如果 mock 越多，越會造成與愈事實結果背離的問題。例如有一個刷卡交易的程式，驗證信用卡是否有被扣款的單元測試如下：
 
 ```java
@@ -160,7 +160,7 @@ public void credit_card_is_charged() {
 
 解決辦法就是不要寫單元測試，應該將它昇華到**整合測試**階段，雖然整合測試的成本較高，但結果也會比較貼近真實、有價值。
 
-### 進行相依驗證時，只驗證會改變外部的行為
+### **進行相依驗證時，只驗證會改變外部的行為**
 
 實務上我們常用 `Mockito.verify` 來驗證帶測物件與相依物件的互動。例如有一支 grant user 程式的單元測試如下：
 
