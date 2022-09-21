@@ -28,7 +28,7 @@ public String toJson(Something something) throws JsonProcessingException {
 ---
 
 ## **解法**
-解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)指出，ObjectMapper 是 thread-safe，因此只要共用同一個實例，而不要每次都 `new` 即可，否則代價很高。我常用的作法有:
+解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)指出，ObjectMapper 是 thread-safe，因此只要共用同一個 instance，而不要每次都 `new` 即可，否則代價很高。我常用的作法有:
  
 ### **解法1. 宣告成員變數**
 
@@ -131,3 +131,8 @@ Something something = JsonUtil.toObject(json, Something.class);
 ### **References**
 - [Should I declare Jackson's ObjectMapper as a static field?](https://stackoverflow.com/questions/3907929/should-i-declare-jacksons-objectmapper-as-a-static-field)
 - [Jackson ObjectMapper performance pitfall](]https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/)
+
+## **更多你可能會感興趣的文章**
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [SimpleDateFormat 的錯誤用法](/articles/simple-date-format)
+- [多此一舉! 不要這樣用 Java 8 Optional](/articles/misuse-of-java-8-optional)
