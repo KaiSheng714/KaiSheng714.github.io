@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "軟體設計原則 KISS （Keep it simple, stupid）"
+title: "軟體設計原則 KISS (Keep it simple, stupid)"
 author: "Kai-Sheng"
 permalink: /articles/kiss-principle
 categories: [Design]
