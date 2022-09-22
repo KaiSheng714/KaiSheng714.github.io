@@ -80,7 +80,7 @@ public class HelloBeanTest {
 * 是否需要將待測物件 HelloBean 實體化呢 ?
 * 如果有兩個 `AnotherBean`怎麼辦 ?
 
-只有短短幾行就讓人產生諸多疑問，理解成本較高。若使用 constructor based injection 則不易產生此問題，下面會詳述：
+只有短短幾行就讓人產生諸多疑問，理解成本較高，雖然這種注入方式只要短短一行即可完成，但寫單元測試時就得還債了。若使用 constructor based injection 則不易產生此問題，下面會詳述：
 
 ## **Constructor Based Dependency Injection**
 
