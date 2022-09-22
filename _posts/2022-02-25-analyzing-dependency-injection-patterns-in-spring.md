@@ -104,7 +104,7 @@ public class HelloBean {
 ### **優點**
 ### **1. 容易發現 code smell**
 
-假設我們需要注入十幾個 dependecies，對比 field injection 的方式，這種方式暴露了 constructor 中含有過多的參數，這是個很好的**臭味偵測器**，正常的開發者看到這麼多參數肯定是會頭痛的，這就表示我們需要想辦法重構它，盡可能使它符合單一職責原則 (Single Responsibility Principle)。
+假設我們需要注入十幾個 dependecies，對比 field injection 的方式，這種方式暴露了 constructor 中含有過多的參數 (Long Parameter List)，這是個很好的**臭味偵測器**，正常的開發者看到這麼多參數肯定是會頭痛的，這就表示我們需要想辦法重構它，盡可能使它符合單一職責原則 (Single Responsibility Principle)。
 
 ### **2. 容易做單元測試**
 
