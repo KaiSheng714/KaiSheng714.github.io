@@ -125,7 +125,7 @@ public class HelloBeanTest {
 }
 ```
 
-相較前面的例子，這裡不需要一堆 @Annotation。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本。[優秀的單元測試就該如此](/articles/good-unit-test)。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
+相較前面的例子，這裡不需要一堆 @Annotation。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，[優秀的單元測試](/articles/good-unit-test)就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
 
 ### **3. Immutable Object**
 
@@ -137,7 +137,7 @@ public class HelloBeanTest {
 
 只有在使用 constructor based injection 時才會造成此問題。
 
-舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException` ，造成程式 crash。更白話一點，這就是**雞生蛋 / 蛋生雞的**問題。
+舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException` ，造成程式 crash。更白話一點，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的依賴關係，因此拋出例外。
 
 ![循環依賴問題 Circular dependency issues ](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
