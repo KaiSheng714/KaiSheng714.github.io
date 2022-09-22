@@ -84,7 +84,7 @@ public class HelloBeanTest {
 
 ## **Constructor Based Dependency Injection**
 
-**此方式最大的特點就是: Bean 的建立與依賴入是同時發生的**
+此方式最大的特點就是: Bean 的建立與依賴入是同時發生的
 
 ```java
 @Component
