@@ -20,7 +20,7 @@ image: /assets/image/cover0.png
 > 先寫出 interface，之後可以替換不同實作，較有彈性。
 >
 
-但設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，**實作並沒有被替換的可能**，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦**，也失去了使用 interface 的初衷與目的，over design。
+我們無法預測未來，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦**，也失去了使用 interface 的初衷與目的，成為一種 over design。
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
@@ -32,7 +32,7 @@ image: /assets/image/cover0.png
 
 ### **3. 不必要的干擾**
 
-想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，在大系統裡遇到這種事，有損開發者的工作效率與心理感受。
+想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，若在較大的專案裡遇到這種事，將會打擊開發者的工作效率與心理感受。
 
 此外，當 interface-impl 出現時，表示檔案的數量是比原本多一倍的，這不僅讓專案更龐大，也隱含的增加了專案的複雜度，因為多了這層非必要的 abstract layer，讓系統變得更不直觀，也會讓開發者永遠好奇眼前的 interface 是否有其他的 implementation ?
 
@@ -40,9 +40,9 @@ image: /assets/image/cover0.png
 
 ## **How To Fix It ?**
 
-我認為這種 **interface-impl 不應存在**，反而使用一般的 concrete class 即可，開發程式不需要過度包裝與設計，Keep it simple, straightforword。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，**但我認為大問題往往是從小問題引起的**，一旦病入膏肓，就算想改也改不動了。因此，稱職的 clean coder 應盡量維持專案的乾淨與健康。
+我認為這種 **interface-impl 不應存在**，反而使用一般的 concrete class 即可，開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。因此，稱職的 clean coder 應盡量維持專案的乾淨與健康。
 
-如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mock library，如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
+如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mock library，如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要 interface 時再利用工具進行 extract interface 即可，這幾乎無成本，很容易就能生出一個 interface。換言之，避免此問題的方法其實很簡單: **等待**、**延遲決定**。
  
@@ -52,15 +52,14 @@ image: /assets/image/cover0.png
 先引用一段話:
 
 > 
-> _Programming to an interface, not an implementation_
+> Programming to an interface, not an implementation
 > 
 
 意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
 
-因此，首先描述你的 interface 能提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
+因此，首先描述你的 interface 能為 client 提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-再者，如果你的專案並沒有開放給外部使用，在實務上，大部分的情況下是不需要 interface 的。除非你開發的是如 library, SDK 給外部 client 使用，就可以利用 interface 定義出你的系統邊界，讓外部 client 知道如何透過 interface 去使用、界接你的專案。
-
+再者，如果你的專案並沒有開放給外部使用，在實務上大部分的情況下是不需要 interface 的。除非你開發的是如 library, SDK 給外部 client 使用，就可以利用 interface 定義出你的系統邊界，讓外部 client 知道如何透過 interface 去使用、界接你的作品。
 
 ## **結語**
 
