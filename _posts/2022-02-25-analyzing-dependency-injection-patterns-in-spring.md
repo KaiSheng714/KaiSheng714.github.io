@@ -24,7 +24,7 @@ image: /assets/image/spring-di.png
 
 為何 constructor based injection 優於 field based injection 呢？接下來我會解析這兩種 pattern. （雖然 Spring 還有其他種注入方式，但我比較不常用，所以就不在此介紹了)
 
-## **1. Field Based Dependency Injection**
+## **Field Based Dependency Injection**
 
 這種注入方式顧名思義，就是直接在 field 加上 @Autowired
 
@@ -80,7 +80,7 @@ public class HelloBeanTest {
 
 只有短短幾行就讓人產生諸多疑問，理解成本較高。若使用 constructor based injection 則不易產生此問題，下面會詳述：
 
-## **2. Constructor Based Dependency Injection**
+## **Constructor Based Dependency Injection**
 
 **此方式最大的特點就是: Bean 的建立與依賴入是同時發生的**
 
@@ -131,22 +131,21 @@ public class HelloBeanTest {
 
 ### **缺點**
 
-### **循環依賴問題 ([Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency))**
+### **循環依賴**
 
-只有在使用 Constructor DI 時才會造成此問題。
+只有在使用 constructor based injection 時才會造成此問題。
 
 舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException` ，造成程式 crash。更白話一點，這就是**雞生蛋 / 蛋生雞的**問題。
 
 ![循環依賴問題 Circular dependency issues ](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
-但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這反而蠻好的。
+但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
 
 ## **總結**
 
 本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field based injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor based injection**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊。
 
 ## **References**
-
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
 - [What exactly is field injection and how to avoid it](https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it/39891473)  
 - [Circular dependencies in spring](https://www.baeldung.com/circular-dependencies-in-spring)
