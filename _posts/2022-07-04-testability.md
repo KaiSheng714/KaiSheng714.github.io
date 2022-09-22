@@ -37,7 +37,7 @@ image: /assets/image/cover4.png
 
 軟體可測試性高，就容易測試左移。測試左移本質上是要儘早發現、預防問題。若能越早發現問題，解決問題的成本就越便宜，我們就能更快速的交付產品給客戶、更快速得到客戶的 feedback，更符合敏捷開發的精神。
 
-若軟體可測試性低，工程師就要花很多時間寫測試，通常在這種情況所寫的單元測試也會是一團亂，不僅測試效果不佳，也不容易測到關鍵、動不動就 test fail，導致測試品質低落，例如在測試中 mock 一堆依賴、arrange 太多的 input，會讓測試變得很複雜，而測試程式也是需要注重品質的。**若寫測試像是一門賠本生意，就會讓工程師不願意寫測試，或者拖到很晚才開始寫測試，這些都違背了測試左移的原則以及單元測試的初衷**。
+若軟體可測試性低，工程師就要花很多時間寫測試，通常在這種情況所寫的單元測試也會是一團亂，不僅測試效果不佳，也不容易測到關鍵、容易 test fail，導致測試品質低落，例如在測試中 mock 過多依賴、stubbing，會讓測試變得很複雜，而測試程式也是需要注重品質的。**若寫測試像是一門賠本生意，就會讓工程師不願意寫測試，或者拖到很晚才開始寫測試，這些都違背了測試左移的原則以及單元測試的初衷**。
 
 ----- 
 
@@ -121,3 +121,8 @@ TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼�
 - [程式碼的可測性](https://www.ithome.com.tw/voice/88062)
 - [Effective Unit Testing by Eliotte Rusty Harold](https://www.youtube.com/watch?v=fr1E9aVnBxw)
 - [The Clean Code Talks -- Unit Testing](https://www.youtube.com/watch?v=wEhu57pih5w)
+
+
+## **更多你可能會感興趣的文章**
+- [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
