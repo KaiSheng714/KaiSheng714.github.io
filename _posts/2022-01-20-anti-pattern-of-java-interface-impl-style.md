@@ -20,7 +20,7 @@ image: /assets/image/cover0.png
 > 先寫出 interface，之後可以替換不同實作，較有彈性。
 >
 
-我們無法預測未來，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦**，也失去了使用 interface 的初衷與目的，成為一種 over design。
+計畫趕不上變化，我們無法預測未來，也很可能最終和當初想的不一樣。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦**，也失去了使用 interface 的初衷與目的，成為一種 over design。
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
@@ -72,3 +72,8 @@ image: /assets/image/cover0.png
 - [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 - [Adam Bien — Service s = new ServiceImpl() — Why You Are Doing That?](http://adambien.blog/roller/abien/entry/service_s_new_serviceimpl_why)
 - [Do I need to use an interface when only one class will ever implement it?](https://softwareengineering.stackexchange.com/questions/159813/do-i-need-to-use-an-interface-when-only-one-class-will-ever-implement-it/159815#159815)
+
+## **更多你可能會感興趣的文章**
+- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)
+- [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle)
+- [如何提高程式碼的可測試性 (Testability)](/articles/testability)

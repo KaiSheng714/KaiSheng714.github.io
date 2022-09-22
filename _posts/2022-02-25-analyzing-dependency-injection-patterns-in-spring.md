@@ -157,4 +157,4 @@ public class HelloBeanTest {
 ## **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [如何提高程式碼的可測試性 (Testability)](/articles/testability)
-- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/testability)
+- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)
