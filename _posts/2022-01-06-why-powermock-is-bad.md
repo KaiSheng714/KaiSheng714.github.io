@@ -211,7 +211,6 @@ public void execute_some_example() {
 但其實有更好的替代方案，方法與上一個例子的概念很類似，我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。(除此之外，也可以使用 factory pattern 來處理物件的建立)
 
 ```java
-
 // better
 public MyClass(InterfaceA a) {
   this.a = a;
