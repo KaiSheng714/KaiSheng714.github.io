@@ -77,9 +77,10 @@ public class HelloBeanTest {
 
 這是相當常見的 Mockito+Junit 單元測試寫法，但容易造成疑問：
 
-1. `@InjectMocks` 做了什麼?
-2. 是否需要將待測物件 HelloBean 實體化呢 ?
-3. 如果有兩個 `AnotherBean` 類型的依賴怎麼辦 ?
+1. `@RunWith(MockitoJUnitRunner.class)` 是什麼意思?
+2. `@InjectMocks` 做了什麼?
+3. 是否需要將待測物件 HelloBean 實體化呢 ?
+4. 如果有兩個 `AnotherBean` 類型的依賴怎麼辦 ?
 
 只有短短幾行就讓人產生諸多疑問，理解成本較高，雖然這種注入方式很簡單方便，但寫**單元測試時就得還債**了。若使用 constructor injection 則不易產生此問題，下面會詳述：
 
