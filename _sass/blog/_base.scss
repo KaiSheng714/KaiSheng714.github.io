@@ -8,6 +8,10 @@
   margin-left: auto;
  
   @extend %clearfix;
+
+  @include media-query($on-laptop) {
+    padding: 0rem 0.4rem
+  }
 }
 
 

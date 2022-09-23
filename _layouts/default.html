@@ -185,7 +185,9 @@
             }
 
             function hideTagLineInPost() {
-                document.querySelector('.project-tagline').style.display='none';                
+                if (window.location.href.includes('articles')) {
+                    document.querySelector('.project-tagline').style.display='none';                
+                }
             }
             
         </script>
