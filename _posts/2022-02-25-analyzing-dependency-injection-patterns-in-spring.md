@@ -77,8 +77,8 @@ public class HelloBeanTest {
 
 這是相當常見的 Mockito+Junit 單元測試寫法，但容易造成疑問：
 
-1. `@RunWith(MockitoJUnitRunner.class)` 是什麼意思?
-2. `@InjectMocks` 做了什麼?
+1. `@RunWith(MockitoJUnitRunner.class)` 是什麼意思 ?
+2. `@InjectMocks` 做了什麼 ?
 3. 是否需要將待測物件 HelloBean 實體化呢 ?
 4. 如果有兩個 `AnotherBean` 類型的依賴怎麼辦 ?
 
