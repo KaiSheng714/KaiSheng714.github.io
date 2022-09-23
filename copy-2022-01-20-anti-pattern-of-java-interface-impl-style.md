@@ -1,7 +1,6 @@
 ---
 layout: post
 title: "常見的 Interface 錯誤用法"
-tagline: "大部分的情況下是不需要 interface 的"
 meta: java,design,interface
 author: "Kai-Sheng"
 permalink: /posts/anti-pattern-of-java-interface-impl-style
