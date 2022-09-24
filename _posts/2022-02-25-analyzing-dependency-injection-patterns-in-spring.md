@@ -79,13 +79,12 @@ public class HelloBeanTest {
 
 1. `@RunWith(MockitoJUnitRunner.class)` 是什麼意思 ?
 2. `@InjectMocks` 做了什麼 ?
-3. 是否需要將待測物件 HelloBean 實體化呢 ?
+3. 是否需要將待測物件 `HelloBean` 實體化呢 ?
 4. 如果有兩個 `AnotherBean` 類型的依賴怎麼辦 ?
 
 只有短短幾行就讓人產生諸多疑問，因此理解成本較高。雖然這種注入方式很簡單方便，但**寫單元測試時就得還債了**。若使用 constructor injection 則不易產生此問題，我們接著看下去：
 
 ## **Constructor Injection**
-
 此方式最大的特點是: Bean 的建立與依賴的注入是同時發生的
 
 ```java
@@ -108,7 +107,6 @@ public class HelloBean {
 ```
 
 ### **優點1. 容易發現 code smell**
-
 假設我們需要注入十幾個 dependecies，對比 field injection 的方式，這種方式暴露了 constructor 中含有過多的參數 (Long Parameter List)，這是個很好的**臭味偵測器**，正常的開發者看到這麼多參數肯定是會頭痛的，這就表示我們需要想辦法重構它，盡可能使它符合單一職責原則 (Single Responsibility Principle)。
 
 ### **優點2. 容易做單元測試**
@@ -135,12 +133,10 @@ public class HelloBeanTest {
 相較前面的例子，這裡不需要一堆 @Annotation，也能很輕鬆的用 `new` 來實體化待測物件，**清楚、好理解**，就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，**[優秀的單元測試](/articles/good-unit-test)**就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
 
 ### **優點3. Immutable Object**
-
 意思是 Bean 在被創造之後，它的內部 state, field 就無法被改變了。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor injection，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 
 ### **缺點：循環依賴**
-
 只有在使用 constructor injection 時才會造成此問題。
 
 舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題，程式在 Runtime 會拋出`BeanCurrentlyInCreationException`，更白話來說，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的窘境，因此拋出例外並中斷程式。
@@ -150,7 +146,6 @@ public class HelloBeanTest {
 但是，[Circular dependency](https://en.wikipedia.org/wiki/Circular_dependency) 其實算是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
 
 ## **總結**
-
 本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor injection**，雖然可能會有循環依賴異常的問題，但無論在開發、測試方面，總體而言都是利大於弊，我也一直遵循這個模式。
 
 ## **References**
