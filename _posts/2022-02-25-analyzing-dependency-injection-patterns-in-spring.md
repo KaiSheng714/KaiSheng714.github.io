@@ -45,8 +45,8 @@ public class HelloBean {
 
 ### **缺點**
 1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知**，例如 **God Object**
-2. 不好寫單元測試，測試環境需要透過 DI container 並加上許多 @Annotation 來初始化，看起來更像整合測試了。而且編譯執行時會多一些 overhead，也較不容易除錯。
-3. 不好理解測試，以下範例程式為例
+2. 不好寫單元測試，測試環境需要透過 DI container 並加上許多 @Annotation 來初始化，看起來更像整合測試了。而且編譯、執行時會多一些 overhead。
+3. 不好理解測試，以下程式為例
 
 ```java
 @RunWith(MockitoJUnitRunner.class)
@@ -82,7 +82,7 @@ public class HelloBeanTest {
 3. 是否需要將待測物件 HelloBean 實體化呢 ?
 4. 如果有兩個 `AnotherBean` 類型的依賴怎麼辦 ?
 
-只有短短幾行就讓人產生諸多疑問，理解成本較高，雖然這種注入方式很簡單方便，但寫**單元測試時就得還債**了。若使用 constructor injection 則不易產生此問題，下面會詳述：
+只有短短幾行就讓人產生諸多疑問，因此理解成本較高。雖然這種注入方式很簡單方便，但**寫單元測試時就得還債了**。若使用 constructor injection 則不易產生此問題，我們接著看下去：
 
 ## **Constructor Injection**
 
@@ -143,11 +143,11 @@ public class HelloBeanTest {
 
 只有在使用 constructor injection 時才會造成此問題。
 
-舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException`，更白話來說，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的窘境，因此拋出例外並中斷程式。
+舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題，程式在 Runtime 會拋出`BeanCurrentlyInCreationException`，更白話來說，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的窘境，因此拋出例外並中斷程式。
 
 ![循環依賴問題 Circular dependency issues](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
-但是， [Circular dependency](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
+但是，[Circular dependency](https://en.wikipedia.org/wiki/Circular_dependency) 其實算是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
 
 ## **總結**
 
