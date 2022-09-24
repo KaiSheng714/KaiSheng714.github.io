@@ -94,6 +94,7 @@ public class HelloBean {
  
    private final AnotherBean anotherBean;
    private final AnotherBean2 anotherBean2;
+   // ...
    
    @Autowired
    public HelloBean(AnotherBean anotherBean, AnotherBean2 anotherBean2, ...) {
