@@ -111,3 +111,7 @@ java -jar <my-artifact>.war
 **幫團隊節省成本，就是替幫公司賺錢。**
 
 本文範例完整程式碼 [https://github.com/KaiSheng714/spring-maven-profile-integration-demo](https://github.com/KaiSheng714/spring-maven-profile-integration-demo)
+
+
+## **更多你可能會感興趣的文章**
+- [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)

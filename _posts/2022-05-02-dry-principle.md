@@ -119,3 +119,8 @@ DRY 原則所指出的論點並不僅僅是程式碼的重複，更正確地來�
 - [Dry Revisited](https://enterprisecraftsmanship.com/posts/dry-revisited/)
 - [DRY原則的誤區](http://www.yinwang.org/blog-cn/2015/06/14/dry-principle)
 - 設計重構：25個管理技術債的技巧消除軟體設計臭味
+
+## **更多你可能會感興趣的文章**
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [如何提高程式碼的可測試性 (Testability)](/articles/testability)
+- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)

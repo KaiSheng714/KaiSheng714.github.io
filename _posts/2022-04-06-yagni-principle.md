@@ -67,3 +67,7 @@ The best code is no code. 不要實作那些現在用不到的程式碼，沒有
 ### **References**
 - [https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)
 - [https://enterprisecraftsmanship.com/posts/yagni-revisited/](https://enterprisecraftsmanship.com/posts/yagni-revisited/)
+
+## **更多你可能會感興趣的文章**
+- [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)

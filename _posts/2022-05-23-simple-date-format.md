@@ -123,3 +123,7 @@ for (LocalDate date = LocalDate.of(2022, 1, 1); date.isBefore(LocalDate.of(2022,
 - [Migrating to the New Java 8 Date Time API](https://www.baeldung.com/migrating-to-java-8-date-time-api)
 - [Why is Java's SimpleDateFormat not thread-safe?](https://stackoverflow.com/questions/6840803/why-is-javas-simpledateformat-not-thread-safe)
 - [When and how should I use a ThreadLocal variable?](https://stackoverflow.com/questions/817856/when-and-how-should-i-use-a-threadlocal-variable)
+
+## **更多你可能會感興趣的文章**
+- [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)

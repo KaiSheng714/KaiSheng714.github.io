@@ -250,3 +250,8 @@ PowerMock 是個功能強大、非常實用的單元測試工具，但也不可�
 ### References
 
 [https://martinfowler.com/articles/modernMockingTools.html](https://martinfowler.com/articles/modernMockingTools.html)
+
+## **更多你可能會感興趣的文章**
+- [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
