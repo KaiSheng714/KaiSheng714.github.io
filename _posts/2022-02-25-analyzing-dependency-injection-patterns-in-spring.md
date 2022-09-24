@@ -132,7 +132,7 @@ public class HelloBeanTest {
 }
 ```
 
-相較前面的例子，這裡不需要一堆 @Annotation，也能很輕鬆的用 `new` 來實體化待測物件，**清楚、好理解**，就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，[優秀的單元測試](/articles/good-unit-test)就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
+相較前面的例子，這裡不需要一堆 @Annotation，也能很輕鬆的用 `new` 來實體化待測物件，**清楚、好理解**，就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，**[優秀的單元測試](/articles/good-unit-test)**就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
 
 ### **優點3. Immutable Object**
 
@@ -151,7 +151,7 @@ public class HelloBeanTest {
 
 ## **總結**
 
-本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor injection**，雖然可能會有循環依賴的問題，但無論在開發、測試方面，總體而言都是利大於弊，我個人也一直遵循這個模式。
+本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor injection**，雖然可能會有循環依賴異常的問題，但無論在開發、測試方面，總體而言都是利大於弊，我也一直遵循這個模式。
 
 ## **References**
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
