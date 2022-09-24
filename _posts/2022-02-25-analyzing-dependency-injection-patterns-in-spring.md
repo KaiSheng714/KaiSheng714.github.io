@@ -86,7 +86,7 @@ public class HelloBeanTest {
 
 ## **Constructor Injection**
 
-此方式最大的特點就是: Bean 的建立與依賴入是同時發生的
+此方式最大的特點是: Bean 的建立與依賴的注入是同時發生的
 
 ```java
 @Component
@@ -143,7 +143,7 @@ public class HelloBeanTest {
 
 只有在使用 constructor injection 時才會造成此問題。
 
-舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException` ，造成程式 crash。更白話一點，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的依賴關係，因此拋出例外。
+舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException`，更白話來說，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的窘境，因此拋出例外並中斷程式。
 
 ![循環依賴問題 Circular dependency issues ](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
