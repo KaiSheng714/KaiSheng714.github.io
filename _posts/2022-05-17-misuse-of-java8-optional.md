@@ -151,5 +151,4 @@ Optional 在使用上有許多需要注意的地方，不幸的是，許多人�
 
 ## **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
-- [如何提高程式碼的可測試性 (Testability)](/articles/testability)
-- [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)
+- [SimpleDateFormat 的錯誤用法](/articles/simple-date-format)
