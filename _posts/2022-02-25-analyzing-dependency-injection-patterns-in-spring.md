@@ -131,7 +131,7 @@ public class HelloBeanTest {
 }
 ```
 
-相較前面的例子，這裡不需要一堆 @Annotation。就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，[優秀的單元測試](/articles/good-unit-test)就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
+相較前面的例子，這裡不需要一堆 @Annotation，也能很輕鬆的用 `new` 來實體化待測物件，**清楚、好理解**，就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，[優秀的單元測試](/articles/good-unit-test)就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
 
 ### **優點3. Immutable Object**
 
