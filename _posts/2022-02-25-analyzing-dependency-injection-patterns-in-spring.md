@@ -93,10 +93,13 @@ public class HelloBeanTest {
 public class HelloBean {
  
    private final AnotherBean anotherBean;
+   private final AnotherBean2 anotherBean2;
    
    @Autowired
-   public HelloBean(AnotherBean anotherBean) {
+   public HelloBean(AnotherBean anotherBean, AnotherBean2 anotherBean2, ...) {
        this.anotherBean = anotherBean;
+       this.anotherBean2 = anotherBean2;
+       // ...
    }
    
    // ...
@@ -119,7 +122,9 @@ public class HelloBeanTest {
     @Before
     public void setup() {
         AnotherBean anotherBean = mock(AnotherBean.class);
-        helloBean = new HelloBean(anotherBean);
+        AnotherBean2 anotherBean2 = mock(AnotherBean2.class);
+        // ...
+        helloBean = new HelloBean(anotherBean, anotherBean2, ...);
     }
   
     // Test cases...
