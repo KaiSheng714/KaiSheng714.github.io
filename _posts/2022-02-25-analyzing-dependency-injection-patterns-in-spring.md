@@ -145,9 +145,9 @@ public class HelloBeanTest {
 
 舉個簡單的例子，若依賴關係圖: Bean C → Bean B → Bean A → Bean C ，則會造成造成此問題， 程式在 Runtime 會拋出`BeanCurrentlyInCreationException`，更白話來說，這就是**雞生蛋 / 蛋生雞的**問題，而 Spring 容器初始化時無法解決這樣的窘境，因此拋出例外並中斷程式。
 
-![循環依賴問題 Circular dependency issues ](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
+![循環依賴問題 Circular dependency issues](https://miro.medium.com/max/1044/1*vClDWHcM4nKPUz9uWksl-Q.png?style=center)
 
-但是， [Circular dependency issues](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
+但是， [Circular dependency](https://en.wikipedia.org/wiki/Circular_dependency) 是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
 
 ## **總結**
 
