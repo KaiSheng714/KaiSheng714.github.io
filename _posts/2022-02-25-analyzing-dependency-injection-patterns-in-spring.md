@@ -26,7 +26,7 @@ image: /assets/image/spring-di.png
 
 ## **Field Injection**
 
-這種注入方式顧名思義，就是直接在 field 加上 @Autowired
+這種注入方式顧名思義，就是直接在 field 加上 `@Autowired`
 
 ```java
 @Component
@@ -44,7 +44,7 @@ public class HelloBean {
 2. 程式碼最少，讀起來真舒服
 
 ### **缺點**
-1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知**，例如 `God Object`
+1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知**，例如 **God Object**
 2. 不好寫單元測試，測試環境需要透過 DI container 並加上許多 @Annotation 來初始化，看起來更像整合測試了。而且編譯執行時會多一些 overhead，也較不容易除錯。
 3. 不好理解測試，以下範例程式為例
 
