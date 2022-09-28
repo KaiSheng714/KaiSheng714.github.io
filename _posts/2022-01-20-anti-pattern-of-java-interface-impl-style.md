@@ -20,7 +20,7 @@ image: /assets/image/cover0.png
 > 先寫出 interface，之後可以替換不同實作，較有彈性。
 >
 
-計畫趕不上變化，我們無法預測未來，導致最終結果可能和當初想的不一樣。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦**，也失去了使用 interface 的初衷與目的，成為一種 over design。
+計畫趕不上變化，我們無法預測未來，導致最終結果可能和當初想的不一樣。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦，更沒有多型**，也失去了使用 interface 的初衷與目的，成為一種 over design。
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
@@ -40,7 +40,7 @@ image: /assets/image/cover0.png
 
 ## **如何解決？**
 
-我認為這種 **interface-impl 不應存在**，反而使用 concrete class 即可，開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。因此，優秀的 clean coder 應盡量維持專案的乾淨與健康。
+我認為這種 interface-impl 不應存在，反而直接了當使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。因此，優秀的 clean coder 應盡量維持專案的乾淨與健康。
 
 如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
