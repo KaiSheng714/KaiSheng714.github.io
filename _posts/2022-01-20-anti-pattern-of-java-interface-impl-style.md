@@ -20,7 +20,7 @@ image: /assets/image/cover0.png
 > 先寫出 interface，之後可以替換不同實作，較有彈性。
 >
 
-計畫趕不上變化，我們無法預測未來，導致最終結果可能和當初想的不一樣。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，並不是 interface 該提供的價值，**沒有抽象概念，也沒有解耦，更沒有多型**，也失去了使用 interface 的初衷與目的，成為一種 over design。
+計畫趕不上變化，我們無法預測未來，導致最終結果可能和當初想的不一樣。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作。如果 interface 沒有第二個實作，換言之，當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是沒有差異的，表面上是 interface，本質上是個 duplicated type，**沒有抽象概念，也沒有解耦，更沒有多型**，失去了使用 interface 的初衷與目的，成為一種 over design。
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
