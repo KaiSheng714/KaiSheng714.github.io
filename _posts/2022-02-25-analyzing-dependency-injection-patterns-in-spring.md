@@ -105,13 +105,15 @@ public class HelloBean {
    // ...
 }
 ```
-
 ### **優點1. 容易發現 code smell**
 假設我們需要注入十幾個 dependecies，對比 field injection 的方式，這種方式暴露了 constructor 中含有過多的參數 (Long Parameter List)，這是個很好的**臭味偵測器**，正常的開發者看到這麼多參數肯定是會頭痛的，這就表示我們需要想辦法重構它，盡可能使它符合單一職責原則 (Single Responsibility Principle)。
 
-### **優點2. 容易做單元測試**
+### **優點2. 容易釐清依賴關係**
+一看到 constructor 就可以讓開發者釐清這個物件所需要的 dependency，進而縮小該物件在專案中的使用範圍，事物的範圍越窄，就越容易理解與維護。另外，我們也可以透過 constructor 注入假的依賴，進而容易寫單元測試。
 
-這種注入方式不需要太多 JUnit 以外的 @Annotation，讓程式碼看起來更乾淨了。
+### **優點3. 容易寫單元測試**
+
+一個簡單的範例：
 
 ```java
 public class HelloBeanTest {
@@ -130,9 +132,9 @@ public class HelloBeanTest {
 }
 ```
 
-相較前面的例子，這裡不需要一堆 @Annotation，也能很輕鬆的用 `new` 來實體化待測物件，**清楚、好理解**，就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，**[優秀的單元測試](/articles/good-unit-test)**就應該如此。此外，這種方式也能讓開發者較能看清待測物件與其他依賴的關係。
+相較前面的例子，這種注入方式不需要太多 @Annotation，讓測試程式碼看起來更乾淨了，我們也能輕鬆的用 `new` 來實體化待測物件，整體看起來 **清楚、好理解**，就算是不熟 Java 或 Mockito 的開發人員應該也能看得懂七八成，對於新人也比較好上手，而且也比較不會有誤用 @Annotation 所產生額外成本，**[優秀的單元測試](/articles/good-unit-test)**就應該如此。
 
-### **優點3. Immutable Object**
+### **優點4. Immutable Object**
 意思是 Bean 在被創造之後，它的內部 state, field 就無法被改變了。不可變意味著唯讀，因而具備執行緒安全 (Thread-safety) 的特性。此外，相較於可變物件，不可變物件在一些場合下也較合理、易於了解，而且提供較高的安全性，是個良好的設計。因此，透過 constructor injection，再把依賴宣都告成 **final**，就可以輕鬆建立 Immutable Object。
 
 
