@@ -74,7 +74,7 @@ public void setName(Optional<String> name) {
 2. Optional.empty()
 3. null
 
-**Optional 也有可能是個 null**，當然有機會引發 NPE，會讓人更摸不著頭緒，這使得程式變得更複雜，因此請不要使用 Optional 作為參數。若你想表達可能為空值的參數，可以透過 `overloading`：
+**Optional 也有可能是個 null**，當然有機會引發 NPE，會讓人更摸不著頭緒，因此請不要使用 Optional 作為參數。若你想表達可能為空值的參數，可以透過 `overloading`：
 
 ```java
 public void setName() {
