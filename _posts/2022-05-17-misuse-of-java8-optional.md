@@ -65,7 +65,11 @@ public Optional<Student> readTopScoreStudent() {
 
 ```java
 public void setName(Optional<String> name) {
-     this.name = name.orElse("無名氏");
+    if(name.isPresent()) {
+        this.name = name.get();
+    } else {
+        this.name = "無名氏";
+    }
 }
 ```
 
@@ -74,7 +78,14 @@ public void setName(Optional<String> name) {
 2. Optional.empty()
 3. null
 
-**Optional 也有可能是個 null**，當然有機會引發 NPE，會讓人更摸不著頭緒，因此請不要使用 Optional 作為參數。若你想表達可能為空值的參數，可以透過 `overloading`：
+**Optional 也有可能是個 null**，當然有機會引發 NPE，讓人更摸不著頭緒，因此請不要使用 Optional 作為參數。此外，這樣的寫法會讓 caller 很痛苦，因為他們必需將參數多包一層 Optional，變得不容易使用:
+
+```java
+setName(Optional.of("Jason"));
+setName(Optional.empty());
+```
+
+因此，比較好的設計是透過 `overloading`，讓有參數值或沒有參數值的意圖與結果更加明確：
 
 ```java
 public void setName() {
