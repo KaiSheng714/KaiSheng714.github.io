@@ -65,7 +65,7 @@ public Optional<Student> readTopScoreStudent() {
 
 ```java
 public void setName(Optional<String> name) {
-    if(name.isPresent()) {
+    if (name.isPresent()) {
         this.name = name.get();
     } else {
         this.name = "無名氏";
