@@ -98,7 +98,7 @@ public String showLoginWindow(@PathVariable("id") String id,
 
 在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
 
-## **錯誤4. 作為 class property**
+## **錯誤4. 作為 class field**
 
 ```java
 public class Student {
@@ -108,7 +108,7 @@ public class Student {
 }
 ```
 
-Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，在特定狀況下(如網路傳輸)需要物件序列化時將會出現問題。
+因為 Optional 是設計用來 method 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面，在特定狀況下(如網路傳輸)需要物件序列化時將會出現問題。
 
 ## **錯誤5. Collection and Optional**
 因為 `Optional` 本身就是一個容器，如果內容又是另一個容器，例如回傳 `Optional<List<Student>>`，這不僅比較複雜以外，在語意上還代表著三種可能的回傳值:
@@ -125,7 +125,7 @@ public List<Student> readAllStudentsInClass(String classId) {
 }
 ```
  
- ## **錯誤6. Map and Optional**
+## **錯誤6. Map and Optional**
 不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 map.get(key) 會有三種可能的回傳值:
 1. 一個 Student 
 2. Optional.empty()
