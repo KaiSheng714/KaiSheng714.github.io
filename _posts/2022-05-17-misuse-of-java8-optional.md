@@ -61,20 +61,20 @@ public Optional<Student> readTopScoreStudent() {
 
 ## **錯誤3. 作為參數**
 
-有些人會將 Optional 作為參數: 
+有些人會將 Optional 作為參數，意圖表示這個參數可能是有值或沒有值:
 
 ```java
 public void setName(Optional<String> name) {
-    // ...
+     this.name = name.orElse("無名氏");
 }
 ```
 
-這是個錯誤的寫法，因為這表示 `Optional<String>` 參數有三種可能的值:
-1. Optional 非 null，且有內容值
+但這是個不好的寫法，因為這裡的 `Optional<String>` 參數有三種可能的值:
+1. 有內容值的 Optional 
 2. Optional.empty()
-3. 整個 Optional 是 null
+3. null
 
-這讓情況變得更複雜，因此在這種情況下請不要使用 Optional。也可以透過 `overloading` 避免這個問題：
+**Optional 也有可能是個 null**，當然有機會引發 NPE，會讓人更摸不著頭緒，這使得程式變得更複雜，因此請不要使用 Optional 作為參數。若你想表達可能為空值的參數，可以透過 `overloading`：
 
 ```java
 public void setName() {
@@ -82,13 +82,13 @@ public void setName() {
 }
 
 public void setName(String name) {
-   this.name = name;
+    this.name = name;
 }
 ```
 
 -------
 
-另外，有此一說，`Optional` 若作為 Spring controller API 的參數更能表達該參數是非必要的，例如: 
+另外，有此一說，`Optional` 若作為 Spring controller 的參數，則更能表達該參數是**非必要**的，例如: 
 
 ```java
 @RequestMapping (value = "/submit/id/{id}", method = RequestMethod.GET, produces="text/xml")
@@ -97,7 +97,7 @@ public String showLoginWindow(@PathVariable("id") String id,
                               @RequestParam("password") Optional<String> password) { ... }
 ```
 
-在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
+在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，就見仁見智了。
 
 ## **錯誤4. 作為 class field**
 
