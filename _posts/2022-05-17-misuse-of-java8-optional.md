@@ -45,7 +45,7 @@ public String readNameById(String id) {
         .orElseThrow(() -> new NotFoundException(id));
 }
 ```
-其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 map(), orElseThrow() 等的鏈式處理方法。
+其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 `map()`, `orElseThrow()` 等的 functional programming 風個的寫法會比較適合。
 
 ## **錯誤2. 一定有值，卻依然使用 Optional**
 Optional 設計的意義就是用來表示 method 的回傳值可能會是空的。但在某些**一定會有回傳值**情況下，開發者卻依舊使用 Optional，這就造成了過度包裝與多此一舉。承上學生系統的例子，假設我們要查詢全體學生中的第一名:
@@ -124,10 +124,9 @@ public List<Student> readAllStudentsInClass(String classId) {
 ```
  
 ## **錯誤6. Map and Optional**
-不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 map.get(key) 會有三種可能的回傳值:
-1. Optional<Student>
-2. Optional.empty()
-3. null
+不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 `map.get(key)` 的回傳值會是:
+1. **Optional<Student>** (可能有 Student 與可能沒有 Student)
+2. null
 
 像這種錯誤用法都會提高不必要的複雜性。
 
