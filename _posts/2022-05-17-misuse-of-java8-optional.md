@@ -8,82 +8,86 @@ categories: [Design, Java]
 image: /assets/image/optional.png
 --- 
 
-Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null check，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
+Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null check，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達可能沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
 
 ![java8-optional](/assets/image/optional.png?size=full)
  
 ## **錯誤1. isPresent() and get()**
-假設有一個 `studentService` 利用 id 查詢學生的資料、取得學生的姓名、轉換成大寫後回傳，但如果查無此學生，則回傳空字串。開發 Java 的工程師們幾乎都遇過`NullPointerException Exception`，為了避免發生這樣的問題就得在 `studentService` 回傳資料時做 null check，因此傳統寫法會像這樣:
+假設有一個 `studentService` 利用 id 查詢學生的姓名，為了避免查不到學生而造成 NullPointerException，我們必需在 `studentService` 回傳時做 null check，因此傳統寫法會像這樣:
 
 ```java
-public static String readUpperCaseNameById(String id) {
+public String readNameById(String id) {
     Student student = studentService.readById(id);
     if (student != null) {
-        if (student.getName() != null) {
-            return student.get().getName().toUpperCase();
-        } else {
-            return "";
-        }
+        return student.getName();
     } else {
-        return "";
+        throw new NotFoundException(id); 
     }
 }
 ```
-許多工程師為了不做 null check 而引入 Java 8 的 `Optional` 新寫法，但很可能會寫成這樣 :
+若改成 `Optional` 寫法，有些人可能會寫成這樣 :
 
 ```java
-public static String readUpperCaseNameById(String id) {
+public String readNameById(String id) {
     Optional<Student> student = studentService.readById(id);
     if (student.isPresent()) {
-        if (student.get().getName() != null) {
-            return student.get().getName().toUpperCase();
-        } else {
-            return "";
-        }
+        return student.get().getName();
     } else {
-        return "";
+        throw new NotFoundException(id); 
     }
 }
 ```
 
-很不幸的是，這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()` 和傳統寫法沒有太大的區別，本質上是一樣的，還增加了不必要的複雜度，可謂多此一舉。正確使用 Optional 方式改寫如下:
+很不幸的是，這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()` 和傳統寫法本質上是一樣的，且增加了不必要的複雜度，可謂多此一舉。正確使用 Optional 方式改寫如下:
  
 ```java
-public static String readUpperCaseNameById(String id) {
+public String readNameById(String id) {
     return studentService.readById(id)
         .map(Student::getName)
-        .map(String::toUpperCase)
-        .orElse("");
+        .orElseThrow(() -> new NotFoundException(id));
 }
 ```
-其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 filter(), map(), flatMap() 等等的**鏈式**處理方法，不可使用**傳統逐行指令式**的思考模式下去寫。
+其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 map(), orElseThrow() 等的鏈式處理方法。
 
-## **錯誤2. 作為參數**
+## **錯誤2. 一定有值，卻依然使用 Optional**
+Optional 設計的意義就是用來表示 method 的回傳值可能會是空的。但在某些**一定會有回傳值**情況下，開發者卻依舊使用 Optional，這就造成了過度包裝與多此一舉。承上學生系統的例子，假設我們要查詢全體學生中的第一名:
+```java
+public Optional<Student> readTopScoreStudent() {
+    // ...
+}
+```
+正常來說，這個系統並不會沒有學生資料(否則一切都是空談)，因此這個 method 一定會有回傳值，不需使用 Optional。
 
-Optional 設計的目的是要讓 method 能夠明確的表示會回傳 **有值** / **沒有值**。但有些錯誤的寫會將 Optional 作為參數，讓邏輯更加複雜，
+## **錯誤3. 作為參數**
+
+有些人會將 Optional 作為參數: 
 
 ```java
-public int readNameById(Optional<String> id) {
+public void setName(Optional<String> name) {
     // ...
 }
 ```
 
-因為這會讓 `Optional<String> id `參數有三種狀態:
+這是個錯誤的寫法，因為這表示 `Optional<String>` 參數有三種可能的值:
 1. Optional 非 null，且有內容值
 2. Optional.empty()
 3. 整個 Optional 是 null
 
-因此在這種情況下請不要使用 Optional，改用我們平常用的最純粹(不要過度包裝)的型態即可:
+這讓情況變得更複雜，因此在這種情況下請不要使用 Optional。也可以透過 `overloading` 避免這個問題：
 
 ```java
-public int readNameById(String id) {
-    if (!Strings.isBlank(id)) {
-      // my logic
-    }
+public void setName() {
+    this.name = "無名氏";
+}
+
+public void setName(String name) {
+   this.name = name;
 }
 ```
 
-但有此一說，`Optional` 若作為 Spring controller API 的參數更能表達該參數是`非必要`的，例如: 
+-------
+
+另外，有此一說，`Optional` 若作為 Spring controller API 的參數更能表達該參數是非必要的，例如: 
 
 ```java
 @RequestMapping (value = "/submit/id/{id}", method = RequestMethod.GET, produces="text/xml")
@@ -94,7 +98,7 @@ public String showLoginWindow(@PathVariable("id") String id,
 
 在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，這點就見仁見智了。
 
-## **錯誤3. 作為 class property**
+## **錯誤4. 作為 class property**
 
 ```java
 public class Student {
@@ -105,43 +109,29 @@ public class Student {
 ```
 
 Optional 是用來設計給 function 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面 ，在特定狀況下(如網路傳輸)需要物件序列化時將會出現問題。
-再以 `Student` 為例，如果姓名可能是空值的情況下，應該將 Optional 當作 getName 的回傳型態。
 
-```java
-public class Student {
-
-    private String name;
-
-    public Optional<String> getName() {
-        // ...
-    }
-}
-```
-
-## **錯誤4. 容器中的容器**
-因為 `Optional` 本身就是一個容器，如果內容又是另一個容器，例如 `Optional<List<Student>>`，不僅會看起來比較複雜以外，在語意上還代表著三種可能的回傳值:
+## **錯誤5. Collection and Optional**
+因為 `Optional` 本身就是一個容器，如果內容又是另一個容器，例如回傳 `Optional<List<Student>>`，這不僅比較複雜以外，在語意上還代表著三種可能的回傳值:
 1. 一個有內容的 List
 2. 一個空的 List
 3. Optional.empty()
 
-這容易造成程式複雜與混淆，也讓 caller 還要多處理一層 Optional 容器。比較好的方式是：如果真的沒有回傳值，那就回傳一個`空的容器`就好了：
+這樣容易造成程式複雜與混淆，比較好的方式是：如果真的沒有回傳值，那就回傳一個`空的容器`就好了：
 
 ```java
-public List<Student> readAllStudents(String classId) {   
+public List<Student> readAllStudentsInClass(String classId) {
     // ... 
     return result.isEmpty() ? Collections.emptyList(): new ArrayList<>(result);
 }
 ```
  
-另外，也不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 map.get(key) 會有三種可能的回傳值:
+ ## **錯誤6. Map and Optional**
+不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 map.get(key) 會有三種可能的回傳值:
 1. 一個 Student 
 2. Optional.empty()
 3. null
 
 像這種錯誤用法都會提高不必要的複雜性。
-
-## **結語**
-Optional 在使用上有許多需要注意的地方，不幸的是，許多人的用法都是錯的，而造成了反效果。當我們學習到一項新技術或框架，有時候是出於一種貨物崇拜（Cargo Cults）的心理，就急著把它應用於工作中，這是不好的，凡事一定先要掌握、了解透徹，否則容易多此一舉。當我們面對問題時，如果一項新技術沒辦法真正解決問題，或是有其他好的更簡單替代方案，那就乾脆不要用它吧。
 
 ## **References**
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
