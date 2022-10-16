@@ -11,25 +11,25 @@ image: /assets/image/optional.png
 Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null check，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達可能沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
  
 ## **錯誤1. isPresent() and get()**
-假設有一個 `studentService` 利用 id 查詢學生的姓名，為了避免查不到學生而造成 NullPointerException，我們必需在 `studentService` 回傳時做 null check，因此傳統寫法會像這樣:
+假設有一個 `studentService` 可利用 id 查詢學生，我們為了避免 return null 而後續可能造成 `NullPointerException` 的問題，我們就必需在 `studentService` 回傳時先做 null check，因此傳統寫法會像這樣:
 
 ```java
-public String readNameById(String id) {
+public Student readById(String id) {
     Student student = studentService.readById(id);
     if (student != null) {
-        return student.getName();
+        return student;
     } else {
         throw new NotFoundException(id); 
     }
 }
 ```
-若改成 `Optional` 寫法，有些人可能會寫成這樣 :
+若改成 `Optional`寫法，並將 `studentService.readById` 改為回傳 `Optional<Student>` 後，但有些人可能會寫成這樣 :
 
 ```java
-public String readNameById(String id) {
+public Student readById(String id) {
     Optional<Student> student = studentService.readById(id);
     if (student.isPresent()) {
-        return student.get().getName();
+        return student.get();
     } else {
         throw new NotFoundException(id); 
     }
@@ -39,10 +39,8 @@ public String readNameById(String id) {
 很不幸的是，這應該是最常見的錯誤用法了，可以看到上面的 `isPresent()`, `get()` 和傳統寫法本質上是一樣的，且增加了不必要的複雜度，可謂多此一舉。正確使用 Optional 方式改寫如下:
  
 ```java
-public String readNameById(String id) {
-    return studentService.readById(id)
-        .map(Student::getName)
-        .orElseThrow(() -> new NotFoundException(id));
+public Student readById(String id) {
+    return studentService.readById(id).orElseThrow(() -> new NotFoundException(id));
 }
 ```
 其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 `map()`, `orElseThrow()` 等的 functional programming 風個的寫法會比較適合。
