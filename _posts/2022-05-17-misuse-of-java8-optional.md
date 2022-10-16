@@ -9,8 +9,6 @@ image: /assets/image/optional.png
 --- 
 
 Java 8 中新加入了 Optional 類別來避免 NullPointerException 問題與繁瑣的 null check，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達可能沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。今天就來聊聊錯誤的用法，以及如何正確使用。
-
-![java8-optional](/assets/image/optional.png?size=full)
  
 ## **錯誤1. isPresent() and get()**
 假設有一個 `studentService` 利用 id 查詢學生的姓名，為了避免查不到學生而造成 NullPointerException，我們必需在 `studentService` 回傳時做 null check，因此傳統寫法會像這樣:
@@ -127,7 +125,7 @@ public List<Student> readAllStudentsInClass(String classId) {
  
 ## **錯誤6. Map and Optional**
 不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 map.get(key) 會有三種可能的回傳值:
-1. 一個 Student 
+1. Optional<Student>
 2. Optional.empty()
 3. null
 
