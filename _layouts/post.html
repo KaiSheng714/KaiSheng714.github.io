@@ -46,11 +46,12 @@ layout: default
         async>
   </script>
 
-  <div style="color: white">
-    <span id="busuanzi_container_page_pv">view:<span id="busuanzi_value_page_pv"></span></span>
-  </div>
+  <span id="busuanzi_container_page_pv" style="color: white">view:<span id="busuanzi_value_page_pv"></span></span>
+
   <script>
-    if (!location.href.includes('ks=true')) {
+    if (location.href.includes('ks=true')) {
+      document.querySelector('busuanzi_container_page_pv').remove();
+    } else {
       var script = document.createElement("script");
       script.src = '//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js'; 
       document.head.appendChild(script);
