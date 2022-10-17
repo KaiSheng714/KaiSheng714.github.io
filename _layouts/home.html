@@ -24,3 +24,11 @@ layout: default
   </ul>
 
 </div>
+
+<script>
+  if (location.href.includes('ks=true')) {
+    document.querySelectorAll('.post-link').forEach(a => {
+        a.href += '?ks=true';
+    });
+  }
+</script>
