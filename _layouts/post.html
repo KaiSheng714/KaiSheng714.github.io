@@ -36,9 +36,13 @@ layout: default
     如果你喜歡我的文章，<a target="_blank" href="https://www.facebook.com/people/Kai-Shengs-Blog/100083607360982/">歡迎按讚我的專頁</a>，就能獲取最新文章資訊哦。
   </b>
 
-  {% if site.disqus.shortname %}
-     {% include disqus_comments.html %}
-  {% endif %}
+  <script src="https://utteranc.es/client.js"
+        repo="https://github.com/KaiSheng714/KaiSheng714.github.io"
+        issue-term="og:title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+  </script>
 
   <div style="color: white">
     <span id="busuanzi_container_page_pv">view:<span id="busuanzi_value_page_pv"></span></span>
@@ -50,4 +54,6 @@ layout: default
       document.head.appendChild(script);
     }
   </script>
+
+
 </article>
