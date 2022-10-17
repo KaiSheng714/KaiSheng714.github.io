@@ -51,17 +51,16 @@ public Student readById(String id) {
 `orElseThrow` 會判斷 Optional 的內容，若有值時則直接回傳 Student；若沒有，則拋出例外。其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 `filter()`, `map()`, `orElseThrow()` 等的 functional programming 風格的寫法會比較適合。
 
 ## **錯誤2. 一定有值，卻依然使用 Optional**
-Optional 設計的意義就是用來表示 method 的回傳值可能會是空的。但在某些**一定會有回傳值**情況下，開發者卻依舊使用 Optional，這就造成了過度包裝與多此一舉。承上學生系統的例子，假設我們要查詢全體學生中的第一名:
+Optional 設計的意義就是用來表示 method 的回傳值可能會是空的。但在某些**一定會有回傳值**情況下，開發者卻依然使用 Optional，這就造成了過度包裝與多此一舉。承上學生系統的例子，假設我們要查詢全體學生中的第一名:
 ```java
 public Optional<Student> readTopScoreStudent() {
     // ...
 }
 ```
-正常來說，這個系統並不會沒有學生資料(否則一切都是空談)，因此這個 method 一定會有回傳值，不需使用 Optional。
+正常來說，這個系統並不會沒有學生資料（否則一切都是空談），因此這個 method 肯定會有回傳值，不需使用 Optional。
 
 ## **錯誤3. 作為參數**
-
-有些人會將 Optional 作為參數，意圖表示這個參數可能是有值或沒有值:
+有些人會將 Optional 作為參數，意圖表示這個參數可能是非必要的:
 
 ```java
 public void setName(Optional<String> name) {
@@ -85,7 +84,7 @@ setName(Optional.of("Jason"));
 setName(Optional.empty());
 ```
 
-因此，比較好的設計是透過 `overloading`，讓有參數值或沒有參數值的意圖與結果更加明確：
+因此，比較好的設計是透過 `overloading`，讓參數有值或沒有值的意圖與結果更加明確：
 
 ```java
 public void setName() {
@@ -99,7 +98,7 @@ public void setName(String name) {
 
 -------
 
-另外，有此一說，`Optional` 若作為 Spring controller 的參數，則更能表達該參數是**非必要**的，例如: 
+另外，有此一說，`Optional` 若作為 Spring controller 的參數，則更能表達該參數是非必要的，例如: 
 
 ```java
 @RequestMapping (value = "/submit/id/{id}", method = RequestMethod.GET, produces="text/xml")
@@ -108,7 +107,7 @@ public String showLoginWindow(@PathVariable("id") String id,
                               @RequestParam("password") Optional<String> password) { ... }
 ```
 
-在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，有些人覺得這樣的用法比較好，就見仁見智了。
+在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，再加上它是 controller，所以也不會難以被呼叫，因此有些人覺得這種作法比較好，這就見仁見智了。
 
 ## **錯誤4. 作為 class field**
 
