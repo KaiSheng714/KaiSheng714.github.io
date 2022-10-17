@@ -215,9 +215,6 @@ public void execute_some_example() {
 }
 ```
 
-## **什麼時候該用 Powermock ?**
-已經沒有招式能用、無法重構 production code、對眼前的糟糕程式投降的時候。 
-
 ## **結語**
 沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
 
