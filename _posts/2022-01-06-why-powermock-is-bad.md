@@ -23,10 +23,8 @@ image: /assets/image/powermock.png
 既然 PowerMock 這麼強大，為什麼作者會做出此評論呢? 請讓我以優缺點分析作為出發點並探討：
  
 ## **PowerMock 的優點**
-### **強大的 mock 功能**
-能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
-### **與 Mockito 類似**
-對於熟悉 Mockito 的廣大使用者來說能快速上手。
+- 強大的 mock 功能: 能因應各式難以撰寫測試的情況。尤其是欲在 legacy code 中加入測試時非常實用。
+- 用法與 Mockito 類似: 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
 ## **PowerMock 的缺點 / 不建議使用的理由**
 ### **相同的 API**
@@ -61,7 +59,7 @@ image: /assets/image/powermock.png
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
 
- 
+-----
 
 ## **重構(Refactoring)**
 
