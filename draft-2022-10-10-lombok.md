@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Lombok 學這招就夠用"
+title: "Java Lombok 這招就很夠用"
 author: "Kai-Sheng"
 permalink: /articles/lombok
 categories: [Java]
@@ -20,10 +20,7 @@ Lombok是一款Java開發插件，可以通過它定義的註解來精簡冗長�
 ![lombok](/assets/image/lombok.png?style=center)
 
 
-
-
 Project Lombok是一個有助於減少樣板代碼的 Java 庫。Java 是一種冗長的語言，可以避免像 getter、setter 等重複代碼。Lombok 使用其註釋減少了樣板代碼，這些註釋在構建過程中被插入。
-
 
 
 懶人包: 只要這兩個 @Annotation 就足以應付大部分的狀況了
