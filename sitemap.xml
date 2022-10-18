@@ -1,47 +1,79 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
+﻿<?xml version="1.0" encoding="UTF-8"?>
+		<!--	created with www.mysitemapgenerator.com	-->
+		<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-  <loc>https://kaisheng714.github.io/</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>1.00</priority>
+	<loc>https://kaisheng714.github.io/</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>1.0</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/articles/yagni-principle</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://kaisheng714.github.io/articles/good-unit-test</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/articles/analyzing-dependency-injection-patterns-in-spring</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://kaisheng714.github.io/articles/kiss-principle</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/articles/spring-profile-with-maven-package</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://kaisheng714.github.io/articles/testability</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/articles/anti-pattern-of-java-interface-impl-style</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://kaisheng714.github.io/articles/object-mapper</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/articles/drawback-of-powermock</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>0.80</priority>
+	<loc>https://kaisheng714.github.io/articles/simple-date-format</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
 <url>
-  <loc>https://kaisheng714.github.io/categories/</loc>
-  <lastmod>2022-04-18T07:39:39+00:00</lastmod>
-  <priority>0.64</priority>
+	<loc>https://kaisheng714.github.io/articles/misuse-of-java-8-optional</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
 </url>
-
-
+<url>
+	<loc>https://kaisheng714.github.io/articles/dry-principle</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/articles/log4j2-to-utf8-csv-for-excel</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/articles/yagni-principle</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/articles/spring-profile-with-maven-package</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/articles/analyzing-dependency-injection-patterns-in-spring</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/articles/anti-pattern-of-java-interface-impl-style</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/articles/drawback-of-powermock</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
+<url>
+	<loc>https://kaisheng714.github.io/categories/</loc>
+	<lastmod>2022-10-17T13:11:54+01:00</lastmod>
+	<priority>0.8</priority>
+</url>
 </urlset>
