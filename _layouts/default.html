@@ -190,6 +190,11 @@
             }
             
         </script>
+        <script>
+            if (location.href.includes('ks=true')) {
+                document.querySelector('.site-title').href += '?ks=true';
+            }
+        </script>
         
     </body>
     </html>
