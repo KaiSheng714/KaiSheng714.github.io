@@ -2,7 +2,7 @@
 layout: post
 title: "Lombok 學這招就夠用"
 author: "Kai-Sheng"
-permalink: /articles/lombok?ks=true
+permalink: /articles/lombok
 categories: [Java]
 image: /assets/image/lombok.png
 --- 
