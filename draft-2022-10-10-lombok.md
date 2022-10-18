@@ -4,7 +4,7 @@ title: "Java Lombok 這招就很夠用"
 author: "Kai-Sheng"
 permalink: /articles/lombok
 categories: [Java]
-image: /assets/image/lombok.png
+image: /assets/image/lombok-cover.png
 --- 
 
 
@@ -75,23 +75,13 @@ Getters for each field.
 
 
 ## **@Accessors(fluent=true)**
-
-
 A more fluent API for getters and setters.
-
-
-
-
-
-
+在呼叫 setter 時可以直接使用 fluent style 而不需要寫 set 前綴
 
 
 ## **需要注意的地方**
 調用toString方法會StackOverflowError的原因和解決方案
- 
-## **結語**
- 
-
+  
 ### **References**
 - [Project Lombok](https://projectlombok.org/)
 
