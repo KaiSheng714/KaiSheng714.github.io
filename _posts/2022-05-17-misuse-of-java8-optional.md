@@ -5,7 +5,7 @@ tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
-image: /assets/image/site-image.png
+image: /assets/image/site-image-small.png
 --- 
 
 我們都知道盡量不要回傳 null，而 Java 8 新加入了 Optional 類別可避免 NullPointerException 問題與繁瑣的 null check，可以讓程式邏輯看起來更簡潔、易讀，也能清楚表達 method 可能沒有結果值。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。本篇探討這些錯誤的用法，以及如何正確使用。
