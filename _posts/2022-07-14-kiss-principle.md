@@ -4,7 +4,7 @@ title: "軟體設計原則 KISS (Keep it simple, stupid)"
 author: "Kai-Sheng"
 permalink: /articles/kiss-principle
 categories: [Design]
-image: /assets/image/cover3.png
+image: /assets/image/site-image.png
 --- 
 
 **KISS （Keep it simple, stupid）** 是軟體開發中相當重要且實用的原則，意思是盡可能用簡單、直觀的手段或思維去解決困難的問題，並且避免加入不必要的複雜性。一言以蔽之就是「大道至簡」。

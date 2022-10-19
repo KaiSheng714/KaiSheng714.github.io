@@ -4,7 +4,7 @@ title: "如何提高程式碼的可測試性 (Testability)"
 author: "Kai-Sheng"
 permalink: /articles/testability
 categories: [Design, Unit-testing]
-image: /assets/image/cover4.png
+image: /assets/image/site-image.png
 --- 
  
 眾所皆知，寫單元測試有非常多好處，但有些主管會問，為什麼寫測試會讓工程師額外花這麼多時間？除了本身對單元測試技術不熟悉以外，追根究柢是因為產品程式碼的可測試性太低，導致工程師寫測試時很難將精力投入在對的地方，甚至導致放棄寫單元測試。要寫出優秀的單元測試有一定的難度與門檻，關鍵就在於工程師要思考如何提高程式碼的可測試性，進而讓寫單元測試變得簡單。本文將介紹提高 Java 單元測試可測試性的教學。

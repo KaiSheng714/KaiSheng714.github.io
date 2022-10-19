@@ -5,7 +5,7 @@ tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/anti-pattern-of-java-interface-impl-style
 categories: [Java, Design]
-image: /assets/image/cover0.png
+image: /assets/image/site-image.png
 --- 
 
 在 Java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 FooImpl, BarImpl, ServiceImpl，
