@@ -6,7 +6,7 @@ meta: java,spring,test,clean-code,dependency-injection
 author: "Kai-Sheng"
 permalink: /articles/analyzing-dependency-injection-patterns-in-spring
 categories: [Design, Spring]
-image: /assets/image/spring-di-fb.png
+image: /assets/image/site-image-small.png
 ---
 
 依賴注入 (Dependency Injection, DI) 是 Spring 實現控制反轉概念的重要手段。Spring 提供了數種 DI patterns，其中最方便、最常用的是 **field injection**，它應該是許多人第一次寫 Spring 專案時所使用的 pattern，雖然這方式簡單易用，卻有不少缺點。
