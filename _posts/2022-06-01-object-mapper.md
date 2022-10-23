@@ -84,8 +84,8 @@ public class JacksonConfiguration {
 }
 ``` 
 
-### **解法3. 包裝成 Util**
-這是我最常用的作法，我在專案中通常都只有一個 ObjectMapper，因此共用它就夠了，這時可包裝成 Util 方便全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合自己的設計。
+### **解法3. 包裝成 Util (推薦)**
+這是我最常用的作法，我在專案中通常都只有一個 ObjectMapper，因此全部的 class 都共用它就夠了，這時可包裝成 Util 方便全域使用。例外處理的部分，就依各專案需求而定，沒有最佳的設計，只有最適合自己的設計。
 
 ```java
 public class JsonUtil {
@@ -118,7 +118,7 @@ public class JsonUtil {
 }
 ```
 
-使用起來非常方便簡單，封裝性也較佳。
+使用起來非常方便簡單。
 
 ```java
 String json = JsonUtil.toJson(something);
