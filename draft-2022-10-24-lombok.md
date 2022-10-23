@@ -36,23 +36,19 @@ Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的�
 知己知彼，百戰百勝。用 Lombok 真的很方便，不過更重要的是要了解**它實際產生了什麼程式、它隱藏的細節？**，否則有時容易踩了坑還找不出原因。想要查看 Lombok 反編譯後的樣子，就可以透過 **Delombok** 這面照妖鏡來查看，步驟為在 IntelliJ 編輯區按右鍵 → refactor → Delombok。
 
 ### **StackOverflowError**
-因為 `@Data` 中包含了 `@ToString`，`@EqualsAndHashCode`，如果兩個之間的有雙向依賴關係，就會導致 `java.lang.StackOverflowError`，例如 Student 類別依賴 Teacher 類別， Teacher 類別也依賴 Student，並且這兩個類別都標記了 `@ToString` 或 `@EqualsAndHashCode`。
+因為 `@Data` 中包含了 `@ToString`，`@EqualsAndHashCode`，如果兩個之間的有雙向依賴關係，就會導致 `StackOverflowError`，例如 Student 類別 Teacher 類別互相依賴著，並且這兩個類別都標記了 `@ToString` 或 `@EqualsAndHashCode`。
 透過 Delombok，可以發現它們的 `hashCode()`, `toString()` 都存在循環引用，造成了無窮迴圈，最後因為記憶體不足拋出例外。最好的解決方法就是藉由重構來消除雙向依賴的關係。
 
-### **@Builder, @Setter**
-
+### **@Builder 的危險性**
 標記了 `@Builder` 後就可以直接使用 [Builder Pattern](https://en.wikipedia.org/wiki/Builder_pattern)，優雅的建立一個 instance：
 ```java
 Student student = Student.builder()
-    .id("A123")
+    .id(12345)
     .name("KaiSheng")
     .address("Taiwan Taipei ...")
     .build();
 ```
-通常域對像很小（或應該很小）並且@Builder具有非常危險的行為：它允許在無效狀態下創建對象，有時候難以發現的 bug。
-一旦我們用 註釋這個類 `@Builder`，沒有什麼能阻止我這樣做：
-
-必要時可加 `@NonNull`，fail fast
+它彈性且優雅的風格帶來了危險的副作用。例如開發者可以不填入 name 值，創建出一個狀態不完全的 Student instance，最後甚至造成難以發現的 bug。因此必要時可在必填的 field 加上 Lombok 的 `@NonNull`，如果沒有賦值，則立即拋出 NullPointerException，fail fast。
 
 ### **@Builder 與 Jackson**
 Jackson 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
@@ -66,7 +62,7 @@ Cannot construct instance of `...  cannot deserialize from Object value
 (no delegate- or property-based Creator)
 ```
 
-解決辦法是在 class 上多加一個 `@Jacksonized` 即可。不過，我並不喜歡這個作法，因為它還是實驗性質而已，有可能隱含未知的風險，且要讓團隊花額外時間去了解、學習它的意義，太累了，如果越能降低專案的學習門檻就越好。順帶一提，Google Gson 能夠直接序列化與反序列化 `@Builder` class，無需額外處理。
+解法是在 class 上多加一個 `@Jacksonized` 即可。不過，我並不喜歡這個作法，因為它還是實驗性質而已，有可能隱含未知的風險，且要讓團隊花額外時間去了解、學習它的意義，太累了，如果越能降低專案的學習門檻就越好。順帶一提，Google Gson 能夠直接序列化與反序列化 `@Builder` class，無需額外處理。
 
 ### **需要所有 getter ？**
 在我的經驗中，getter, setter 既然這麼方便就產生了，所以自然而然就拿來用，因此讓很多人忽略了 **Tell, Don't Ask** 原則。
@@ -108,9 +104,8 @@ Student student = new Student()
 ### **@Accessors(chain=true)**
 在 class 標註 `@Accessors(chain=true)` 後，就可將一連串的 setter 串接起來。可能有些人會問我：用 `@Builder` 不是更好嗎? 
 但我的經驗是，因為我有時會用 Factory 來建立物件，這時如果在工廠裡再用 Builder Pattern，會有點多此一舉。而且用我的方式也不需要再呼叫 `builder`, `build`。
- 
- 
-這裡當然沒有標準答案，青菜蘿蔔各有所好。
+  
+這當然沒有標準答案，青菜蘿蔔各有所好。
 雖然 Lombok 雖然很方便，但世上總是沒有十全十美的工具
 
 ## **後記**

@@ -156,6 +156,6 @@ public class HelloBeanTest {
 - [Circular dependencies in spring](https://www.baeldung.com/circular-dependencies-in-spring)
 
 ### **更多你可能會感興趣的文章**
-- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [如何提高程式碼的可測試性 (Testability)](/articles/testability)
 - [Spring + Maven + IntelliJ 多環境 (Profile) 整合技巧](/articles/spring-profile-with-maven-package)
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)

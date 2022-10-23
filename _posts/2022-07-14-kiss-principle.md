@@ -7,7 +7,7 @@ categories: [Design]
 image: /assets/image/site-image-small.png
 --- 
 
-許多的軟體開發者的一個常見問題就是他們傾向於將問題複雜化。**KISS （Keep it simple, stupid）** 是軟體開發中相當重要且實用的原則，意思是盡可能用簡單、直觀的手段或思維去解決困難的問題，並且避免加入不必要的複雜性。實踐 KISS 原則往往都能帶來良好的成效，不僅是軟體開發，KISS 原則也適合應用於生活中的許多領域。
+許多的軟體開發者的一個常見問題就是他們傾向於將問題複雜化。**KISS （Keep it simple, stupid）** 是軟體開發中相當重要且實用的原則，意思是盡可能用簡單、直觀的手段或思維去解決困難的問題，並且避免加入不必要的複雜性。根據經驗，實踐 KISS 原則往往都能帶來良好的成效，不僅是軟體開發，KISS 原則也適合應用於生活中的許多領域。
 
 
 ## **什麼是 KISS 原則？**
@@ -49,11 +49,9 @@ KISS 原則所闡述的是**在開發系統的過程中，面對問題所提出�
 - 唐朝詩人白居易的作品平易近人。相傳白居易每作一首詩就念給老年婦女聽，不懂就改，力求做到她們能懂。我想這應該是將 KISS 原則發揮到極致的經典案例吧！
 
 ## **References**
-- [KISS原則](https://zh.wikipedia.org/zh-tw/KISS%E5%8E%9F%E5%88%99)
 - [kiss-revisited](https://enterprisecraftsmanship.com/posts/kiss-revisited/)
 - [為何資深開發者寫的程式看起來不怎樣，又如何從千里之外認出菜鳥](https://medium.com/@CQD/%E7%82%BA%E4%BD%95%E8%B3%87%E6%B7%B1%E9%96%8B%E7%99%BC%E8%80%85%E5%AF%AB%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%9C%8B%E8%B5%B7%E4%BE%86%E4%B8%8D%E6%80%8E%E6%A8%A3-%E5%8F%88%E5%A6%82%E4%BD%95%E5%BE%9E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96%E8%AA%8D%E5%87%BA%E8%8F%9C%E9%B3%A5-c1afa754c5e4)
 
 ### **更多你可能會感興趣的文章**
-- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle)
 - [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)
