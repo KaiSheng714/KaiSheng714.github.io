@@ -17,11 +17,16 @@ Lombok 的 annotation 都是在編譯時才被轉換成 java code，因此早期
 
 ## **Lombok @Data**
 Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的文件，其成分如下：
-- **@Getter**：為每一個 field 產生一個 getter。
-- **@Setter**：為每一個 non-final field 產生一個 setter。
-- **@RequiredArgsConstructor**： 建立一個 constructor，其參數為 class 中所有 `@NotNull`, `final` field。
-- **@ToString**： 將每個 field 按順序並以逗號分隔，以 name=value 的形式組成字串，大幅提高可讀性。
-- **@EqualsAndHashCode**：以所有 non-static 和 non-transient field 來實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 entity/model 放入 HashSet 或當作 HashMap 的 key 值時，[可能會引發 memory leak](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
+
+**@Getter**： 為每一個 field 產生一個 getter。
+
+**@Setter**： 為每一個 non-final field 產生一個 setter。
+
+**@RequiredArgsConstructor**： 建立一個 constructor，其參數為 class 中所有 `@NotNull`, `final` field。
+
+**@ToString**： 將每個 field 按順序並以逗號分隔，以 name=value 的形式組成字串，大幅提高可讀性。
+
+**@EqualsAndHashCode**： 以所有 non-static 和 non-transient field 來實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 entity/model 放入 HashSet 或當作 HashMap 的 key 值時，[可能會引發 memory leak](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
  
 `@Data` 很適合用於 DTO，因為它只保存資料，沒有邏輯，基本上可以無腦使用 `@Data` 也不會產生太多問題。如果是 domain model 時則應該關心以下幾個議題：
 
