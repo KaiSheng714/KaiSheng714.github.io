@@ -10,6 +10,8 @@ image: /assets/image/lombok-cover.png
 Project Lombok 是很實用且被廣泛使用的語法糖 library，它可以減少許多樣板程式，例如 getter, setter 等，我們只需幾個簡單的 annotation，例如 @Data，就能讓 class 變得五臟齊全，幫助我們省下大量重複的工作，讓開發者更專注於關鍵的邏輯，進而提高開發效率。另外，我認為過度使用 Lombok 可能會導致問題，使程式更加複雜。
 
 
+![lombok](/assets/image/lombok-cover.png)
+
 在早期，開發者還需在 IDE 安裝套件才能正常使用 Lombok，時至今日，一切已經變得非常容易，它甚至直接整合進了 IntelliJ IDEA。若是用 Eclipse 的開發者可以參考官方的[安裝教學](https://projectlombok.org/setup/eclipse)
 
 ## **@Data 分析**
