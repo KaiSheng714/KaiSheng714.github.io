@@ -10,9 +10,9 @@ image: /assets/image/lombok-cover.png
 Project Lombok 是很實用且被廣泛使用的語法糖 library，它可以減少許多樣板程式，例如 getter, setter 等，我們只需幾個簡單的 annotation，例如 @Data，就能讓 class 變得五臟齊全，幫助我們省下大量重複的工作，讓開發者更專注於關鍵的邏輯，進而提高開發效率。另外，我認為過度使用 Lombok 可能會導致問題，使程式更加複雜。
 
 
-![lombok](/assets/image/lombok-cover.png)
+![lombok](/assets/image/lombok-title.png)
 
-在早期，開發者還需在 IDE 安裝套件才能正常使用 Lombok，時至今日，一切已經變得非常容易，它甚至直接整合進了 IntelliJ IDEA。若是用 Eclipse 的開發者可以參考官方的[安裝教學](https://projectlombok.org/setup/eclipse)
+在早期，開發者還需在 IDE 安裝套件才能正常使用 Lombok，時至今日，一切已經變得非常容易，它甚至直接整合進了 IntelliJ IDEA，可以無痛使用；而若是用 Eclipse 的開發者就要比較麻煩一點了，可以參考官方的[安裝教學](https://projectlombok.org/setup/eclipse)
 
 ## **@Data 分析**
 Lombok 中的 `@Data` 應該是最常被使用的 annotation，它其實是下列五種 annotation 的組合：
@@ -31,7 +31,10 @@ Lombok 中的 `@Data` 應該是最常被使用的 annotation，它其實是下�
 有了這個標註了之後， Lombok 就會以所有 non-static 和 non-transient field 來幫我們實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 model 放入 HashSet 或當作 HashMap 的 key 值時，可能會引發 memory leak，[參考](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
 
 ## **Delombok**
-只要在程式編輯區按下右鍵
+加了 annotation 後，我們可能不知道它在暗地裡產生了哪些程式，這時就可以透過 Delombok 來查看。
+
+只要在 IntelliJ 編輯區按右鍵 --> refactor --> Delombok，就可以看到它幫我們隱藏的細節。
+
 
 ## **注意1. StackOverflowError**
 與 `@ToString` 註解類似，如果兩個類都使用 `@EqualsAndHashCode`，類之間的雙向關係可能會導致java.lang.StackOverflowError：
@@ -78,11 +81,11 @@ Cannot construct instance of `...  cannot deserialize from Object value
 (no delegate- or property-based Creator)
 ```
 
-解決辦法是在 class 上多加一個 `@Jacksonized` 即可。不過，我並不喜歡這個作法，因為它還是實驗性質而已，且要讓團隊花額外時間去了解、學習它的意義，太累了。
+解決辦法是在 class 上多加一個 `@Jacksonized` 即可。不過，我並不喜歡這個作法，因為它還是實驗性質而已，有可能隱含未知的風險，且要讓團隊花額外時間去了解、學習它的意義，太累了。
 
 
 ## **注意: 需要所有 getter?**
-在我的經驗中，getter, setter 既然這麼方便就產生了，所以自然而然就拿來用，因此很多人就忽略了 **Tell, Don't Ask**.
+在我的經驗中，getter, setter 既然這麼方便就產生了，所以自然而然就拿來用，因此讓很多人忽略了 **Tell, Don't Ask** 原則。
 
 Tell-Don't-Ask 是一個幫助人們記住面向對像是將數據與操作該數據的函數捆綁在一起的原則。它提醒我們，與其向對象索取數據並根據該數據採取行動，不如告訴對象該做什麼。這鼓勵將行為移動到對像中以與數據一起使用。
 
@@ -94,15 +97,18 @@ Tell-Don't-Ask 是一個幫助人們記住面向對像是將數據與操作該�
 
 
 ## **我常用的方式**
-只要使用這兩個 @Annotation 就足以應付大部分的狀況了
+只要使用這三個 @Annotation 就足以應付大部分的狀況了
 - `@Data`
 - `@Accessors(chain=true)`
+- `@NotNull`
 
 ```java
 @Data
 @Accessors(chain = true)
 public class Student {
+    @NotNull
     private String id;
+
     private String name;
     private String address; 
 }
