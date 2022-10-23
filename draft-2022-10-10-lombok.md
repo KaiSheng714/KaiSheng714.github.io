@@ -70,6 +70,14 @@ Student student = Student.builder()
 Jackson ObjectMapper 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
 
 
+```
+Error on Jackson Deserialization
+com.fasterxml.jackson.databind.exc.InvalidDefinitionException: 
+Cannot construct instance of `...  cannot deserialize from Object value 
+(no delegate- or property-based Creator)
+```
+
+
 ## **注意: 需要所有 getter?**
 在我的經驗中，getter, setter 既然這麼方便就產生了，所以自然而然就拿來用，因此很多人就忽略了 **Tell, Don't Ask**.
 
