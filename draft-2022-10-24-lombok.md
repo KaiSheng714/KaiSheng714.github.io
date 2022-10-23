@@ -13,12 +13,10 @@ Project Lombok 是很實用且被廣泛使用的語法糖 library，它可以減
 ![lombok](/assets/image/lombok-title.png)
 
 
-早期使用 Lombok，開發者除了需要引入 dependency 以外，還要在 IDE 安裝套件才能正常使用 Lombok。時至今日，一切已經變得非常容易，它甚至直接被整合進了 IntelliJ IDEA，無痛使用；而若是用 Eclipse 的開發者就要比較麻煩一點了，可以參考官方的[安裝教學](https://projectlombok.org/setup/eclipse)
+Lombok 的 annotation 都是在編譯時才被轉換成 java code，因此早期使用 Lombok 時，開發者除了需要引入 dependency 以外，還要在 IDE 安裝套件才能正常使用 Lombok。時至今日，一切已經變得非常容易，它甚至直接被整合進了 IntelliJ IDEA，無痛使用；而若是用 Eclipse 的開發者就要比較麻煩一點了，可以參考官方的[安裝教學](https://projectlombok.org/setup/eclipse)
 
-## **分析 Lombok **
-編譯期的註解處理器)，它是在編譯期時把Lombok 的註解代碼，轉換為常規的Java ⽅法⽽實現注
-
-Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的文件，它其實是下列五種 annotation 的組合：
+## **Lombok @Data**
+Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的文件，其成分如下：
 
 ### **@Getter**
 為每一個 field 產生一個 getter。
@@ -33,31 +31,20 @@ Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的�
 將每個 field 按順序並以逗號分隔，以 name=value 的形式組成字串，大幅提高可讀性。
 
 ### **@EqualsAndHashCode**
-有了這個標註了之後， Lombok 就會以所有 non-static 和 non-transient field 來實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 entity/model 放入 HashSet 或當作 HashMap 的 key 值時，可能會引發 memory leak，[參考](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
+有了這個標註了之後， Lombok 就會以所有 non-static 和 non-transient field 來實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 entity/model 放入 HashSet 或當作 HashMap 的 key 值時，[可能會引發 memory leak](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
  
+DTO 是最簡單的一種 class，它只保存資料，沒有邏輯，如果是 DTO，基本上可以無腦使用 `@Data` 也不會產生太多問題。如果是 domain model 則應該關心以下幾個議題：
 
 ## **注意事項**
 
 ### **Delombok**
-知己知彼，百戰百勝。用 Lombok 真的很方便，不過更重要的是要了解**它實際產生了什麼程式、它隱藏的細節？**，否則有時容易踩了坑還找不出原因。想要查看 Lombok 反編譯後的樣子，就可以透過 **Delombok** 這面照妖鏡來查看，步驟為在 IntelliJ 編輯區按右鍵 --> refactor --> Delombok。
+知己知彼，百戰百勝。用 Lombok 真的很方便，不過更重要的是要了解**它實際產生了什麼程式、它隱藏的細節？**，否則有時容易踩了坑還找不出原因。想要查看 Lombok 反編譯後的樣子，就可以透過 **Delombok** 這面照妖鏡來查看，步驟為在 IntelliJ 編輯區按右鍵 → refactor → Delombok。
 
 ### **StackOverflowError**
-`@ToString` ，如果兩個類都使用 `@EqualsAndHashCode`，類之間的雙向關係可能會導致 `java.lang.StackOverflowError`：
-
-調用toString方法會StackOverflowError的原因和解決方案
-
-請注意，每個類都有對另一個的引用。當我們調用Employee的hashCode()時，它會給出 java.lang.StackOverflowError。因為每個類都調用其他類的hashCode()方法。
-
-Java的方法參數(method parameters)物件參照或方法內的原始型別變數會存放在JVM的stack記憶體，當thread呼叫一個方法時stack會被建立，而該方法的參數及在方法內產生的本地原始型別變數會被存放在JVM的stack區，如果此時stack記憶體不足便會發生StackOverFlowError錯誤。
-
-注意僅有原始型別資料(primitive type data)及物件參照(object reference address)會存在stack區，而方法內產生的物件則是存在heap區。當方法執行結束後stack變會被釋放。
-
-
-通過反編譯School類和Student類,我們發現它們的hashCode()方法存在循環引用。
-看School類中的hashCode()方法，studentList是一個HashSet集合，HashSet集合的hashCode()計算方式會遍歷所有元素，累加求和每個元素的hashCode值。但是studentList裡面元素的類型是Student，Student類中的hashCode()又會依賴於School類的hashCode()方法，這樣就形成了循環依賴。
+因為 `@Data` 中包含了 `@ToString`，`@EqualsAndHashCode`，如果兩個之間的有雙向依賴關係，就會導致 `java.lang.StackOverflowError`，例如 Student 類別依賴 Teacher 類別， Teacher 類別也依賴 Student，並且這兩個類別都標記了 `@ToString` 或 `@EqualsAndHashCode`。
+透過 Delombok，可以發現它們的 `hashCode()`, `toString()` 都存在循環引用，造成了無窮迴圈，最後因為記憶體不足拋出例外。最好的解決方法就是藉由重構來消除雙向依賴的關係。
 
 ### **@Builder, @Setter**
-
 ```java
 Student student = Student.builder()
     .id("A123")
@@ -65,13 +52,10 @@ Student student = Student.builder()
     .address("Taiwan Taipei ...")
     .build();
 ```
-用 `@Builder` 確實能達到同樣目的，而且比較美觀。
+用 `@Builder` 確實能達到同樣目的，而且比較美觀。通常域對像很小（或應該很小）並且@Builder具有非常危險的行為：它允許在無效狀態下創建對象，有時候難以發現的 bug。
+一旦我們用 註釋這個類 `@Builder`，沒有什麼能阻止我這樣做：
 
 必要時可加 `@NonNull`，fail fast
-
-通常域對像很小（或應該很小）並且@Builder具有非常危險的行為：它允許在無效狀態下創建對象
-一旦我們用 註釋這個類@Builder，沒有什麼能阻止我這樣做：
-
 
 ## **@Builder 與 Jackson **
 Jackson 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
@@ -96,7 +80,7 @@ Tell, Don't Ask 是一個幫助人們記住面向對像是將數據與操作該�
 
 封裝 (Encapsulation)  
 
-必要時可加 `@Getter(AccessLevel.NONE)`
+必要時可加 `@Getter(AccessLevel.NONE)`，或是在指定的 field 個別標記 `@Setter` 和 `@Getter`，而不是標記在 class level 。
  
 
 ## **我常用的方式**
@@ -128,12 +112,7 @@ Student student = new Student()
 在 class 標註 `@Accessors(chain=true)` 後，就可將一連串的 setter 串接起來。可能有些人會問我：用 `@Builder` 不是更好嗎? 
 但我的經驗是，因為我有時會用 Factory 來建立物件，這時如果在工廠裡再用 Builder Pattern，會有點多此一舉。而且用我的方式也不需要再呼叫 `builder`, `build`。
  
-
-
-DTO 是最簡單的一項，它只保存數據，沒有邏輯
-
-
-
+ 
 這裡當然沒有標準答案，青菜蘿蔔各有所好。
 雖然 Lombok 雖然很方便，但世上總是沒有十全十美的工具
 
