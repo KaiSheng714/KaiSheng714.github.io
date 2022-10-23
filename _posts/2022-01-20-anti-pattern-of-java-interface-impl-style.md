@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "常見的 Interface 錯誤用法"
+title: "常見的 Java Interface 錯誤用法"
 tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/anti-pattern-of-java-interface-impl-style
