@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SimpleDateFormat 的錯誤用法"
+title: "Java SimpleDateFormat 教學與錯誤用法"
 meta: java
 author: "Kai-Sheng"
 permalink: /articles/simple-date-format

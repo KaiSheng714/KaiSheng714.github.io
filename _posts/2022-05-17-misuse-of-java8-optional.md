@@ -150,4 +150,4 @@ public List<Student> readAllStudentsInClass(String classId) {
 
 ### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
-- [SimpleDateFormat 的錯誤用法](/articles/simple-date-format)
+- [Java SimpleDateFormat 的錯誤用法](/articles/simple-date-format)

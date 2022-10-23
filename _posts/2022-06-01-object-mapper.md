@@ -134,5 +134,5 @@ Something something = JsonUtil.toObject(json, Something.class);
 
 ### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
-- [SimpleDateFormat 的錯誤用法](/articles/simple-date-format)
+- [Java SimpleDateFormat 的錯誤用法](/articles/simple-date-format)
 - [多此一舉! 不要這樣用 Java 8 Optional](/articles/misuse-of-java-8-optional)
