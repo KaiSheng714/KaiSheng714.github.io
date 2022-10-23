@@ -25,13 +25,11 @@ image: /assets/image/site-image-small.png
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
 ### **問題2. 違反 DRY 原則**
-
 當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次。這不僅是程式的重複，也是知識上的重複，違反了 DRY 原則。
 
 延伸閱讀: [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle) 
 
 ### **問題3. 不必要的干擾**
-
 想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，若在較大的專案裡遇到這種事，將會打擊開發者的工作效率與心理感受。
 
 此外，當 interface-impl 出現時，表示檔案的數量是比原本多一倍的，這不僅讓專案更龐大，也隱含的增加了專案的複雜度，因為多了這層非必要的 abstract layer，讓系統變得更不直觀，也會讓開發者永遠好奇眼前的 interface 是否有其他的 implementation ?
@@ -39,7 +37,6 @@ image: /assets/image/site-image-small.png
 ------
 
 ## **如何解決？**
-
 我認為這種 interface-impl 不應存在，反而直接了當使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。因此，優秀的 clean coder 應盡量維持專案的乾淨與健康。
 
 如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
@@ -48,11 +45,10 @@ image: /assets/image/site-image-small.png
  
 
 ## **關於 interface 的正確用法**:
-
 先引用一段話:
 
 > 
-> Programming to an interface, not an implementation
+> Programming to an interface, not an implementation.
 > 
 
 意思是，設計時應專注於**程式能提供什麼功能，而不是如何辦到的。**
@@ -62,13 +58,11 @@ image: /assets/image/site-image-small.png
 再者，如果你的專案並沒有開放給團隊外引用，例如企業級應用程式，在實務上大部分的情況下是不需要 interface 的。反之，若你開發的是例如 library, SDK 發布給外部 client 開發使用，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 界接你的作品，並由他們自行開發具體細節。
 
 ## **結語**
-
 本文描述了許多人對於 java interface 的誤用，導致這種只有一個實作的介面 (interface-impl) 成對出現在許多專案中，這並沒有利用 interface 的優點。若開發者沒有理解 interface 的實際意義與價值，將會產生許多負面影響。**並不是只要有 interface 就等於抽象、解耦**，誤用比未用更糟糕。
  
 也許你可以檢視你的專案是否有類似的情況，並試著讓專案更乾淨、直觀、明確，降低維護成本，提升軟體品質。
 
 ### **Reference**
-
 - [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 - [Adam Bien — Service s = new ServiceImpl() — Why You Are Doing That?](http://adambien.blog/roller/abien/entry/service_s_new_serviceimpl_why)
 - [Do I need to use an interface when only one class will ever implement it?](https://softwareengineering.stackexchange.com/questions/159813/do-i-need-to-use-an-interface-when-only-one-class-will-ever-implement-it/159815#159815)
