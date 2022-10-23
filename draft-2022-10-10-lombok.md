@@ -66,9 +66,10 @@ Student student = Student.builder()
 
 
 
-## **注意: Jackson ObjectMapper 反序列化**
-Jackson ObjectMapper 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
+## **注意: @Builder 與 Jackson 反序列化**
+Jackson 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
 
+如果我們使用 `@Builder`，無參數的 constructor 會被設成 private，這時若我們將 json 字串反序列化，就導致 Jackson 無法找到 constructor 並拋出 `InvalidDefinitionException`。
 
 ```
 Error on Jackson Deserialization
@@ -76,6 +77,8 @@ com.fasterxml.jackson.databind.exc.InvalidDefinitionException:
 Cannot construct instance of `...  cannot deserialize from Object value 
 (no delegate- or property-based Creator)
 ```
+
+解決辦法是在 class 上多加一個 `@Jacksonized` 即可。不過，我並不喜歡這個作法，因為它還是實驗性質而已，且要讓團隊花額外時間去了解、學習它的意義，太累了。
 
 
 ## **注意: 需要所有 getter?**
