@@ -53,9 +53,7 @@ image: /assets/image/site-image-small.png
 這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
-
------
-
+ 
 ## **重構(Refactoring)**
 為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的健康是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
 
@@ -227,7 +225,7 @@ PowerMock 是個功能強大、非常實用的單元測試工具，但也不可�
 ### **References**
 [https://martinfowler.com/articles/modernMockingTools.html](https://martinfowler.com/articles/modernMockingTools.html)
 
-## **更多你可能會感興趣的文章**
+### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)

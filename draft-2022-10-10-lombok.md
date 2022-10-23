@@ -130,6 +130,6 @@ Lombok有優點也有缺點，如果熟知優點缺點之後，在程式碼中�
 - [Improper equals() and hashCode() Implementations - Baeldung](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)
 - [Why do I need to override the equals and hashCode methods in Java? - StackOverflow](https://stackoverflow.com/a/2265637/5485454)
 
-## **更多你可能會感興趣的文章**
+### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [如何提高程式碼的可測試性 (Testability)](/articles/testability)

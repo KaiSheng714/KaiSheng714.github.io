@@ -33,9 +33,7 @@ image: /assets/image/site-image-small.png
 想像一下，專案中有超過 500 個檔案，如果其中包含許多 interface-impl，當你需要一層一層 trace code 時，IDE 會使你無法很流暢地進行，若在較大的專案裡遇到這種事，將會打擊開發者的工作效率與心理感受。
 
 此外，當 interface-impl 出現時，表示檔案的數量是比原本多一倍的，這不僅讓專案更龐大，也隱含的增加了專案的複雜度，因為多了這層非必要的 abstract layer，讓系統變得更不直觀，也會讓開發者永遠好奇眼前的 interface 是否有其他的 implementation ?
-
-------
-
+ 
 ## **如何解決？**
 我認為這種 interface-impl 不應存在，反而直接了當使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。因此，優秀的 clean coder 應盡量維持專案的乾淨與健康。
 
@@ -67,7 +65,7 @@ image: /assets/image/site-image-small.png
 - [Adam Bien — Service s = new ServiceImpl() — Why You Are Doing That?](http://adambien.blog/roller/abien/entry/service_s_new_serviceimpl_why)
 - [Do I need to use an interface when only one class will ever implement it?](https://softwareengineering.stackexchange.com/questions/159813/do-i-need-to-use-an-interface-when-only-one-class-will-ever-implement-it/159815#159815)
 
-## **更多你可能會感興趣的文章**
+### **更多你可能會感興趣的文章**
 - [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)
 - [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle)
 - [如何提高程式碼的可測試性 (Testability)](/articles/testability)

@@ -11,9 +11,7 @@ image: /assets/image/site-image-small.png
 我最近在 Java 專案中使用 Log4j2 做即時日誌並輸出 CSV，輸出完成後，文字編輯器打開一切正常，但以 Excel 開啟時卻出現亂碼，明明是 UTF-8，怎麼還會有亂碼呢? 查資料後才發現原來 CSV 的檔頭沒有帶著 BOM (byte-order mark) 導致。本文介紹兩種解決辦法。
 
 ![log4j-to-utf8-csv-for-excel](/assets/image/log4j.png?size=medium)
-
-------
-
+ 
 ##  **解法1. 用 shell 指令在檔頭加入 BOM**
 
 網路上大部分的解法都是像這樣，以事後透過指令或程式手動在檔頭補上 BOM。如下所示，以下這段指令是先將 BOM 碼寫入一個空的檔案內，再將 CSV 資料倒入這個檔案中，這方法看似簡單卻又帶有設計巧思。
@@ -61,6 +59,6 @@ cat source_file.csv >> with_bom.csv
 - [Adding BOM to UTF-8 files](https://stackoverflow.com/q/3127436/5485454)
 - [Log4j2 write to CSV for Excel without garbled characters](https://stackoverflow.com/q/71943217/5485454)
 
-## **更多你可能會感興趣的文章**
+### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)

@@ -95,8 +95,7 @@ public void setName(String name) {
     this.name = name;
 }
 ```
-
--------
+ 
 
 另外，有此一說，`Optional` 若作為 Spring controller 的參數，則更能表達該參數是非必要的，例如: 
 
@@ -149,6 +148,6 @@ public List<Student> readAllStudentsInClass(String classId) {
 - [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
 - Item 55: Return optionals judiciously (Effective Java 3rd)
 
-## **更多你可能會感興趣的文章**
+### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [SimpleDateFormat 的錯誤用法](/articles/simple-date-format)
