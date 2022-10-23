@@ -228,8 +228,6 @@ a {
   }
 
   h2 {
-    padding-bottom: 0.2em;
-    border-bottom: 1px solid #f1f1f1;
     font-size: 1.45rem;
   }
 
@@ -247,6 +245,11 @@ a {
     margin-bottom: 0.6rem;
     font-weight: normal;
     color: $section-headings-color;
+  }
+
+  h2 {
+    padding-bottom: 0.2em;
+    border-bottom: 1px solid #f1f1f1;
   }
 
   p {
