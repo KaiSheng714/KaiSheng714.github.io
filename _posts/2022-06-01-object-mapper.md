@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Jackson ObjectMapper 的錯誤用法"
+title: "Java 使用 Jackson ObjectMapper 教學與注意事項"
 author: "Kai-Sheng"
 permalink: /articles/object-mapper
 categories: [Java]
