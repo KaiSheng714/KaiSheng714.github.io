@@ -7,7 +7,7 @@ categories: [Design, Unit-testing]
 image: /assets/image/site-image-small.png
 --- 
  
-眾所皆知，寫單元測試有非常多好處，但有些主管會問，為什麼寫測試會讓工程師額外花這麼多時間？除了本身對單元測試技術不熟悉以外，追根究柢是因為產品程式碼的可測試性太低，導致工程師寫測試時很難將精力投入在對的地方，甚至導致放棄寫單元測試。要寫出優秀的單元測試有一定的難度與門檻，關鍵就在於工程師要思考如何提高程式碼的可測試性，進而讓寫單元測試變得簡單。本文將介紹提高 Java 單元測試可測試性的教學。
+眾所皆知，寫單元測試有非常多好處，但有些主管會問，為什麼寫測試會讓工程師額外花這麼多時間？除了本身對單元測試技術不熟悉以外，追根究柢是因為產品程式碼的可測試性太低，導致工程師寫測試時很難將精力投入在對的地方，甚至導致放棄寫測試。要寫出優秀的單元測試有一定的難度與門檻，關鍵就在於如何提高程式碼的可測試性。本文介紹提高 Java 單元測試可測試性的教學。
 
 
 ## **什麼是程式碼的可測試性?**
@@ -111,13 +111,11 @@ TDD 是一種**先從使用者角度寫測試，再回頭撰寫產品程式碼�
 - 提高產品程式的可測試性，較容易寫出優秀的測試程式，接著才能享受自動化測試帶來的甜美果實。
 
 ### **References**
-- [Software testability](https://en.wikipedia.org/wiki/Software_testability)
 - [Patterns in Practice: Design For Testability - Microsoft Docs](https://docs.microsoft.com/zh-tw/archive/msdn-magazine/2008/december/patterns-in-practice-design-for-testability)
 - [如何提升軟體的可測試性-搞笑談軟工](https://teddy-chen-tw.blogspot.com/2013/04/blog-post_4.html)
 - [程式碼的可測性](https://www.ithome.com.tw/voice/88062)
 - [Effective Unit Testing by Eliotte Rusty Harold](https://www.youtube.com/watch?v=fr1E9aVnBxw)
 - [The Clean Code Talks -- Unit Testing](https://www.youtube.com/watch?v=wEhu57pih5w)
-
 
 ### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
