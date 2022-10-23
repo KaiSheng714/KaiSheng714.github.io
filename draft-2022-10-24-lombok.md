@@ -17,25 +17,15 @@ Lombok 的 annotation 都是在編譯時才被轉換成 java code，因此早期
 
 ## **Lombok @Data**
 Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的文件，其成分如下：
-
-### **@Getter**
-為每一個 field 產生一個 getter。
-
-### **@Setter**
-為每一個 non-final field 產生一個 setter。
-
-### **@RequiredArgsConstructor**
-建立一個 constructor，其參數為 class 中所有 `@NotNull`, `final` field。
-
-### **@ToString()**
-將每個 field 按順序並以逗號分隔，以 name=value 的形式組成字串，大幅提高可讀性。
-
-### **@EqualsAndHashCode**
-有了這個標註了之後， Lombok 就會以所有 non-static 和 non-transient field 來實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 entity/model 放入 HashSet 或當作 HashMap 的 key 值時，[可能會引發 memory leak](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
+- **@Getter**：為每一個 field 產生一個 getter。
+- **@Setter**：為每一個 non-final field 產生一個 setter。
+- **@RequiredArgsConstructor**： 建立一個 constructor，其參數為 class 中所有 `@NotNull`, `final` field。
+- **@ToString**： 將每個 field 按順序並以逗號分隔，以 name=value 的形式組成字串，大幅提高可讀性。
+- **@EqualsAndHashCode**：以所有 non-static 和 non-transient field 來實作 `equals()` 和 `hashCode()`。如果不能夠良好的 override 這兩個 method，一旦 entity/model 放入 HashSet 或當作 HashMap 的 key 值時，[可能會引發 memory leak](https://www.baeldung.com/java-memory-leaks#3-improper-equals-and-hashcode-implementations)。
  
-DTO 是最簡單的一種 class，它只保存資料，沒有邏輯，如果是 DTO，基本上可以無腦使用 `@Data` 也不會產生太多問題。如果是 domain model 則應該關心以下幾個議題：
+`@Data` 很適合用於 DTO，因為它只保存資料，沒有邏輯，基本上可以無腦使用 `@Data` 也不會產生太多問題。如果是 domain model 時則應該關心以下幾個議題：
 
-## **注意事項**
+## **Lombok 議題**
 
 ### **Delombok**
 知己知彼，百戰百勝。用 Lombok 真的很方便，不過更重要的是要了解**它實際產生了什麼程式、它隱藏的細節？**，否則有時容易踩了坑還找不出原因。想要查看 Lombok 反編譯後的樣子，就可以透過 **Delombok** 這面照妖鏡來查看，步驟為在 IntelliJ 編輯區按右鍵 → refactor → Delombok。
@@ -45,6 +35,8 @@ DTO 是最簡單的一種 class，它只保存資料，沒有邏輯，如果是 
 透過 Delombok，可以發現它們的 `hashCode()`, `toString()` 都存在循環引用，造成了無窮迴圈，最後因為記憶體不足拋出例外。最好的解決方法就是藉由重構來消除雙向依賴的關係。
 
 ### **@Builder, @Setter**
+
+標記了 `@Builder` 後就可以直接使用 [Builder Pattern](https://en.wikipedia.org/wiki/Builder_pattern)，優雅的建立一個 instance：
 ```java
 Student student = Student.builder()
     .id("A123")
@@ -52,12 +44,12 @@ Student student = Student.builder()
     .address("Taiwan Taipei ...")
     .build();
 ```
-用 `@Builder` 確實能達到同樣目的，而且比較美觀。通常域對像很小（或應該很小）並且@Builder具有非常危險的行為：它允許在無效狀態下創建對象，有時候難以發現的 bug。
+通常域對像很小（或應該很小）並且@Builder具有非常危險的行為：它允許在無效狀態下創建對象，有時候難以發現的 bug。
 一旦我們用 註釋這個類 `@Builder`，沒有什麼能阻止我這樣做：
 
 必要時可加 `@NonNull`，fail fast
 
-## **@Builder 與 Jackson **
+### **@Builder 與 Jackson**
 Jackson 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
 
 如果我們使用 `@Builder`，無參數的 constructor 會被設成 package-private，這時若我們反序列化 json 字串，就會導致 Jackson 無法找到 constructor 並拋出 `InvalidDefinitionException`。
@@ -71,7 +63,7 @@ Cannot construct instance of `...  cannot deserialize from Object value
 
 解決辦法是在 class 上多加一個 `@Jacksonized` 即可。不過，我並不喜歡這個作法，因為它還是實驗性質而已，有可能隱含未知的風險，且要讓團隊花額外時間去了解、學習它的意義，太累了，如果越能降低專案的學習門檻就越好。順帶一提，Google Gson 能夠直接序列化與反序列化 `@Builder` class，無需額外處理。
 
-## **需要所有 getter ？**
+### **需要所有 getter ？**
 在我的經驗中，getter, setter 既然這麼方便就產生了，所以自然而然就拿來用，因此讓很多人忽略了 **Tell, Don't Ask** 原則。
 
 Tell, Don't Ask 是一個幫助人們記住面向對像是將數據與操作該數據的函數捆綁在一起的原則。它提醒我們，與其向對象索取數據並根據該數據採取行動，不如告訴對象該做什麼。這鼓勵將行為移動到對像中以與數據一起使用。
@@ -108,7 +100,7 @@ Student student = new Student()
     .setAddress("Taiwan Taipei");
 ```
 
-## **@Accessors(chain=true)**
+### **@Accessors(chain=true)**
 在 class 標註 `@Accessors(chain=true)` 後，就可將一連串的 setter 串接起來。可能有些人會問我：用 `@Builder` 不是更好嗎? 
 但我的經驗是，因為我有時會用 Factory 來建立物件，這時如果在工廠裡再用 Builder Pattern，會有點多此一舉。而且用我的方式也不需要再呼叫 `builder`, `build`。
  
