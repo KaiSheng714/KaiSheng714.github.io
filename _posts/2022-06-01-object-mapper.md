@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java Jackson ObjectMapper 使用教學與注意事項"
+title: "Java Jackson ObjectMapper 教學與注意事項"
 author: "Kai-Sheng"
 permalink: /articles/object-mapper
 categories: [Java]
