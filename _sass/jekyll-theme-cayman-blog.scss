@@ -200,6 +200,10 @@ a {
     h3 {
       font-size: 1.3rem;
     }
+
+    code {
+      font-size: 1rem;
+    }
   }
 
   @include medium {
@@ -216,6 +220,10 @@ a {
   
     h3 {
       font-size: 1.15rem;
+    }
+
+    code {
+      font-size: 0.9rem;
     }
   }
 
@@ -239,6 +247,10 @@ a {
   
     h3 {
       font-size: 1.11rem;
+    }
+
+    code {
+      font-size: 0.85rem;
     }
   }
 
@@ -287,7 +299,6 @@ a {
     box-sizing: border-box;
     font-family: monospace, monospace;
     padding: 4px 6px;
-    font-size: 1rem;
     font-weight: bold;
     border-radius: 0.3rem;
     margin-top: 0;
