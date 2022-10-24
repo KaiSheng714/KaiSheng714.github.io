@@ -40,13 +40,13 @@ public class HelloBean {
 ```
 
 ### **優點**
-1. 簡單方便易用，只要短短一行即可完成。
-2. 程式碼最少，讀起來真舒服
+- 簡單方便易用，只要短短一行即可完成。
+- 程式碼最少，讀起來真舒服
 
 ### **缺點**
-1. 不易維護，**因為簡單方便，更容易產生 code smell 而不自知**，例如 **God Object**
-2. 不好寫單元測試，測試環境需要透過 DI container 並加上許多 @Annotation 來初始化，看起來更像整合測試了。而且編譯、執行時會多一些 overhead。
-3. 不好理解測試，以下程式為例
+- 不易維護，**因為簡單方便，更容易產生 code smell 而不自知**，例如 **God Object**
+- 不好寫單元測試，測試環境需要透過 DI container 並加上許多 @Annotation 來初始化，看起來更像整合測試了。而且編譯、執行時會多一些 overhead。
+- 不好理解測試，以下程式為例
 
 ```java
 @RunWith(MockitoJUnitRunner.class)
