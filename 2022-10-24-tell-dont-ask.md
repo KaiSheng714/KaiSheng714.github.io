@@ -46,10 +46,6 @@ if (customer.canBuy(product)) {
   
  其實，仔細想想，對象的狀態是什麼樣，該不該做，以及如何做都是對象自己該處理的，而不是我該操心的，這麼做只能破壞了對象的封裝，讓調用它的代碼和這個對象緊耦合起來。這樣也變得很好測試。
  
-
-封裝 (Encapsulation)  
-
-必要時可加 `@Getter(AccessLevel.NONE)`，或是在指定的 field 個別標記 `@Setter` 和 `@Getter`，而不是標記在 class level 。
  
  
 
