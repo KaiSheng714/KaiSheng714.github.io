@@ -192,11 +192,31 @@ a {
     padding: 3rem 4.5rem;
     margin: 0 auto;
     font-size: 1.2rem;
+
+    h2 {
+      font-size: 1.74rem;
+    }
+  
+    h3 {
+      font-size: 1.3rem;
+    }
   }
 
   @include medium {
     padding: 3rem 4rem;
     font-size: 1.1rem;
+
+    h1 {
+      font-size: 1.6rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+  
+    h3 {
+      font-size: 1.15rem;
+    }
   }
 
   @include small {
@@ -238,14 +258,6 @@ a {
 
   img {
     max-width: 100%;
-  }
-
-  h2 {
-    font-size: 1.74rem;
-  }
-
-  h3 {
-    font-size: 1.3rem;
   }
 
   h1,
