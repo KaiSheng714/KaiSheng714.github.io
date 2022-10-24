@@ -33,10 +33,10 @@ Lombok 中的 `@Data` 應該是最常被使用的 annotation，根據官方的�
 ## **Lombok 議題**
 
 ### **Delombok**
-知己知彼，百戰百勝。用 Lombok 真的很方便，不過更重要的是要了解**它實際產生了什麼程式、它隱藏的細節？**，否則有時容易踩了坑還找不出原因。想要查看 Lombok 反編譯後的樣子，就可以透過 **Delombok** 這面照妖鏡來查看，步驟為在 IntelliJ 編輯區按右鍵 → refactor → Delombok。
+知己知彼，百戰百勝。用 Lombok 真的很方便，不過更重要的是要了解**它實際產生了什麼程式、它隱藏的細節？**，否則有時容易踩了坑還找不出原因，這時可以透過 **Delombok** 這面照妖鏡。步驟為在 IntelliJ 編輯區按右鍵 → refactor → Delombok。
 
 ### **StackOverflowError**
-因為 `@Data` 中包含了 `@ToString`，`@EqualsAndHashCode`，如果兩個之間的有雙向依賴關係，就會導致 `StackOverflowError`，例如 Student 類別 Teacher 類別互相依賴著，並且這兩個類別都標記了 `@ToString` 或 `@EqualsAndHashCode`。
+因為 `@Data` 中包含了 `@ToString`，`@EqualsAndHashCode`，如果兩個之間的有雙向依賴關係，例如 Student 類別 Teacher 類別互相依賴著，並且這兩個類別都標記了 `@ToString` 或 `@EqualsAndHashCode`，就會導致 `StackOverflowError`。
 透過 Delombok，可以發現它們的 `hashCode()`, `toString()` 都存在循環引用，造成了無窮迴圈，最後因為記憶體不足拋出例外。最好的解決方法就是藉由重構來消除雙向依賴的關係。
 
 ### **@Builder 的危險性**
@@ -48,7 +48,7 @@ Student student = Student.builder()
     .address("Taiwan Taipei ...")
     .build();
 ```
-它彈性且優雅的風格帶來了危險的副作用。例如開發者可以不填入 name 值，創建出一個狀態不完全的 Student instance，最後甚至造成難以發現的 bug。因此必要時可在必填的 field 加上 Lombok 的 `@NonNull`，如果沒有賦值，則立即拋出 NullPointerException，fail fast。
+它彈性的風格帶來了危險的副作用。例如開發者忘了填入 name 值，創建出一個狀態不完全的 Student instance，最後可能造成難以發現的 bug。因此應依照規格需求盡量在必填的 field 加上 Lombok 的 `@NonNull`，如果沒有賦值，則立即拋出 NullPointerException，fail fast。
 
 ### **@Builder 與 Jackson**
 Jackson 是 Java 中應用非常廣泛的序列化、反序列化的 library，它可以幫助我們簡單、快速將 Java 物件與 json 之間作轉換，就連 Spring 將 Jackson 的 ObjectMapper 作為預設使用。
@@ -58,7 +58,7 @@ Jackson 是 Java 中應用非常廣泛的序列化、反序列化的 library，�
 ```
 Error on Jackson Deserialization
 com.fasterxml.jackson.databind.exc.InvalidDefinitionException: 
-Cannot construct instance of `...  cannot deserialize from Object value 
+Cannot construct instance of  ...  cannot deserialize from Object value 
 (no delegate- or property-based Creator)
 ```
 
