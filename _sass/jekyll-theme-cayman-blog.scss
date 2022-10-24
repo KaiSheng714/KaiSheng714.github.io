@@ -259,12 +259,18 @@ a {
   }
 
   code {
-    padding: 2px 4px;
-    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-    font-size: 0.92rem;
-    color: #c7254e;
-    background-color: #f9f2f4;
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.7;
+    box-sizing: border-box;
+    font-family: monospace, monospace;
+    padding: 3px 5px;
+    font-size: 1rem;
     border-radius: 0.3rem;
+    margin-top: 0;
+    word-wrap: break-word;
+    color: rgba(41, 41, 41, 1);
+    word-break: break-word;
+    background-color: rgb(237 237 237);
   }
 
   pre {

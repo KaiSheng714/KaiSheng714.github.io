@@ -7,7 +7,10 @@ categories: [Java]
 image: /assets/image/site-image-small.png
 --- 
   
-多年來 Java 流行分層設計，因此出現了許多 VO, DTO 這種只有資料的而沒有邏輯的 class，它們被設計成只允許擁有 getter, setter 方法。在我的經驗中，既然 Lombok 這麼方便就產生了 getter, setter，因此讓很多人忽略了 **Tell, Don't Ask** 原則的建議。例如有一段「限定北部會員才可購買」的邏輯：
+多年來 Java 流行分層設計，因此出現了許多 VO, DTO 這種只有資料的而沒有邏輯的 class，它們被設計成只允許擁有 getter, setter 方法。
+
+
+在我的經驗中，既然 Lombok 這麼方便就產生了 getter, setter，因此讓很多人忽略了 **Tell, Don't Ask** 原則的建議。例如有一段「限定北部會員才可購買」的邏輯：
 
 ```java
 if (customer.getMembership().getExpiredDate() > today &&
