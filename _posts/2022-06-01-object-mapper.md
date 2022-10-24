@@ -24,9 +24,8 @@ public String toJson(Something something) throws JsonProcessingException {
 問題在於 `new ObjectMapper()`
 
 這段程式碼是很經典的錯誤，而且這種錯誤隨處可見，很多人卻沒注意到。事實上，執行 `new ObjectMapper()` 是非常昂貴的，在系統遭遇高併發（High Concurrency）情況下，這種寫法很容易出現效能瓶頸。根據[這篇文章](https://theartofdev.com/2014/07/20/jackson-objectmapper-performance-pitfall/)的實驗，若每次序列化/反序列化都使用 `new ObjectMapper`，比起共用一個 ObjectMapper，執行時間至少相差五倍，因此要盡快修正。
-
----
-
+ 
+ 
 ## **解法**
 解法很簡單，根據[官方文件](https://fasterxml.github.io/jackson-databind/javadoc/2.6/com/fasterxml/jackson/databind/ObjectMapper.html)指出，ObjectMapper 是 thread-safe，因此只要共用同一個 instance，而不要每次都 `new` 即可，否則代價很高。我常用的作法有:
  
