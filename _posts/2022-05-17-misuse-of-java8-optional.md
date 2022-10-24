@@ -13,7 +13,7 @@ image: /assets/image/site-image-small.png
 
 
  
-### **isPresent() and get()**
+## **isPresent() and get()**
 假設有一個 `studentService` 可利用 id 查詢學生資料，我們為了避免 return null 而後續可能導致 NPE，我們就必需在 `studentService.readById` 回傳結果時先做 null check，因此傳統寫法會像這樣:
 
 ```java
@@ -51,7 +51,7 @@ public Student readById(String id) {
 
 `orElseThrow` 會判斷 Optional 的內容，若有值時則直接回傳 Student；若沒有，則拋出例外。其實 Optional 是與 Java 8 functional programming 寫法相輔相成的，所以使用 Optional 時應搭配如 `filter()`, `map()`, `orElseThrow()` 等的 functional programming 風格的寫法會比較適合。
 
-### **一定有值，卻依然使用 Optional**
+## **一定有值，卻依然使用 Optional**
 Optional 設計的意義就是用來表示 method 的回傳值可能會是空的。但在某些**一定會有回傳值**情況下，開發者卻依然使用 Optional，這就造成了過度包裝與多此一舉。承上學生系統的例子，假設我們要查詢全體學生中的第一名:
 ```java
 public Optional<Student> readTopScoreStudent() {
@@ -60,7 +60,7 @@ public Optional<Student> readTopScoreStudent() {
 ```
 正常來說，這個系統並不會沒有學生資料（否則一切都是空談），因此這個 method 肯定會有回傳值，不需使用 Optional。
 
-### **作為參數**
+## **作為參數**
 有些人會將 Optional 作為參數，意圖表示這個參數可能是非必要的:
 
 ```java
@@ -109,7 +109,7 @@ public String showLoginWindow(@PathVariable("id") String id,
 
 在 Spring 4.1.1 後已經可以妥善處理這裡的 Optional，它將不會是 null，再加上它是 controller，所以也不會難以被呼叫，因此有些人覺得這種作法比較好，這就見仁見智了。
 
-### **作為 class field**
+## **作為 class field**
 
 ```java
 public class Student {
@@ -121,7 +121,7 @@ public class Student {
 
 因為 Optional 是設計用來 method 的回傳型態，因此它並沒有實作序列化 `Serializable` 介面，在特定狀況下(如網路傳輸)需要物件序列化時將會出現問題。
 
-### **Collection and Optional**
+## **Collection and Optional**
 因為 `Optional` 本身就是一個容器，如果內容又是另一個容器，例如回傳 `Optional<List<Student>>`，這不僅比較複雜以外，在語意上還代表著三種可能的回傳值:
 - 一個有內容的 List
 - 一個空的 List
@@ -136,7 +136,7 @@ public List<Student> readAllStudentsInClass(String classId) {
 }
 ```
  
-### **Map and Optional**
+## **Map and Optional**
 不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 `map.get(key)` 的回傳值會是:
 - Optional (可能有 Student 與可能沒有 Student)
 - null
