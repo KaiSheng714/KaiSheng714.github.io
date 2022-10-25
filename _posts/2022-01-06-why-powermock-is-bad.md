@@ -60,7 +60,7 @@ image: /assets/image/site-image-small.png
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
 ### **static class / method** 
-我相信這應該是 PowerMock 受歡迎的最大理由，程式值中充斥過多的 static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
+我相信這應該是 PowerMock 受歡迎的最大理由，程式中充斥過多的 static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
 
 舉例來說，下面的 getProperty() 函式，從程式的角度看起來沒問題，但實際上在 Server 尚未啟動時可能產生錯誤或是沒有回傳值。因為這個 method 相依了 Server 的狀態，所以不適合作為 static method，應該改成 instance method。
 
@@ -144,7 +144,7 @@ public class ExampleTest {
 
 ```
 
-而比較好的做法是：不讓 method 自己去請求 System 提供現在時間，而是由 caller 傳遞進去，有點像 Dependency Injection (DI) 的觀念，透過 DI 能夠使我們更容易建立 mock object。經過重構後的程式碼如下(甚至連 mock framework 都不需要了，如果能不依賴於 framework，會是個更好的 practice)
+而比較好的做法是：不讓 method 自己去請求 System 提供現在時間，而是由 caller 傳遞進去，有點像依賴注入 (Dependency Injection, DI) 的觀念，透過 DI 能夠使我們更容易建立 mock object。經過重構後的程式碼如下(甚至連 mock framework 都不需要了，如果能不依賴於 framework，會是個更好的 practice)
 
 
 ```java
@@ -189,7 +189,7 @@ public void execute_some_example() {
 }
 ```
 
-但其實有更好的替代方案，方法與上一個例子的概念很類似，我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。(除此之外，也可以使用 factory pattern 來處理物件的建立)
+但其實有更好的替代方案：就是用 DI。我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。
 
 ```java
 // better
@@ -214,7 +214,7 @@ public void execute_some_example() {
 ```
 
 ## **結語**
-沒有工具是使用上毫無代價的、萬能的，使用前請停下来想一想。
+世上沒有一個工具是使萬能的、毫無代價的，使用前請停下来想一想。
 
 PowerMock 是個功能強大、非常實用的單元測試工具，但也不可否認的，若使用不當，容易使讓開發人員忽略程式碼品質，導致後續消耗更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
 
@@ -227,5 +227,5 @@ PowerMock 是個功能強大、非常實用的單元測試工具，但也不可�
 
 ### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
-- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [分析 Spring 的依賴注入模式](/articles/analyzing-dependency-injection-patterns-in-spring)
+- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
