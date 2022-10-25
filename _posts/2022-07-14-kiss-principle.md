@@ -48,7 +48,7 @@ KISS 原則所闡述的是**在開發系統的過程中，面對問題所提出�
 - 人類的腦容量有限，無法同時處理太多問題。如果在專案中加入不必要的複雜性，這將導致程式碼可讀性下降，從而降低其他同事的理解、推理能力與開發效率。
 - 唐朝詩人白居易的作品平易近人。相傳白居易每作一首詩就念給老年婦女聽，不懂就改，力求做到她們能懂。我想這應該是將 KISS 原則發揮到極致的經典案例吧！
 
-## **References**
+### **References**
 - [kiss-revisited](https://enterprisecraftsmanship.com/posts/kiss-revisited/)
 - [為何資深開發者寫的程式看起來不怎樣，又如何從千里之外認出菜鳥](https://medium.com/@CQD/%E7%82%BA%E4%BD%95%E8%B3%87%E6%B7%B1%E9%96%8B%E7%99%BC%E8%80%85%E5%AF%AB%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%9C%8B%E8%B5%B7%E4%BE%86%E4%B8%8D%E6%80%8E%E6%A8%A3-%E5%8F%88%E5%A6%82%E4%BD%95%E5%BE%9E%E5%8D%83%E9%87%8C%E4%B9%8B%E5%A4%96%E8%AA%8D%E5%87%BA%E8%8F%9C%E9%B3%A5-c1afa754c5e4)
 

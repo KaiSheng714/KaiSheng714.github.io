@@ -150,7 +150,7 @@ public class HelloBeanTest {
 ## **總結**
 本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor injection**，雖然可能會有循環依賴異常的問題，但無論在開發、測試方面，總體而言都是利大於弊，我也一直遵循這個模式。
 
-## **References**
+### **References**
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
 - [What exactly is field injection and how to avoid it](https://stackoverflow.com/questions/39890849/what-exactly-is-field-injection-and-how-to-avoid-it/39891473)  
 - [Circular dependencies in spring](https://www.baeldung.com/circular-dependencies-in-spring)

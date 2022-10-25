@@ -54,7 +54,7 @@ cat source_file.csv >> with_bom.csv
  
 
 ---
-## **References**
+### **References**
 - [Byte order mark](https://en.wikipedia.org/wiki/Byte_order_mark)
 - [Adding BOM to UTF-8 files](https://stackoverflow.com/q/3127436/5485454)
 - [Log4j2 write to CSV for Excel without garbled characters](https://stackoverflow.com/q/71943217/5485454)
