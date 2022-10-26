@@ -295,6 +295,7 @@ a {
     margin-bottom: 0.5em;
   }
 
+  // `` 刮起來的 word
   code {
     line-height: 1.7;
     box-sizing: border-box;
@@ -315,7 +316,9 @@ a {
     border: solid 1px $border-color;
     border-radius: 0.3rem;
 
+    // code snippet
     > code {
+      color: #e1e1e1;
       padding: 0;
       margin: 0;
       font-size: 0.9rem;
