@@ -198,7 +198,7 @@ a {
     }
   
     h3 {
-      font-size: 1.34rem;
+      font-size: 1.4rem;
     }
 
     code {
@@ -215,11 +215,11 @@ a {
     }
 
     h2 {
-      font-size: 1.4rem;
+      font-size: 1.48rem;
     }
   
     h3 {
-      font-size: 1.22rem;
+      font-size: 1.3rem;
     }
 
     code {
@@ -242,11 +242,11 @@ a {
     }
 
     h2 {
-      font-size: 1.33rem;
+      font-size: 1.4rem;
     }
   
     h3 {
-      font-size: 1.11rem;
+      font-size: 1.24rem;
     }
 
     code {
@@ -307,16 +307,15 @@ a {
     background-color: #ebebeb;
   }
 
+
+  // code snippet
   pre {
     padding: 0.8rem;
     margin-top: 0;
     margin-bottom: 1rem;
     font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
     word-wrap: normal;
-    border: solid 1px $border-color;
-    border-radius: 0.3rem;
 
-    // code snippet
     > code {
       color: #e1e1e1;
       padding: 0;
@@ -345,7 +344,6 @@ a {
     overflow: auto;
     font-size: 0.9rem;
     line-height: 1.45;
-    border-radius: 0.3rem;
     -webkit-overflow-scrolling: touch;
   }
 
