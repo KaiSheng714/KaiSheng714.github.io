@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java Lombok @Builder "
+title: "Java Lombok-比@Builder更好的選擇"
 author: "Kai-Sheng"
 permalink: /articles/lombok-builder
 categories: [Java]
@@ -8,34 +8,8 @@ image: /assets/image/lombok-cover.png
 --- 
 
 
-## **我常用的方式**
-綜上所述，我認為 Lombok 還是最適合用於 Entity,Model，這樣用就足以應付大部分的狀況了：
+## **問題描述**
 
-```java
-@Log4j2
-@Data
-@Accessors(chain = true)
-public class Student {
-    private int id;
-    private String name;
-    private String email;
-    // field ...
-    // method ...
-}
-```
-
-在 class 標註 `@Accessors(chain=true)` 後就能鏈式串接所有 setter，使用上相當方便：
-
-```java
-Student student = new Student()
-    .setId(12345)
-    .setName("KaiSheng")
-    .setEmail("KaiSheng714@github.com");
-```
-
-可能有些人會問我：用 `@Builder` 不是也差不多嗎？但我的經驗是，因為我有時會用 Factory 來建立物件，這時如果在工廠裡再用 builder pattern 反而有點多此一舉，此外，我的方式不需要額外呼叫 `builder()`, `build()`，也可以和 Jackson 正常配合。
-
-另外，標註 `@Log4j2` 或 `@Slf4j`，就可以使用 log 功能，非常方便，適用於任何 class，通常建議是需要時再標註上去即可。
 
 
 
