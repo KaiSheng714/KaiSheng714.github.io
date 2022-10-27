@@ -5,7 +5,7 @@ tagline: ""
 author: "Kai-Sheng"
 permalink: /articles/yagni-principle
 categories: [Design]
-image: /assets/image/site-image-small.png
+image: /assets/image/yagni.png
 --- 
 
 
