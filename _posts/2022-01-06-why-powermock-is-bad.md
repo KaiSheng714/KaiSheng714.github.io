@@ -223,7 +223,7 @@ PowerMock 是個功能強大、非常實用的單元測試工具，但也不可�
 更重要的是，在撰寫程式時，稱職的 **clean coder 們應時常思考什麼才是好的設計。**
  
 ### **References**
-[https://martinfowler.com/articles/modernMockingTools.html](https://martinfowler.com/articles/modernMockingTools.html)
+[Modern Mocking Tools and Black Magic](https://martinfowler.com/articles/modernMockingTools.html)
 
 ### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
