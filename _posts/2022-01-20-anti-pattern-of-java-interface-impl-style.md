@@ -25,7 +25,7 @@ image: /assets/image/interface-impl-dir.png
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
 ### **問題2. 違反 DRY 原則**
-當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次，造成維護成本升高。這不僅是程式的重複，也是知識上的重複，違反了 DRY 原則。
+當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次，重複的事物都會讓維護成本升高。這不僅是程式的重複，也是知識上的重複，違反了 DRY 原則。
 
 延伸閱讀: [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle) 
 
