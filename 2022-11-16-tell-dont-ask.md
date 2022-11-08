@@ -46,7 +46,7 @@ public void doBusiness(Customer customer) {
 
 像這樣收集許多物件的資訊以後再做出決定，就是**程序導向**的設計。
 
-範例程式中的 `doBusiness` 中首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部資料都洩漏出去，造成了雙方緊密耦合。其實這也是一種壞味道-- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身，例如常常存取另一個 class 的多個 field 或 method。
+Service 中的 `doBusiness` 中首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部資料都洩漏出去，造成了雙方緊密耦合。其實這也是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身，例如常常存取另一個 class 的多個 field 或 method。
 
 此外，Service 不僅與 Customer 耦合，也和 Customer 的內部 CreditCard 耦合，這種情況下不易單純只用一個 mock 進行測試，而是需要建立許多測試資料或 mock，因此測試可讀性也較差。Service 的單元測試如下：
 
@@ -81,7 +81,7 @@ public void do_for_other() {
 
 ```
 
-因為判斷 vip 的具體實作細節暴露在外，所以在 Service 的單元測試中，可能會寫出敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這是不合理的現象，是程式碼需要重構的一個跡象。
+因為判斷 vip 的具體實作細節暴露在外，所以在 Service 的單元測試中，可能會寫出敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗，這是程式碼需要重構的一個跡象。
 
 ## **重構**
 
