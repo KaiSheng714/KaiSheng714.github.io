@@ -85,7 +85,7 @@ public void do_for_other() {
 
 ## **解決辦法**
 
-可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓物件更具備內聚力的作法 -- 異動發生時，把可能會需要同時被修改到的程式碼放在一起：
+應用 Tell, Don't Ask 原則，Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓物件更具備內聚力的作法 -- 異動發生時，把可能會需要同時被修改到的程式碼放在一起：
 
 ```java
 public class Customer {
@@ -105,7 +105,7 @@ public class Customer {
 }
 ```
 
-因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，Customer 做完後回傳結果即可，Service 不必了解 Customer 內部具體是怎麼實作的。經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力和資訊隱藏的封裝性。
+經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力和資訊隱藏的封裝性。
 
 ```java
 // Service.java
@@ -118,7 +118,7 @@ public void doBusiness(Customer customer) {
 }
 ```
 
-這也提高了可測試性。我們不必再準備各種 Customer 資料來測試不同行為，也可避免更動 vip 的判斷條件。現在只要控制 mocked customer 與驗證 service 即可，測試意圖變得更明確：
+這也提高了可測試性。我們不必再準備各種 Customer 資料來測試不同行為，現在只要控制 mocked customer 就很容易 verify，測試意圖變得更明確：
 
 ```java
 // ServiceTest.java
