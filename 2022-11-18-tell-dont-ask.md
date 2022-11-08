@@ -147,6 +147,11 @@ public void do_for_other() {
 ## **結論**
 封裝是物件導向設計的理念之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成任務，而不是暴露物件內部資訊。若是能妥善運用此原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
 
+
+### **References**
+- [Be Careful With Lombok](https://levelup.gitconnected.com/be-careful-with-lombok-2e2edfc01110)
+- [5 Tips For Using Lombok In Production](https://dzone.com/articles/5-tips-for-using-lombok-in-production)
+
 ### **更多你可能會感興趣的文章**
-- [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
+- [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
 - [如何提高程式碼的可測試性 (Testability)](/articles/testability)
