@@ -3,7 +3,7 @@ layout: post
 title: "Tell, Don't Ask"
 author: "Kai-Sheng"
 permalink: /articles/tell-dont-ask
-categories: [Java]
+categories: [Design]
 image: /assets/image/site-image-small.png
 --- 
 
