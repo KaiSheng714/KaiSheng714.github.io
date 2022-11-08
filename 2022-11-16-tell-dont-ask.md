@@ -81,15 +81,14 @@ public void do_for_other() {
 
 ```
 
-在這種程序導向設計風格中，一個物件與鄰居、鄰居的鄰居的結構耦合，這種情況不容易單純只用一個 Mock 進行測試，而是需要建立許多資料，因此可讀性也較差。
+在這種程序導向設計風格中，Service 不僅與 Customer 耦合，也和 Customer 的內部 CreditCard 耦合，這種情況不容易單純只用一個 Mock 進行測試，而是需要建立許多資料，因此可讀性也較差。
 
 因為判斷 vip 的具體實作細節暴露在外，所以在 Service 的單元測試中，可能會寫出敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這是不合理的現象，是程式碼需要重構的一個跡象。
 
 
 ## **重構**
-讓設計更為內聚的作法：「把每次異動發生時，總會需要同時被修改到的程式碼放在一起。」
 
-此時可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中：
+可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中：
 
 ```java
 public class Customer {
@@ -108,6 +107,8 @@ public class Customer {
     // setter...
 }
 ```
+
+讓設計更為內聚的作法：「把每次異動發生時，總會需要同時被修改到的程式碼放在一起。」
 
 因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，Customer 做完後回傳結果即可，Service 不必了解 Customer 內部具體是怎麼實作的。
 
@@ -153,9 +154,7 @@ public void do_for_other() {
 
 物件導向設計的核心思想之一是封裝狀態，Tell, Don't Ask 原則建議我們直接要求物件達成目標，而不要外露物件內部狀態和使用內部狀態的邏輯。
 
-套用 Tell, Don't Ask 原則，就能更容易設計出好理解、好維護的程式。
-
-如此一來，可降低物件之間的耦合性。
+套用 Tell, Don't Ask 原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
 
 
 ### **更多你可能會感興趣的文章**
