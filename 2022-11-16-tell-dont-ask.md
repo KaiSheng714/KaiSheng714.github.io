@@ -83,7 +83,6 @@ public void do_for_other() {
 
 因為判斷 vip 的具體實作細節暴露在外，所以在 Service 的單元測試中，可能會寫出敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這是不合理的現象，是程式碼需要重構的一個跡象。
 
-
 ## **重構**
 
 可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓物件更具備內聚力的作法 -- 異動發生時，把可能會需要同時被修改到的程式碼放在一起：
@@ -107,7 +106,6 @@ public class Customer {
 ```
 
 因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，Customer 做完後回傳結果即可，Service 不必了解 Customer 內部具體是怎麼實作的。經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力和資訊隱藏的封裝性。
-
 
 ```java
 // Service.java
@@ -144,7 +142,7 @@ public void do_for_other() {
     verify(service).doForOther();
 }
 
-``` 
+```
 
 ## **結論**
 封裝是物件導向設計的理念之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成目標，而不是暴露物件內部狀態。套用此原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
