@@ -7,7 +7,7 @@ categories: [Design]
 image: /assets/image/site-image-small.png
 --- 
 
-Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 這種只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。這種設計並不符合物件導向的理念，容易破壞物件的封裝特性，讓開發者寫出程序導向風格的設計，使得物件之間的耦合度更高。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
+Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 這種只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。這種設計並不符合物件導向的理念，容易破壞物件的封裝特性，使物件之間的耦合度更高。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
 
 ## **問題**
 
@@ -43,8 +43,6 @@ public void doBusiness(Customer customer) {
     }    
 }
 ```
-
-像這樣收集許多物件的資訊以後再做出決定，就是**程序導向**的設計。
 
 `doBusiness` 首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部資料都洩漏出去，造成了雙方緊密耦合。其實這也是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身，例如常常存取另一個 class 的多個 field 或 method。
 
@@ -83,9 +81,11 @@ public void do_for_other() {
 
 因為判斷 vip 的具體實作細節暴露在外，所以在 Service 的單元測試中，可能會寫出敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗，這是程式碼需要重構的一個跡象。
 
-## **解決辦法**
+## **Tell, Don't Ask**
 
-應用 Tell, Don't Ask 原則，Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓物件更具備內聚力的作法 -- 異動發生時，把可能會需要同時被修改到的程式碼放在一起：
+Tell, Don't Ask 原則提醒開發者：與其一直詢問物件的內部資料，還不如直接命令它為你完成任務。
+
+因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。此時可用 **Move Method** 的重構手法，將這段邏輯搬進 Customer 之中，讓它處在對的地方。這也是一種讓物件更具備內聚力的作法 -- 異動發生時，把可能會需要同時被修改到的程式碼放在一起：
 
 ```java
 public class Customer {
@@ -149,8 +149,7 @@ public void do_for_other() {
 
 
 ### **References**
-- [Be Careful With Lombok](https://levelup.gitconnected.com/be-careful-with-lombok-2e2edfc01110)
-- [5 Tips For Using Lombok In Production](https://dzone.com/articles/5-tips-for-using-lombok-in-production)
+- [TellDontAsk - Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html)
 
 ### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
