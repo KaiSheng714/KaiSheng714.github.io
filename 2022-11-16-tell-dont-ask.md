@@ -7,49 +7,107 @@ categories: [Java]
 image: /assets/image/site-image-small.png
 --- 
   
-多年來 Web 分層架構盛行，因此出現了許多 VO, DTO 這種只有資料的而沒有邏輯的、只允許擁有 getter, setter 的類別。
-目前大部分業務系統都是基於 MVC 架構來開發的，而這種架構實際上是一種基於貧血模型的 MVC 三層架構開發模式。
+多年來 Web MVC 分層架構盛行，因此許多專案出現了類似 VO, DTO 這種只有資料的而沒有邏輯的、只允許擁有 getter, setter 的類別。雖然目前大部分系統都是基於 MVC 架構來開發的，但它卻違反了物件導向 OOP 設計風格，破壞了物件的封裝特性，讓開發者更容易寫出**程序式導向**的設計，讓它的和這個對象緊耦合起來。
 
-雖然這種開發模式已經成為標準的 Web 項目的開發模式，但它卻違反了物件導向 OOP 風格，是一種類似程序導向(procedure-oriented)風格， 
+## **問題**
 
-其實，仔細想想，對象的狀態是什麼樣，該不該做，以及如何做都是對象自己該處理的，而不是我該操心的，這麼做只能破壞了對象的封裝，容易寫出**程序式導向**的設計，讓調用它的代碼和這個對象緊耦合起來。例如有一段「限定北部會員才可購買」的邏輯：
 
 ```java
-// Service
-if (today().isBefore(customer.getMembership().getExpiredDate()) &&
-    customer.getAddress().contains("Taipei") &&
-    customer.getWallet().getBalance() > product.getPrice()) {
-    orderService.create(customer, product);
+public class User {
+
+    private int age;
+    private int point;
+    private LocalDate registerDate;
+
+    public int getAge() { return age; }
+    public int getPoint() { return point; }
+    public int getRegisterDate() {return registerDate;}
 }
 ```
-像這樣詢問物件的狀態，導致它本不應該被暴露的內部狀態都洩漏出去了。
 
-關於 Feature Envy 的定義，Martin Fowler 在 Refactoring 書中指出：「函式對於某個 class 的興趣高過對自己所處之 host class 的興趣。」
-Martin Fowler 直指，這種迷戀最常發生在「資料」上。今天如果 A 類裡的某個方法，老是喜歡存取 B 類的資料來運算，這會導致 B 的細節一旦有變，A 就不得不跟著變。或是每當 B 想要改變自己身上資料的存取方式時，還得看 A 的臉色。這就造成了 A 與 B 緊密耦合，而我們並不樂見此事。
-
-Tell, Don't Ask 原則提醒開發者：所謂 OOP 就是將資料與操作該資料的 method 綁在一起。與其在 service 層用了一堆 getter 然後進行邏輯運算，不如直接請它做：
-
+如果在 Service 中，有一個有 VIP 資格的條件為「年齡大於18歲、紅利點數大於1000點、註冊滿一年的會員」：
 
 ```java
-// OrderService
-if (customer.canBuy(product)) {
-    orderService.create(customer, product);
-}    
+// In Service
+public void myFunction(User user) {
+    if (user.getAge() >= 18 &&
+        user.getPoint() >= 1000 &&
+        DAYS.between(user.getRegisterDate(), today()) >= 365) {
+        doSomethingForVip();
+    } else {
+        doAnother();
+    }    
+}
 ```
 
-物件設計的重點在於將資料與這些資料的操作行為封裝在一起，一個典型的味道是某函式對於另一個class的興趣高於自己本身的class，例如函式常常需要取得另一個class的多個成員變數，或是呼叫另一個class的多個成員函式。則這個函式也許就不該屬於這個class，此時，可以用Move Method將該函式移到另一個class。 
+因為 vip 的條件判斷也跟著暴露了，因此在單元測試中，使人更容易寫出敏感的 test case，一點風吹草動就可能導致測試失敗。
 
-注意，有時 Message Chain 是可以接受的，但大多數是可以避免的。
+```java
 
+@Test
+public void vip() {
+    User vipUser = new User();
+    vipUser.setAge(20);
+    vipUser.setPoint(1000);
+    vipUser.setRegisterDate(LocalDate.of(2010, 1, 1));
 
-這樣也變得很好測試。
+    service.myFunction(user);
 
+    verify(service).doSomethingForVip();
+}
 
-## 可測試性
-在編碼風格中，一個對象的實現與其鄰居及其鄰居的鄰居的結構耦合，這種風格的代碼很難用 Mock Objects 進行測試。您會發現自己創建了許多模擬對象，這些模擬對像只是為了讓被測對像到達它實際使用的對象而存在。這是代碼需要重構的一個強烈跡象：您可以通過在被測對象的直接鄰居中引入新方法來簡化代碼。
+@Test
+public void not_vip() {
+    User nonVipUser = new User();
+    nonVipUser.setAge(17);
+
+    service.myFunction(user);
+
+    verify(service).doAnother();
+}
+
+```
+
+像這樣詢問物件的狀態，導致它本不應該被暴露的內部狀態都洩漏出去了，這也是其中一種壞味道 Feature Envy，意思是某函式對於另一個 class 的興趣高於自己本身的 class，例如函式常常需要取得另一個 class 的多個成員變數，或是呼叫另一個 class 的多個 method。這會導致 class 的細節一旦有變， service 就不得不跟著變，造成了雙方緊密耦合。
+
+物件設計的重點在於將資料與這些資料的操作行為封裝在一起，則這個函式也許就不該屬於這個class，此時，可以用 Move Method將該函式移到另一個class。 
+
+## **改善**
+Tell, Don't Ask 原則提醒開發者：所謂 OOP 就是將資料與操作該資料的 method 綁在一起。與其在 service 層用了一堆物件的 getter 然後進行邏輯運算，不如直接請它做並回傳結果，此時可以用 Move Method 的重構手法，將這段邏輯移動到 User class 之中
+
+```java
+public class User {
+
+    private int age;
+    private int point;
+    private LocalDate registerDate;
+
+    public boolean isVip() {
+        return this.age >= 18 &&
+                this.point >= 1000 &&
+                DAYS.between(this.registerDate, today()) >= 365;
+    }
+}
+```
+
+```java
+// In Service
+public void myFunction(User user) {
+    if (user.isVip()) {
+        doSomethingForVip();
+    } else {
+        doAnother();
+    }
+}
+```
 
 
 根據我的經驗，面向對象的Tell, Don't Ask 原則 方式編寫，則更易於理解和維護。
+Service 不再耦合 vip 的具體實作細節，這樣也變得很好測試。
+
+
+在編碼風格中，一個對象的實現與其鄰居及其鄰居的鄰居的結構耦合，這種風格的代碼很難用 Mock Objects 進行測試。您會發現自己創建了許多模擬對象，這些模擬對像只是為了讓被測對像到達它實際使用的對象而存在。這是代碼需要重構的一個強烈跡象：您可以通過在被測對象的直接鄰居中引入新方法來簡化代碼。
+
 
 在這種風格中，對象僅使用它們內部保存的信息或它們作為消息參數接收的信息來做出決策。他們不使用其他對象持有的信息做出決定。也就是說，對象通過相互發送命令來告訴對方要做什麼，它們不會互相詢問信息，然後根據這些查詢的結果做出決定。這種風格的最終結果是很容易將一個對象交換為另一個可以響應相同命令但
 
@@ -72,22 +130,3 @@ if (customer.canBuy(product)) {
 ### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
 - [如何提高程式碼的可測試性 (Testability)](/articles/testability)
-
-
-
-  private static class UserService {
-
-        public void addUser(Activity activity, User user) {
-            if (user.getAge() >= 18 &&
-                user.getPoint() >= 1000 &&
-                DAYS.between(user.getRegisterDate(), today()) >= 365) {
-                doSomething();
-            } else {
-                doAnother();
-            }
-        }
-
-        private LocalDate today() {
-            return LocalDate.now();
-        }
-    }
