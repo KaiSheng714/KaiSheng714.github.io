@@ -7,11 +7,11 @@ categories: [Java]
 image: /assets/image/site-image-small.png
 --- 
 
-Web MVC 三層架構盛行多年，因此許多專案中都出現了 VO, DTO 只有資料而沒有邏輯的資料類別，也稱為貧血模型(Anemic Domain Model)，這種設計並不符合物件導向的理念，破壞了物件的封裝特性，容易讓開發者寫出程序導向風格的設計，使得多個物件之間的耦合度更高。Tell, Don't Ask 原則意旨在提醒開發者，應避免類似情形發生。
+Web MVC 三層架構已盛行多年，因此許多專案中都出現了 VO, DTO 只有資料而沒有邏輯的資料類別，也稱為貧血模型(Anemic Domain Model)，這種設計並不符合物件導向的理念，破壞了物件的封裝特性，容易讓開發者寫出程序導向風格的設計，使得多個物件之間的耦合度更高。Tell, Don't Ask 原則意旨在提醒開發者，應避免類似情形發生。
 
 ## **問題**
 
-例如有個 Customer 類別，只存放顧客基本資料，沒有任何邏輯：
+例如有個 Customer 類別，只存放顧客基本資料和 getter, setter，沒有任何邏輯：
 
 ```java
 public class Customer {
@@ -26,8 +26,8 @@ public class Customer {
 
 若有一需求：
 
-- 判斷 VIP 的資格：年齡滿18歲、信用額度大於100萬、註冊滿一年的會員
-- Service 根據 VIP 資格，並做出相應業務。
+- 程式需判斷顧客是否有 VIP 的資格：年齡滿18歲、信用額度大於100萬、註冊滿一年的會員
+- Service 根據顧客是否 VIP 資格，並做出相應業務邏輯。
 
 因此 Service 需要呼叫 Customer 的 getter 來取得資料，程式如下：
 
@@ -46,9 +46,9 @@ public void doBusiness(Customer customer) {
 
 像這樣收集許多物件的資訊以後再做出決定，就是**程序導向**的設計。
 
-範例程式中的 `doBusiness` 中詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部狀態都洩漏出去了，其實這也是一種壞味道-- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身的 class，例如常常取得另一個 class 的多個成員變數，或是呼叫另一個 class 的多個 method。這會導致 Customer 的細節一旦有變，service 就不得不跟著變，造成了雙方緊密耦合。
+範例程式中的 `doBusiness` 中首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部狀態都洩漏出去，造成了雙方緊密耦合。其實這也是一種壞味道-- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身，例如常常存取另一個 class 的多個 field 或 method。
 
-Service 單元測試如下：
+Service 不僅與 Customer 耦合，也和 Customer 的內部 CreditCard 耦合，這種情況不容易單純只用一個 Mock 進行測試，而是需要建立許多資料，因此可讀性也較差。Service 單元測試如下：
 
 ```java
 // ServiceTest.java
@@ -81,14 +81,12 @@ public void do_for_other() {
 
 ```
 
-在這種程序導向設計風格中，Service 不僅與 Customer 耦合，也和 Customer 的內部 CreditCard 耦合，這種情況不容易單純只用一個 Mock 進行測試，而是需要建立許多資料，因此可讀性也較差。
-
 因為判斷 vip 的具體實作細節暴露在外，所以在 Service 的單元測試中，可能會寫出敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這是不合理的現象，是程式碼需要重構的一個跡象。
 
 
 ## **重構**
 
-可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中：
+可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓設計更為內聚的作法-- 把每次異動發生時，總會需要同時被修改到的程式碼放在一起：
 
 ```java
 public class Customer {
@@ -108,7 +106,6 @@ public class Customer {
 }
 ```
 
-讓設計更為內聚的作法：「把每次異動發生時，總會需要同時被修改到的程式碼放在一起。」
 
 因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，Customer 做完後回傳結果即可，Service 不必了解 Customer 內部具體是怎麼實作的。
 
@@ -124,7 +121,7 @@ public void doBusiness(Customer customer) {
 }
 ```
 
-經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。從可測試性的角度來看，這也變得很好測試。我們不必再準備各種 Customer 資料來測試不同行為，也可避免更動 vip 的判斷條件。現在只要控制 mocked customer 與驗證 service 即可，測試意圖變得更明確：
+經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力。從可測試性的角度來看，這也變得很好測試。我們不必再準備各種 Customer 資料來測試不同行為，也可避免更動 vip 的判斷條件。現在只要控制 mocked customer 與驗證 service 即可，測試意圖變得更明確：
 
 ```java
 // ServiceTest.java
@@ -151,11 +148,7 @@ public void do_for_other() {
 ``` 
 
 ## **結論**
-
-物件導向設計的核心思想之一是封裝狀態，Tell, Don't Ask 原則建議我們直接要求物件達成目標，而不要外露物件內部狀態和使用內部狀態的邏輯。
-
-套用 Tell, Don't Ask 原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
-
+封裝是物件導向設計的理念之一，Tell, Don't Ask 原則建議我們直接命令物件達成目標，而不要暴露物件內部狀態。套用此原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
 
 ### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
