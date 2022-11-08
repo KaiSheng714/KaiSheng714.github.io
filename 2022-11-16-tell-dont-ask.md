@@ -7,7 +7,7 @@ categories: [Java]
 image: /assets/image/site-image-small.png
 --- 
 
-Web MVC 三層架構已盛行多年，因此在許多專案中可看到 VO, DTO 只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。這種設計並不符合物件導向的理念，容易破壞物件的封裝特性，讓開發者寫出程序導向風格的設計，使得物件之間的耦合度更高。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
+Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 這種只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。這種設計並不符合物件導向的理念，容易破壞物件的封裝特性，讓開發者寫出程序導向風格的設計，使得物件之間的耦合度更高。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
 
 ## **問題**
 
