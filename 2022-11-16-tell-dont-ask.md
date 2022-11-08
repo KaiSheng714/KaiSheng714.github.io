@@ -19,9 +19,7 @@ public class User {
     private int point;
     private LocalDate registerDate;
 
-    public int getAge() { return age; }
-    public int getPoint() { return point; }
-    public int getRegisterDate() {return registerDate;}
+    // getter, setter
 }
 ```
 
@@ -46,10 +44,10 @@ public void myFunction(User user) {
 
 @Test
 public void vip() {
-    User vipUser = new User();
-    vipUser.setAge(20);
-    vipUser.setPoint(1000);
-    vipUser.setRegisterDate(LocalDate.of(2010, 1, 1));
+    User user = new User();
+    user.setAge(20);
+    user.setPoint(1000);
+    user.setRegisterDate(LocalDate.of(2010, 1, 1)); // 暴露過多 user 的細節
 
     service.myFunction(user);
 
@@ -58,8 +56,10 @@ public void vip() {
 
 @Test
 public void not_vip() {
-    User nonVipUser = new User();
-    nonVipUser.setAge(17);
+    User user = new User();
+    user.setAge(17);
+    user.setPoint(1000);
+    user.setRegisterDate(LocalDate.of(2010, 1, 1));  // 暴露過多 user 的細節
 
     service.myFunction(user);
 
@@ -82,11 +82,14 @@ public class User {
     private int point;
     private LocalDate registerDate;
 
+    // Move from Service class
     public boolean isVip() {
         return this.age >= 18 &&
                 this.point >= 1000 &&
                 DAYS.between(this.registerDate, today()) >= 365;
     }
+
+    // 這裡就可不必寫 getter
 }
 ```
 
@@ -101,13 +104,35 @@ public void myFunction(User user) {
 }
 ```
 
+在編碼風格中，一個對象的實現與其鄰居及其鄰居的鄰居的結構耦合，這種風格的代碼很難用 Mock Objects 進行測試。您會發現自己創建了許多模擬對象，這些模擬對像只是為了讓被測對像到達它實際使用的對象而存在。這是代碼需要重構的一個強烈跡象：您可以通過在被測對象的直接鄰居中引入新方法來簡化代碼。
+從測試的角度來看，這也簡化了替換實作的麻煩。以上面的例子來說，我們不用費心生出各種 User 來測試不同行為。也避免更動 User 判斷條件後，會需要修改許多測試碼的成本。現在只要控制 mocked user 與驗證 service 即可，意圖變得更明確了。
+
+```java
+
+@Test
+public void vip() {
+    User user = mock(User.class);
+    when(user.isVip()).thenReturn(true);
+
+    service.myFunction(user);
+
+    verify(service).doSomethingForVip();
+}
+
+@Test
+public void not_vip() {
+        User user = mock(User.class);
+    when(user.isVip()).thenReturn(false);
+
+    service.myFunction(user);
+
+    verify(service).doAnother();
+}
+
+```
 
 根據我的經驗，面向對象的Tell, Don't Ask 原則 方式編寫，則更易於理解和維護。
 Service 不再耦合 vip 的具體實作細節，這樣也變得很好測試。
-
-
-在編碼風格中，一個對象的實現與其鄰居及其鄰居的鄰居的結構耦合，這種風格的代碼很難用 Mock Objects 進行測試。您會發現自己創建了許多模擬對象，這些模擬對像只是為了讓被測對像到達它實際使用的對象而存在。這是代碼需要重構的一個強烈跡象：您可以通過在被測對象的直接鄰居中引入新方法來簡化代碼。
-
 
 在這種風格中，對象僅使用它們內部保存的信息或它們作為消息參數接收的信息來做出決策。他們不使用其他對象持有的信息做出決定。也就是說，對象通過相互發送命令來告訴對方要做什麼，它們不會互相詢問信息，然後根據這些查詢的結果做出決定。這種風格的最終結果是很容易將一個對象交換為另一個可以響應相同命令但
 
@@ -116,14 +141,10 @@ Service 不再耦合 vip 的具體實作細節，這樣也變得很好測試。
 
 問題是，作為調用者，您不應該根據被調用對象的狀態做出決定，從而導致您更改對象的狀態。您正在實現的邏輯可能是被調用對象的職責，而不是您的職責。讓你在對象之外做出決定違反了它的封裝。
 
- 
 
-## 結論
+## **結論**
 物件導向設計的核心思想之一是封裝狀態，Tell, Don’t Ask 建議我們直接要求物件達成目標，而不要外露物件內部狀態和使用內部狀態的邏輯。如此一來，可降低物件之間的耦合性，提供日後改變實作的彈性。
 
-從測試的角度來看，這也簡化了替換實作的麻煩。以上面的例子來說，我們不用費心生出各種 X 來測試不同行為。也免去更動 X 格式後，會需要修改許多測試碼的成本。套用 IU 後，控制假實作之間的互動即可。
-
-## **後記**
 一個好的經驗法則是，一起改變的事物應該在一起。
 讓設計更為內聚的作法：「把每次異動發生時，總會需要同時被修改到的程式碼放在一起。」
 
