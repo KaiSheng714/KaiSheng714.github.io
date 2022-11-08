@@ -86,7 +86,7 @@ public void do_for_other() {
 
 ## **重構**
 
-可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓設計更為內聚的作法-- 把每次異動發生時，總會需要同時被修改到的程式碼放在一起：
+可用 **Move Method** 的重構手法，將這段邏輯搬到 Customer 之中。這也是一種讓物件更具備內聚力的作法 -- 異動發生時，把可能會需要同時被修改到的程式碼放在一起：
 
 ```java
 public class Customer {
@@ -106,8 +106,7 @@ public class Customer {
 }
 ```
 
-
-因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，Customer 做完後回傳結果即可，Service 不必了解 Customer 內部具體是怎麼實作的。
+因此 Service 不應該一直詢問 Customer 的內部資訊，而是應該直接命令 Customer 該做什麼，Customer 做完後回傳結果即可，Service 不必了解 Customer 內部具體是怎麼實作的。經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力和資訊隱藏的封裝性。
 
 
 ```java
@@ -121,7 +120,7 @@ public void doBusiness(Customer customer) {
 }
 ```
 
-經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力。從可測試性的角度來看，這也變得很好測試。我們不必再準備各種 Customer 資料來測試不同行為，也可避免更動 vip 的判斷條件。現在只要控制 mocked customer 與驗證 service 即可，測試意圖變得更明確：
+從可測試性的角度來看，這也變得很好測試。我們不必再準備各種 Customer 資料來測試不同行為，也可避免更動 vip 的判斷條件。現在只要控制 mocked customer 與驗證 service 即可，測試意圖變得更明確：
 
 ```java
 // ServiceTest.java
@@ -148,7 +147,7 @@ public void do_for_other() {
 ``` 
 
 ## **結論**
-封裝是物件導向設計的理念之一，Tell, Don't Ask 原則建議我們直接命令物件達成目標，而不要暴露物件內部狀態。套用此原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
+封裝是物件導向設計的理念之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成目標，而不是暴露物件內部狀態。套用此原則，就能更容易設計出好理解、好維護、高內聚、低耦合的程式。
 
 ### **更多你可能會感興趣的文章**
 - [常見的 Interface 錯誤用法](/articles/anti-pattern-of-java-interface-impl-style)
