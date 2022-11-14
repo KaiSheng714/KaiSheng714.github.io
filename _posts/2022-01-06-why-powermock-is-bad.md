@@ -25,7 +25,7 @@ image: /assets/image/site-image-small.png
 - 強大的 mock 功能: 能因應各種難以撰寫測試的情況，尤其是針對棘手的 legacy code，可以在不改 production code 的條件下加入測試。
 - 用法與 Mockito 類似: 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
-## **PowerMock 的缺點（不建議使用的理由）**
+## **PowerMock 的缺點**
 ### **1. 相同的 API**
 因為 PowerMock 與 Mockito 有許多 API 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且開發者不該花時間 debug 測試程式碼。
 
