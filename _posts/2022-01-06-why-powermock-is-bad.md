@@ -48,7 +48,7 @@ PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
  
 ## **重構(Refactoring)**
-為了從專案移除 PowerMock，首先必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，最好是搭配整合測試、end-to-end 等其他測試來防止重構時意外產生的 bug。
+為了從專案移除 PowerMock，首先必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，重構前最好是搭配 code review、整合測試、end-to-end 等其他測試來防止重構時意外產生的 bug。
 
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
