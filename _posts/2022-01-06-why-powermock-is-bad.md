@@ -27,13 +27,13 @@ image: /assets/image/site-image-small.png
 
 ## **PowerMock 的缺點（不建議使用的理由）**
 ### **1. 相同的 API**
-因為 PowerMock 與 Mockito 有許多 API 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不該花時間 debug 測試程式碼。**
+因為 PowerMock 與 Mockito 有許多 API 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且開發者不該花時間 debug 測試程式碼。
 
 ### **2. Overhead**
-優秀的單元測試速度要快，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
+優秀的單元測試速度要快，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案漸漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
 ### **3. 容易衝突其他 library**
-PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大型專案中有用到許多第三方 library，除錯時會相當吃力，在 stackoverflow 上已有許多苦主。
+PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大型專案中有用到許多第三方 library，除錯時會相當吃力，在 stackoverflow 上已有許多苦主：
 
 - [java.lang.NoSuchMethodError...](https://stackoverflow.com/a/71977415/5485454)
 - [PowerMock throws NoSuchMethodError](https://stackoverflow.com/a/40371375/5485454)
@@ -48,9 +48,9 @@ PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
  
 ## **重構(Refactoring)**
-為了從專案移除 PowerMock，首先必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，重構前最好是搭配 code review、整合測試、end-to-end 等其他測試來防止重構時意外產生的 bug。
+重構是為了提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然就提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，重構前最好是搭配 code review、整合測試、end-to-end 等其他測試來防止重構時意外產生的 bug。
 
-以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
+以下是幾個簡單的 PowerMock 常見的使用案例，我將提供重構方法與思路來取代 PowerMock：
 
 ### **Mock Static class/method** 
 PowerMock 可以輕易的 mock static，我相信這應該是 PowerMock 受歡迎的理由。
