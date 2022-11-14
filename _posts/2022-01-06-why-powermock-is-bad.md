@@ -190,7 +190,7 @@ public void when_new_example() {
 ```
 
 ## **何時該用 PowerMock**
-講了這麼多 PowerMock 的壞處，PowerMock 並非一無是處，存在即合理。我認為最適當的應用場景就是重構與測試 legacy code。一個沒有單元測試保護的 legacy code 需要被重構時，通常開發者會先寫一個大範圍的整合測試，有一個基本保護網再去重構，能一定程度的減少改壞而產生 bug 風險，接著進行重構，讓 production code 有了基本的可測試性後，再寫單元測試。
+講了這麼多 PowerMock 的壞處，但 PowerMock 並非一無是處，存在即合理。我認為最適當的應用場景就是重構與測試 legacy code。一個沒有單元測試保護的 legacy code 需要被重構時，通常開發者會先寫一個大範圍的整合測試，有一個基本保護網再去重構，能一定程度的減少改壞而產生 bug 風險，接著進行重構，讓 production code 有了基本的可測試性後，再寫單元測試。
 
 但實際上 legacy code 裡面什麼鬼故事都有，例如程式相依系統時間或外部 API 等難以寫整合測試時，PowerMock 就派上用場了。承前面所說的：**對於 PowerMock 來說，production code 的實作細節一覽無遺**。因此開發者可以透過上述 PowerMock 的各種 API 去控制待測物件的行為：寫好 test case，讓 legacy code 有了基本保護與驗證方法後，就能讓開發者更有信心、大膽的重構。
 
