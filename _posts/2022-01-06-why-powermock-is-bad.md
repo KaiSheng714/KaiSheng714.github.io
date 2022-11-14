@@ -27,7 +27,7 @@ image: /assets/image/site-image-small.png
 
 ## **PowerMock 的缺點（不建議使用的理由）**
 ### **1. 相同的 API**
-因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不該花時間 debug 測試程式碼。**
+因為 PowerMock 與 Mockito 有許多 API 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不該花時間 debug 測試程式碼。**
 
 ### **2. Overhead**
 優秀的單元測試速度要快，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
