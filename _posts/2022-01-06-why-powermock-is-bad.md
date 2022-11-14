@@ -50,7 +50,11 @@ image: /assets/image/site-image-small.png
 良好的測試程式大多遵循 **F.I.R.S.T** 原則，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
 ### **4. 容易忽略 code design**
-這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試** (而通常在這種情況所寫的單元測試也會是一團亂)，久而久之讓人容易忽略 code design 。
+這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試**，久而久之讓人容易忽略 code design。
+
+### **5. 可能寫出不好的單元測試**
+對於 PowerMock 來說， production code 的實作細節一覽無遺，所以開發者很可能會寫很多 arrange、mock 一堆依賴。導致每當程式碼有小改動或重構時，就容易造成測試失敗，讓 test case 難以維護。
+
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
  
@@ -59,8 +63,8 @@ image: /assets/image/site-image-small.png
 
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
-### **static class / method** 
-我相信這應該是 PowerMock 受歡迎的最大理由，程式中充斥過多的 static 確實會讓寫測試變得很棘手。雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
+### **測試 static class / method** 
+我相信這應該是 PowerMock 受歡迎的最大理由，雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題。因此在使用 static 之前應以更嚴苛的標準來檢視。
 
 舉例來說，下面的 getProperty() 函式，從程式的角度看起來沒問題，但實際上在 Server 尚未啟動時可能產生錯誤或是沒有回傳值。因為這個 method 相依了 Server 的狀態，所以不適合作為 static method，應該改成 instance method。
 
@@ -82,12 +86,11 @@ if (StringUtils.isNullOrEmpty(str)) {
 }
 ```
 
-### **private method**
+### **doNothing()**
 例如你想要驗證 `getData`的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
 
 ```java
-// bad, long method, and too complex
-private Data getData(String key) {
+public Data getData(String key) {
   Cache cahce = getCache(); 
   init(cache);
   if (flag) {
@@ -103,7 +106,7 @@ private Data getData(String key) {
 @Test
 public void data_should_be_blabla() {
   // arrange
-  doNothing().when(myClass, method(MyClass.class, "processA")) ...
+  PowerMockito.doNothing().when(myClass, method(MyClass.class, "processA")) ...
 
   // act
   Data result = myClass.getData(key);
@@ -111,12 +114,10 @@ public void data_should_be_blabla() {
 }
 ```
 
-從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility ? 此時可以考慮使用 `move method`搬到另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖從測試程式改變 getData 原有的行為。
+從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 為何需要做 `processA`與 `processB` 和其他操作呢 ? 是否違反 Single Responsibility? 此時可以考慮使用 `Delegate Method` 委派另一個類別，權責分明，測試自然就好寫，反之，testability 就會大幅降低。而不是試圖使用工具從測試改變 production code 原有的行為。
 
-回到正題，測試 private method，應該由 public method 作為入口去測試即可。
-
-### **System class**
-假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System，如下
+### **Mock System Class**
+假設有一函式 `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果。因此我們需要 mock System.class，如下
 
 ```java
 // bad design. hard to test.
@@ -144,7 +145,7 @@ public class ExampleTest {
 
 ```
 
-而比較好的做法是：不讓 method 自己去請求 System 提供現在時間，而是由 caller 傳遞進去，有點像依賴注入 (Dependency Injection, DI) 的觀念，透過 DI 能夠使我們更容易建立 mock object。經過重構後的程式碼如下(甚至連 mock framework 都不需要了，如果能不依賴於 framework，會是個更好的 practice)
+而比較好的做法是：不讓 method 自己去請求 System 提供現在時間，而是由 caller 傳遞進去，有點像依賴注入 (Dependency Injection, DI) 的觀念，透過 DI 能夠使我們更容易控制輸入端的資料。經過重構後的程式碼，甚至連 mocking framework 都不需要了，如果能不依賴於 framework，通常會是個更好的 practice：
 
 
 ```java
@@ -167,60 +168,62 @@ public void exceed_some_time_is_late() {
 }
 ```
 
-### **Constructor**
-如下例所示，寫測試時，如果想在程式執行 `new A()` 時替換成我們自訂的 mockedA，可以使用 PowerMock 提供的 `whenNew()`：
+### **Mock Constructor**
+若寫單元測試時，在 `new` 的地方替換成 mocked object，這時可以使用 PowerMock 提供的 `whenNew()`：
 
 ```java
-// bad
-public int process() {
-  a = new A();
-  return a.process();
+// In MyClass (SUT)
+public void doSomething() {
+  Dependency dependency = new Dependency();
+  dependency.doSomething();
+  // ...
 }
 
 @Test
-public void execute_some_example() {
+public void when_new_example() {
   // arrange
-  A mockedA = mock(A.class); 
-  PowerMockito.whenNew(A.class).withNoArguments().thenReturn(mockedA);
+  Dependency mocked = mock(Dependency.class);  
+  PowerMockito.whenNew(Dependency.class)
+              .withNoArguments()
+              .thenReturn(mockedDependency); // bad
 
   // act
-  myClass.example();
+  sut.doSomething();
   ...
 }
 ```
 
-但其實有更好的替代方案：就是用 DI。我們先產生 mocked object ，做好初始設定後，再透過參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。
+但其實有更好的替代方案：就是用依賴注入。我們先產生 mocked object，做好初始設定後，再透過 constructor 的參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。
 
 ```java
 // better
-public MyClass(InterfaceA a) {
-  this.a = a;
-}
-
-public int process() {
-  return a.process();
+public MyClass(Dependency dependency) {
+  this.dependency = dependency;
 }
 
 @Test
-public void execute_some_example() {
+public void when_new_example() {
  // arrange    
- InterfaceA mockedA = mock(InterfaceA.class);
- MyClass myClass = new MyClass(mockedA);
+ Dependency mockedDependency = mock(Dependency.class);  
+ MyClass sut = new MyClass(mockedDependency);
 
  // act
- int result = myClass.process();
+ sut.doSomething();
  ...
 }
 ```
 
+## **什麼時候該用？**
+講了這麼多 Powermock 的壞處，但存在即合理，一定有它的應用場景，我認為最適當的應用場景就是 legacy code。一個沒有單元測試保護的 legacy code 需要被重構時，通常開發者會先寫一個大範圍的整合測試，有一個基本保護網再去重構，能一定程度的減少改動程式產生 bug 風險，重構完讓 production code，接著再寫單元測試。
+
+除了寫大範圍的整合測試，另一個方案就是使用 Powermock。承上面所說的：對於 PowerMock 來說，production code 的實作細節一覽無遺。因此開發者可以透過 Powermock 的各種 API 去控制待測類別的行為，先寫一個 test case，讓 legacy code 有保護與基本驗證方法後，就能讓開發者更有信心、大膽的重構。
+
 ## **結語**
-世上沒有一個工具是使萬能的、毫無代價的，使用前請停下来想一想。
+PowerMock 是個功能強大的單元測試工具，但也不可否認的，若使用不當，容易使讓開發人員忽略程式碼品質，導致後續消耗更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
 
-PowerMock 是個功能強大、非常實用的單元測試工具，但也不可否認的，若使用不當，容易使讓開發人員忽略程式碼品質，導致後續消耗更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
+如果測試中充斥著 PowerMock，則表示 production code 的可測試性並不好。因此，考慮到專案未來的發展，我建議藉由重構或 TDD，在開發時遵循良好的設計原則，避免寫出 anti-pattern 與 bad smell。撰寫單元測試時，若有必要，使用 Mockito 即可。
 
-如果你的測試充斥著 PowerMock，表示你的 production code 可能已經有許多 bad smell 。因此，考慮到專案未來的發展，我建議你不要使用 PowerMock ，而是藉由重構或 TDD，在開發時遵循良好的設計原則，避免寫出 anti-pattern 與 bad smell。撰寫單元測試時，若有必要，使用一般的 mock framework (如 Mockito) 即可。
-
-更重要的是，在撰寫程式時，稱職的 **clean coder 們應時常思考什麼才是好的設計。**
+我認為 Powermock 只適合用於測試 legacy code。
  
 ### **References**
 [Modern Mocking Tools and Black Magic](https://martinfowler.com/articles/modernMockingTools.html)
