@@ -55,7 +55,7 @@ PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大
 ### **Mock Static class/method** 
 PowerMock 可以輕易的 mock static，我相信這應該是 PowerMock 受歡迎的理由。
 
-雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題，因此在使用 static 之前應以更嚴苛的標準來檢視。舉例來說，下面的 getProperty() 函式
+雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題，因此在使用 static 之前應以更嚴苛的標準來檢視。以 `getProperty()` 為例：
 
 ```java
 // bad, it may cause error when server is shutdown.
