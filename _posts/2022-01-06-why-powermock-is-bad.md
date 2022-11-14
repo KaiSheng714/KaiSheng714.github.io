@@ -77,7 +77,9 @@ Whitebox 是利用 reflection 來繞過物件封裝的特性，允許 test case 
 String foo = Whitebox.getInternalState(Foo.class, "FIELD_NAME");
 String bar = Whitebox.invokeMethod(MyUtil.class, "getStringFromArray", (Object)arrayOfStrings);
 ```
-一般而言，存取 private 並不是好的做法。如果在測試中需要存取 private field，可以考慮在 production code 加上 package-private getter/setter，專門給單元測試使用；如果在測試中需要存取 private method，這就牽涉到另一個議題：通常不建議直接測試 private method ，因為 private method 屬於 public 的一部分，因此只測 public 即可連帶測到該 private method。
+一般而言，存取 private 並不是好的做法。
+
+如果在測試中需要存取 private field，可以考慮在 production code 加上 package-private getter/setter，專門給單元測試使用；如果想要在 test case 中單獨測試或呼叫 private method，這就表示該 method 也許應該屬於另一個 class，此時可以考慮使用 `Delegate Method` 委派另一個類別。
 
 ### **doNothing**
 例如你想要驗證 `getData` 的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
@@ -116,11 +118,7 @@ public void data_should_be_blabla() {
 // bad design. hard to test.
 public boolean isLate() {
   long now = System.currentTimeMillis();
-  if (now > 1500000L) {
-    return true;
-  } else {
-    return false;
-  } 
+  return now > 1500000L ? true : false;
 }
 ```
 
@@ -129,7 +127,7 @@ public boolean isLate() {
 ```java
 // better
 public boolean isLate(long now) {
-  return now > 1500000L? true : false;
+  return now > 1500000L ? true : false;
 }
 
 @Test
@@ -192,7 +190,7 @@ public void when_new_example() {
 ```
 
 ## **何時該用 PowerMock**
-講了這麼多 PowerMock 的壞處，PowerMock 並非一無是處，存在即合理。我認為最適當的應用場景就是重構 legacy code。一個沒有單元測試保護的 legacy code 需要被重構時，通常開發者會先寫一個大範圍的整合測試，有一個基本保護網再去重構，能一定程度的減少改壞而產生 bug 風險，接著進行重構，讓 production code 有了基本的可測試性後，再寫單元測試。
+講了這麼多 PowerMock 的壞處，PowerMock 並非一無是處，存在即合理。我認為最適當的應用場景就是重構與測試 legacy code。一個沒有單元測試保護的 legacy code 需要被重構時，通常開發者會先寫一個大範圍的整合測試，有一個基本保護網再去重構，能一定程度的減少改壞而產生 bug 風險，接著進行重構，讓 production code 有了基本的可測試性後，再寫單元測試。
 
 但實際上 legacy code 裡面什麼鬼故事都有，例如程式相依系統時間或外部 API 等難以寫整合測試時，PowerMock 就派上用場了。承前面所說的：**對於 PowerMock 來說，production code 的實作細節一覽無遺**。因此開發者可以透過上述 PowerMock 的各種 API 去控制待測物件的行為：寫好 test case，讓 legacy code 有了基本保護與驗證方法後，就能讓開發者更有信心、大膽的重構。
 
