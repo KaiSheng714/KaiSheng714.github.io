@@ -156,7 +156,7 @@ public void doSomething() {
 }
 
 @Test
-public void when_new_example() {
+public void whenNew_example() {
   // arrange
   Dependency mocked = mock(Dependency.class);  
   PowerMockito.whenNew(Dependency.class)
@@ -169,7 +169,7 @@ public void when_new_example() {
 }
 ```
 
-但其實有更好的替代方案：就是用依賴注入。我們先產生 mocked object，做好初始設定後，再透過 constructor 的參數的方式傳入待測函式。如此一來不僅程式增加了彈性，也可以達到的測試目的。
+但其實有更好的替代方案：就是用依賴注入。我們先產生 mocked object，做好初始設定後，再透過 constructor 的參數的方式傳入待測物件。如此一來不僅程式增加了彈性，也可以達到的測試目的。
 
 ```java
 // better
@@ -178,7 +178,7 @@ public MyClass(Dependency dependency) {
 }
 
 @Test
-public void when_new_example() {
+public void alternatives_of_whenNew_example() {
  // arrange    
  Dependency mockedDependency = mock(Dependency.class);  
  MyClass sut = new MyClass(mockedDependency);
