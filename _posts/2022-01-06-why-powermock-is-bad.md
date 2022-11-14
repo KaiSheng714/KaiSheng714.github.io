@@ -9,69 +9,53 @@ categories: [Design, Unit-testing]
 image: /assets/image/site-image-small.png
 --- 
 
-我們在寫 Java 的單元測試時常會使用 mocking framework，因為它能幫助我們輕鬆建立 mocked object，不必再為了單元測試而寫假物件，也更容易對目標物件進行獨立測試，隔絕外部相依，而降低寫單元測試的負擔。目前有許多主流 mocking framework，如最受歡迎的 Mockito，以及本篇文章的主角 — PowerMock。
+寫單元測試時常會使用 mocking framework，因為它能幫助我們輕鬆建立 mocked object，不必再為了單元測試而寫假物件，更容易對待測物件隔絕外部相依，進行獨立測試，降低寫單元測試的負擔。目前有許多主流 mocking framework，如最受歡迎的 Mockito，以及本篇文章的主角 — PowerMock。
 
 ![powermock](/assets/image/powermock.png?style=center)
 
-[PowerMock](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用的測試方法。PowerMock 讓開發者可以輕鬆地 mock private method, static, final class 甚至是 constructor 等。簡而言之， Mockito 不能做到的事，PowerMock 幾乎都能一手包辦！不過，在 PowerMock 官方的 README 中說了一段耐人尋味的話:
+[PowerMock](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用測試方法。PowerMock 讓開發者可以輕鬆地 mock private method, static, final class 甚至是 constructor 等。簡而言之， Mockito 不能做到的事，PowerMock 幾乎都能一手包辦！不過，在 PowerMock 官方的 README 中說了一段耐人尋味的話:
 >
 > Please note that PowerMock is mainly intended for people with expert knowledge in unit testing. 
 > Putting it in the hands of junior developers may cause more harm than good.
 >  
 
-既然 PowerMock 這麼強大，為什麼作者會做出此評論呢? 接著我將加以分析與探討：
+既然 PowerMock 這麼強大，為何作者做出此評論呢？ 接著我將加以分析與探討：
  
 ## **PowerMock 的優點**
-- 強大的 mock 功能: 能因應各式難以撰寫測試的情況，尤其是欲在 legacy code 中加入測試時非常實用。
+- 強大的 mock 功能: 能因應各種難以撰寫測試的情況，尤其是欲在 legacy code 中加入測試時非常實用。
 - 用法與 Mockito 類似: 對於熟悉 Mockito 的廣大使用者來說能快速上手。
 
 ## **PowerMock 的缺點（不建議使用的理由）**
 ### **1. 相同的 API**
 因為 PowerMock 與 Mockito 有許多 method 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且**你不該花時間 debug 測試程式碼。**
 
-### **2. 同一種 Annotation 卻有不同用法**
-例如 `@PrepareForTest` 是 PowerMock 特有的 Annotation，其旨在於告訴 PowerMock 要 mock 測試目標物件的 static, final 等。例如
+### **2. Overhead**
+優秀的單元測試速度要快，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
 
-```java
-@PrepareForTest(MyUtils.class)
-```
+### **3. 容易衝突其他 library**
+PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大型專案中有用到許多第三方 library，除錯時會相當吃力，在 stackoverflow 上已有許多苦主。
 
-而當你要 mock 的對象是 java 提供的物件(例如 System)時，需要帶入的參數卻是 ”使用 System 的類別”
-
-```java
-// wrong
-@PrepareForTest(System.class)
-
-// correct
-@PrepareForTest(TheClassUseSystem.class)
-```
-
-### **3. Overhead**
-良好的測試程式大多遵循 **F.I.R.S.T** 原則，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案日漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
-
-### **4. 容易衝突其他 library**
-PowerMock 容易與其他 library 產生衝突，例如 javassist，尤其是大型專案中有用到許多第三方 library，除錯時會相當吃力，在 stackoverflow 上已有許多苦主。
 - [java.lang.NoSuchMethodError...](https://stackoverflow.com/a/71977415/5485454)
 - [PowerMock throws NoSuchMethodError](https://stackoverflow.com/a/40371375/5485454)
 
-### **5. 容易忽略 code design**
+### **4. 容易忽略 code design**
 這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試**，久而久之讓人容易忽略 code design。
 
-### **6. 可能寫出不好的單元測試**
-對於 PowerMock 來說， production code 的實作細節一覽無遺，所以開發者很可能會寫很多 arrange、mock 一堆依賴。導致每當程式碼有小改動或重構時，就容易造成測試失敗，讓 test case 難以維護。
+### **5. 可能寫出不好的單元測試**
+對於 PowerMock 來說， production code 的實作細節一覽無遺，所以開發者很可能會寫很多 arrange、一大堆的 mock/stub。導致每當程式碼有小改動或重構時，就容易造成測試失敗，讓 test case 難以維護。
 
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
  
 ## **重構(Refactoring)**
-為了從專案移除 PowerMock，最終目標就是**只用或不用 Mockito 也能完成單元測試**，為了達成這個目標，首先我們必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability)性自然而然提高了，這對專案的健康是有幫助的。後來才加入的新同事也會很感謝你，因為這樣也能減少他們上手的成本。
+為了從專案移除 PowerMock，首先必需重構程式碼，目的是提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，最好是搭配整合測試、end-to-end 等其他測試來防止重構時意外產生的 bug。
 
 以下是幾個簡單的 PowerMock 常見的使用案例，並提供重構方法與思路：
 
 ### **Mock Static class/method** 
 PowerMock 可以輕易的 mock static，我相信這應該是 PowerMock 受歡迎的理由。
 
-雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題，因此在使用 static 之前應以更嚴苛的標準來檢視。舉例來說，下面的 getProperty() 函式，從程式的角度看起來沒問題，但實際上在 Server 尚未啟動時可能產生錯誤或是沒有回傳值。因為這個 method 相依了 Server 的狀態，所以不適合作為 static method，應該改成 instance method。
+雖然 static 使用方便、效能較快，但也因此常被濫用，造成物件隱含相依、維護困難、不易測試等問題，因此在使用 static 之前應以更嚴苛的標準來檢視。舉例來說，下面的 getProperty() 函式
 
 ```java
 // bad, it may cause error when server is shutdown.
@@ -79,8 +63,7 @@ public static getProperty(String key) {
   return server.getProperty(key);
 }
 ```
-
-理論上，一個良好的 static method 是不需要 mock 的，就讓它做該做的事吧！如下例子：
+從程式的角度看起來沒問題，但實際上在 Server 尚未啟動時可能產生錯誤或是沒有回傳值。因為這個 method 相依了 Server 的狀態，所以不適合作為 static method，應該改成 instance method。理論上，一個良好的 static method 是不需要 mock 的，就讓它做該做的事吧！如下例子：
 
 ```java
 // Let it run, don't mock StringUtils.
@@ -124,7 +107,7 @@ public void data_should_be_blabla() {
 從上可以看到 getData 做了許多事，乍看之下程式碼篇幅雖然不多，但廣義上也能算是個 `Long Method`。可以思考的是 getData 是否違反 Single Responsibility? 此時可以考慮使用 `Delegate Method` 委派另一個類別，權責分明，測試自然就好寫。
 
 ### **Mock System Class**
-假設有一 method `isLate` 用來檢查現在是否超過某個時間，但因 return value 是根據系統當下時間，所以每次執行測試可能會有不同的結果，因此需要 mock System.class 來模擬系統時間。
+假設有一 method `isLate` 用來檢查現在是否超過某個時間，但邏輯判斷是根據系統當下時間，所以每次執行測試可能會有不同的結果，因此需要 mock System.class 來模擬系統時間。
 
 ```java
 // bad design. hard to test.
@@ -161,7 +144,7 @@ public void exceed_some_time_is_late() {
 ```
 
 ### **Mock Constructor**
-若寫單元測試時，欲將 `new`回傳成不同的實作的 instance，這時可以使用 PowerMock 提供的 `whenNew()`：
+若寫單元測試時，欲將 `new` 回傳成不同的實作的 instance，這時可以使用 PowerMock 提供的 `whenNew()`：
 
 ```java
 // In MyClass (SUT)
