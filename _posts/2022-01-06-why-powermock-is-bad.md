@@ -38,11 +38,11 @@ PowerMock 容易與其他 library 產生衝突，例如 javassist。尤其是大
 - [java.lang.NoSuchMethodError...](https://stackoverflow.com/a/71977415/5485454)
 - [PowerMock throws NoSuchMethodError](https://stackoverflow.com/a/40371375/5485454)
 
-### **4. 容易忽略 code design**
-這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試**，久而久之讓人容易忽略 code design。
-
-### **5. 可能寫出不好的單元測試**
+### **4. 可能寫出不好的單元測試**
 對於 PowerMock 來說， production code 的實作細節一覽無遺，所以開發者很可能會寫很多 arrange、一大堆的 mock/stub。導致每當程式碼有小改動或重構時，就容易造成測試失敗，讓 test case 難以維護。
+
+### **5. 容易忽略 code design**
+這也是我認為最大的缺點。正因為 PowerMock 如此 powerful，容易使開發者過於依賴與濫用，原因很簡單，**因為無論 production code 再怎麼雜亂無章都能夠寫出單元測試**，久而久之讓人容易忽略 code design。
 
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
