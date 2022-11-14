@@ -199,7 +199,7 @@ PowerMock 是個功能強大的單元測試工具，但也不可否認的，若�
 
 如果測試中充斥著 PowerMock，則表示 production code 的可測試性並不好。因此，考慮到專案未來的發展，我建議開發者在開發時遵循良好的設計原則，避免寫出 bad smell。撰寫單元測試時，若有必要，使用 Mockito 即可。
 
-我認為 PowerMock 只適合用於 legacy code。
+總之，我認為 PowerMock 只適合用於 legacy code，不應該用於開發中的系統。
  
 ### **References**
 [Modern Mocking Tools and Black Magic](https://martinfowler.com/articles/modernMockingTools.html)
