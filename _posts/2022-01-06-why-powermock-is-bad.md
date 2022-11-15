@@ -50,8 +50,8 @@ PowerMock 容易與其他 library 產生衝突，例如某些版本的 mockito, 
 
 如果你對於上面提的幾點有感，覺得 PowerMock 弊大於利，或覺得現階段不適合使用，因而決定棄用，那可以參考以下的方法 — **重構**。
  
-## **重構(Refactoring)**
-重構是為了提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然就提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，重構前最好是搭配 code review、整合測試、end-to-end 等其他測試來防止重構時意外產生的 bug。
+## **以重構取代 PowerMock**
+重構是為了提高程式碼的可測試性(Testability)，如果可測試性高，可維護(Maintainability)、可讀(Readability)、可理解(Understandability) 性自然而然就提高了，這對專案的健康是有幫助的。但重構已經寫好的程式是有一定風險的，重構前最好是搭配 code review、整合測試、end-to-end 測試等方案來防止重構時意外產生的 bug。
 
 以下是幾個 PowerMock 常見的 use case，我將提供幾個重構方法與思路來取代 PowerMock：
 
