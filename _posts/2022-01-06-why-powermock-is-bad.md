@@ -9,11 +9,11 @@ categories: [Design, Unit-testing]
 image: /assets/image/site-image-small.png
 --- 
 
-寫單元測試時常會使用 mocking framework，因為它能幫助我們輕鬆建立 mocked object，不必再為了單元測試而寫假物件，更容易對待測物件隔絕外部相依，進行獨立測試，降低寫單元測試的負擔。目前有許多主流 mocking framework，如最受歡迎的 Mockito，以及本篇文章的主角 — PowerMock。
+寫單元測試時常會使用 mocking framework，因為它能幫助我們輕鬆建立 mocked object，不必再為了單元測試而寫假物件，更容易對待測物件隔絕外部相依，進而降低寫單元測試的負擔。目前有許多主流 mocking framework，如最受歡迎的 Mockito，以及本篇文章的主角 — PowerMock。
 
 ![powermock](/assets/image/powermock.png?style=center)
 
-[PowerMock](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用測試方法。PowerMock 讓開發者可以輕鬆地 mock private method, static, final class 甚至是 constructor 等。簡而言之， Mockito 不能做到的事，PowerMock 幾乎都能一手包辦！不過，在 PowerMock 官方的 README 中說了一段耐人尋味的話:
+[PowerMock](https://github.com/powermock/powermock) 是基於 Mockito 並擴充了許多實用測試方法。PowerMock 讓開發者可以在測試中輕易的模擬 private method, static, final class 甚至是 constructor 等。簡而言之， Mockito 不能做到的事，PowerMock 幾乎都能一手包辦！不過，在 PowerMock 官方的 README 中說了一段耐人尋味的話:
 >
 > Please note that PowerMock is mainly intended for people with expert knowledge in unit testing. 
 > Putting it in the hands of junior developers may cause more harm than good.
