@@ -148,7 +148,7 @@ public class HelloBeanTest {
 但是，[Circular dependency](https://en.wikipedia.org/wiki/Circular_dependency) 其實算是一種 **Anti-Pattern**，所以如果能夠即時發現它，提早讓開發人員意識到該問題重新設計此 bean，我個人認為這點反而蠻好的。
 
 ## **總結**
-本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor injection**，雖然可能會有循環依賴異常的問題，但無論在開發、測試方面，總體而言都是利大於弊，我也一直遵循這個模式。
+本文介紹了兩種依賴注入模式，它們各有好壞，也都能達到同樣的目的，而比較常見的是 field injection，但不幸的這種方式較可能會寫出 code smell。另外，Spring 官方團隊建議開發者使用 **constructor injection**，雖然可能會有循環依賴異常，但無論在開發、測試方面，總體而言都是利大於弊，我也一直遵循這個模式。
 
 ### **References**
 - [Dependency injection patterns](https://kinbiko.com/java/dependency-injection-patterns/)  
