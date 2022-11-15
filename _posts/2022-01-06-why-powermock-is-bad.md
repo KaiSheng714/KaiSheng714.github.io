@@ -71,15 +71,16 @@ public static getProperty(String key) {
 良好的 static method 不應該有外部環境依賴，自然就不需要被 mock，因此我不建議 mock static。雖然如此，實務上仍可能有不得不 mock static 的情形。好消息是 Mockito 3.4.0 發布了 `mockStatic()` 功能來模擬 static method，因此就可不需使用 PowerMock。
 
 ### **WhiteBox** 
-Whitebox 是利用 reflection 來繞過物件封裝的特性，允許 test case 直接存取物件的 private field, private method，例如
+PowerMock.Whitebox 是利用 Reflection 來繞過物件封裝的特性，允許 test case 直接存取物件的 private field, method，例如
 
 ```java
 String foo = Whitebox.getInternalState(Foo.class, "FIELD_NAME");
 String bar = Whitebox.invokeMethod(MyUtil.class, "getStringFromArray", (Object)arrayOfStrings);
 ```
-一般而言，存取 private 並不是好的做法。
 
-如果在測試中需要存取 private field，可以考慮在 production code 加上 package-private getter/setter，專門給單元測試使用；如果想要在 test case 中單獨測試或呼叫 private method，這就表示該 method 也許應該屬於另一個 class，此時可以考慮使用 `Delegate Method` 委派另一個類別。
+一般而言，在測試中存取 private 並不是好的做法，但如果非測不可的話，還是有其他出路的。
+
+例如在測試中存取 private field，可以考慮在 production code 加上 package-private getter/setter，專門給單元測試使用；如果想要在 test case 中單獨測試或呼叫 private method，這就表示該 method 也許應該屬於另一個 class，此時可以考慮使用 `Delegate Method` 委派另一個類別。或者更簡單粗暴的方式是使用 Reflection。
 
 ### **doNothing**
 例如你想要驗證 `getData` 的回傳值，卻不想執行與測試不相干的 private method `processA` 時，可以使用 PowerMock 的 `doNothing()`
@@ -192,7 +193,7 @@ public void alternatives_of_whenNew_example() {
 ## **何時該用 PowerMock**
 講了這麼多 PowerMock 的壞處，但 PowerMock 並非一無是處，存在即合理。我認為最適當的應用場景就是重構與測試 legacy code。一個沒有單元測試保護的 legacy code 需要被重構時，通常開發者會先寫一個大範圍的整合測試，接著進行重構，讓 production code 有了基本的可測試性後，再寫單元測試。
 
-但實際上 legacy code 裡面什麼鬼故事都有，例如程式相依系統時間或外部 API 等難以寫整合測試時，PowerMock 就派上用場了。承前面所說的：**對於 PowerMock 來說，production code 的實作細節一覽無遺**。因此開發者可以透過上述 PowerMock 的各種 API 去控制待測物件的行為，接著寫好 test case，讓 legacy code 有了基本保護與驗證方法後，就能讓開發者更有信心、大膽的重構。
+但實際上 legacy code 裡面什麼鬼故事都有，例如程式相依時間或外部 API 等難以寫整合測試的場合，或是可能需要用到 test double 時，這時 PowerMock 就派上用場了。承前面所說的：**對於 PowerMock 來說，production code 的實作細節一覽無遺**。因此開發者可以透過上述 PowerMock 的各種 API 去控制待測物件的行為，接著寫好 test case，讓 legacy code 有了基本保護與驗證方法後，就能讓開發者更有信心、大膽的重構。
 
 ## **結語**
 PowerMock 是個功能強大的單元測試工具，但也不可否認的，若使用不當，容易使開發人員忽略程式碼品質，導致日後花費更多開發與維護成本；若是讓對於測試不熟悉的人使用 PowerMock，反而會使他們不知該如何寫出優秀的測試與程式。
