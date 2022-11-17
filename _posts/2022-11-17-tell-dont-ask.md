@@ -26,10 +26,10 @@ public class Customer {
 
 若有一需求：
 
-- 程式需判斷顧客是否有 VIP 的資格：年齡滿18歲、信用額度大於100萬、註冊滿一年的會員
-- Service 根據顧客是否擁有 VIP 資格，並做出相應業務邏輯。
+- 程式需判斷顧客是否有 VIP 的會員資格：年齡滿18歲、信用額度大於100萬、註冊滿一年的會員
+- Service 根據會員資格，並做出相應業務邏輯。
 
-因此 Service 需要呼叫 Customer 的 getter 來取得資料，程式如下：
+因此 Service 需多次呼叫 Customer 的 getter 來取得資料，程式如下：
 
 ```java
 // In Service.java
