@@ -88,7 +88,7 @@ public void do_for_other() {
 
 Tell, Don't Ask 原則提醒開發者：與其一直詢問物件的內部資料然後執行運算，還不如直接命令它執行任務。
 
-因此 Service 應該直接命令 Customer 做事，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。此時可用 **Move Method** 的重構手法，將這段邏輯搬進 Customer 之中，讓它處在對的地方，萬一日後有異動發生時，可能會需要同時被修改到的程式碼都是放在一起的，這也是一種讓物件更具備內聚力的手法。
+因此 Service 應該直接命令 Customer 做事，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。此時可用 **Move Method** 的重構手法，將這段邏輯搬進 Customer 之中，讓它處在對的地方，萬一日後有異動發生時，**可能會需要同時被修改的程式碼都放在一起**，這也是一種讓物件更具備內聚力的手法。
 
 ```java
 public class Customer {
@@ -108,7 +108,7 @@ public class Customer {
 }
 ```
 
-經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力和資訊隱藏的封裝性。
+經過重構後，Service 不再耦合判斷 vip 實作細節，而是直接呼叫 `customer.isVip()`。對比重構前的例子，這樣不只降低物件之間的耦合性，也提高 Customer 的內聚力和資訊隱藏的封裝性。
 
 ```java
 // Service.java
