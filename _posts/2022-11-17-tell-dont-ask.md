@@ -47,10 +47,10 @@ public void doBusiness(Customer customer) {
 從這簡短的程式碼就可以發現幾個議題：
 
 - `doBusiness` 多次詢問 Customer，導致 Customer 本不應該被暴露的內部資料都洩漏出去，也造成了雙方緊密耦合。這是一種壞味道 -- **Feature Envy**，意思是對另一個物件的興趣高於自己。
-- 若專案中其他地方需要使用相同邏輯時，開發者就得再寫一遍，實作重複知識 **(DRY原則)**。
+- 若專案中其他地方需要使用相同邏輯時，同事可能會不小心再寫一遍，實作重複的知識 **(DRY原則)**。
 - Service 和 Customer 內部的 CreditCard 耦合，違反了最小知識原則 **(Law of Demeter)**。
-- 因此，當 Customer 的內部資料操控在別人手上時，就容易被濫用，**降低物件內聚力，提高與外部的耦合程度**。
-- 以單元測試的角度來說，需要建立許多測試資料或 mocked object，因此單元測試可讀性、維護性變得比較差。Service 的單元測試如下：
+- 因此，當 Customer 的內部資料操控在別人手上時，就容易被濫用，導致**降低物件內聚力，提高與外部的耦合程度**。
+- 以單元測試的角度來說，會需要建立許多測試資料或 mocked object，因此測試可讀性、維護性變得比較差。Service 的單元測試如下：
 
 ```java
 // ServiceTest.java
@@ -121,7 +121,7 @@ public void doBusiness(Customer customer) {
 }
 ```
 
-### **Service 單元測試**
+### **ServiceTest**
 
 撰寫單元測試時，我們不必再準備各種 Customer 資料來測試不同行為，現在只要控制 mocked customer 就很容易 verify，測試意圖變得更明確：
 
@@ -149,9 +149,8 @@ public void do_for_other() {
 
 ```
 
-
-### **Customer 單元測試**
-同場加映，重構後當然也可以單獨測試 Customer 內部的 `isVip()` 邏輯，經過重構後我們更容易寫出更多不同的 test case：
+### **CustomerTest**
+同場加映，重構後當然也可以很容易的測試 Customer 內部的 `isVip()` 邏輯，寫出更多不同的 test case：
 
 ```java
 // CustomerTest.java
@@ -181,12 +180,14 @@ public void customer_register_less_than_1_year_is_not_vip() {
     assertFalse(customer.isVip());
 }
 
+// a lot of test cases...
 ```
 
 ## **結論**
-封裝是物件導向設計的重要特性之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成任務，而不是暴露物件內部資訊。若是能妥善運用此原則，就能更容易設計出好理解、好維護、好測試、高內聚、低耦合的程式。
+封裝，是物件導向設計的重要特性之一，Tell, Don't Ask 原則建議我們盡量不要破壞封裝，應該直接命令物件去完成任務，而不是暴露物件內部資訊。若是能妥善運用此原則，就能更容易設計出好理解、好維護、好測試、高內聚、低耦合的程式。
 
-此原則當然不是鐵律，DTO,VO 仍然有其用處，因此還是得衡量專案狀況，決定出最適合的作法。
+當然，此原則並不是鐵律，VO,DTO 仍然有其存在的價值，因此開發者需要衡量與評估專案的情況，再決定出最適合的作法。
+
 ### **References**
 - [TellDontAsk - Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html)
 - [這裡貧血、那裡充血，到底資料模型要怎麼設計？](https://dotblogs.com.tw/regionbbs/2021/05/29/anemicdomainmodel)
