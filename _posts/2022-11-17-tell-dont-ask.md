@@ -82,7 +82,7 @@ public void do_for_other() {
 
 ```
 
-這裡不難發現一個問題：**測試中暴露過多 Customer 的內部細節，導致每個 Customer setter 都可能影響 Service 的測試結果**。所以在 Service 的單元測試中，開發者可能會寫出較敏感的 test case：一旦 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這種現象表明程式碼需要被重構。
+這裡不難發現一個問題：**測試中暴露過多 Customer 的內部細節，導致每個 Customer setter 都可能影響 Service 的測試結果**。所以在 Service 的單元測試中，開發者可能會寫出較敏感的 test case。這種現象表明程式碼需要被重構。
 
 ## **應用 Tell, Don't Ask 原則**
 
@@ -121,7 +121,7 @@ public void doBusiness(Customer customer) {
 }
 ```
 
-### **單元測試 Service**
+### **Service 單元測試**
 
 撰寫單元測試時，我們不必再準備各種 Customer 資料來測試不同行為，現在只要控制 mocked customer 就很容易 verify，測試意圖變得更明確：
 
@@ -150,7 +150,7 @@ public void do_for_other() {
 ```
 
 
-### **單元測試 Customer**
+### **Customer 單元測試**
 同場加映，重構後當然也可以單獨測試 Customer 內部的 `isVip()` 邏輯，經過重構後我們更容易寫出更多不同的 test case：
 
 ```java
@@ -184,8 +184,7 @@ public void customer_register_less_than_1_year_is_not_vip() {
 ```
 
 ## **結論**
-封裝是物件導向設計的理念之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成任務，而不是暴露物件內部資訊。若是能妥善運用此原則，就能更容易設計出好理解、好維護、好測試、高內聚、低耦合的程式。
-
+封裝是物件導向設計的重要特性之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成任務，而不是暴露物件內部資訊。若是能妥善運用此原則，就能更容易設計出好理解、好維護、好測試、高內聚、低耦合的程式。
 
 ### **References**
 - [TellDontAsk - Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html)
