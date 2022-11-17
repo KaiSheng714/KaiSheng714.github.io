@@ -58,7 +58,7 @@ public Optional<Student> readTopScoreStudent() {
     // ...
 }
 ```
-正常來說，這個系統並不會沒有學生資料（否則一切都是空談），因此這個 method 肯定會有回傳值，不需使用 Optional。
+正常來說，這個系統並不會沒有學生資料（否則一切都是空談），因此這個 method 肯定會有回傳值，不需使用 Optional。通常需要透過 code review 才能發現類似的問題。
 
 ## **作為參數**
 有些人會將 Optional 作為參數，意圖表示這個參數可能是非必要的:
@@ -146,7 +146,6 @@ public List<Student> readAllStudentsInClass(String classId) {
 ### **References**
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
-- [RSPEC-3553](https://rules.sonarsource.com/java/tag/clumsy/RSPEC-3553)
 - Item 55: Return optionals judiciously (Effective Java 3rd)
 
 ### **更多你可能會感興趣的文章**
