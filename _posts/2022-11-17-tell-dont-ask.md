@@ -7,11 +7,11 @@ categories: [Design]
 image: /assets/image/site-image-small.png
 --- 
 
-Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 這種只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。然而這種設計並不符合物件導向的設計理念，因為它破壞了物件的封裝特性，使物件的內部資訊容易被外部濫用，提高與外部物件的耦合程度。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
+Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。然而這種設計並不符合物件導向的設計理念，因為它破壞了物件的封裝特性，使物件的內部資訊容易被外部濫用，提高與外部物件的耦合程度。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
 
-## **問題**
+## **問題描述**
 
-例如有個 Customer 類別，只存放顧客基本資料和 getter, setter，沒有任何邏輯：
+例如有個 Customer 類別，只用來存顧客的基本資料和 getter, setter，沒有任何邏輯：
 
 ```java
 public class Customer {
@@ -186,6 +186,7 @@ public void customer_register_less_than_1_year_is_not_vip() {
 ## **結論**
 封裝是物件導向設計的重要特性之一，Tell, Don't Ask 原則建議我們應該直接命令物件去完成任務，而不是暴露物件內部資訊。若是能妥善運用此原則，就能更容易設計出好理解、好維護、好測試、高內聚、低耦合的程式。
 
+此原則當然不是鐵律，DTO,VO 仍然有其用處，因此還是得衡量專案狀況，決定出最適合的作法。
 ### **References**
 - [TellDontAsk - Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html)
 - [這裡貧血、那裡充血，到底資料模型要怎麼設計？](https://dotblogs.com.tw/regionbbs/2021/05/29/anemicdomainmodel)
