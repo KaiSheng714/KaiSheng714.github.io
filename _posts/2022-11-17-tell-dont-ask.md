@@ -46,11 +46,11 @@ public void doBusiness(Customer customer) {
 
 從這簡短的程式碼就可以發現幾個議題：
 
-1. 當 Customer 的內部資料操控在別人手上時，就容易被濫用。破壞了物件封裝的特性，就容易降低內聚力，提高耦合程度。
-2. `doBusiness` 首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部資料都洩漏出去，也造成了雙方緊密耦合。這也是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身。
-3. 如果專案中其他地方需要使用相同邏輯時，開發者就得再寫一遍，重複實作同樣的知識 (DRY原則)。
-4. Service 也和 Customer 的內部 CreditCard 耦合，違反了最小知識原則(Law of Demeter)。
-5. 以單元測試的角度來說，不易單純只用一個 mock 進行測試，而是需要建立許多測試資料或 mocked object，因此單元測試可讀性變得比較差。Service 的單元測試如下：
+- 當 Customer 的內部資料操控在別人手上時，就容易被濫用，降低內聚力，提高耦合程度。
+- `doBusiness` 多次詢問 Customer，導致 Customer 本不應該被暴露的內部資料都洩漏出去，也造成了雙方緊密耦合。這是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身。
+- 若專案中其他類別需要使用相同邏輯時，開發者就得再寫一遍，實作重複知識 (DRY原則)。
+- Service 和 Customer 內部的 CreditCard 耦合，違反了最小知識原則(Law of Demeter)。
+- 以單元測試的角度來說，不易單純只用一個 mock 進行測試，而是需要建立許多測試資料或 mocked object，因此單元測試可讀性變得比較差。Service 的單元測試如下：
 
 ```java
 // ServiceTest.java
@@ -82,13 +82,13 @@ public void do_for_other() {
 
 ```
 
-這裡不難發現一個問題：**測試中暴露過多 Customer 的內部細節，導致每個 Customer setter 都可能影響 Service 的測試結果**。所以在 Service 的單元測試中，可能會寫出較敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這種現象表明程式碼需要被重構。
+這裡不難發現一個問題：**測試中暴露過多 Customer 的內部細節，導致每個 Customer setter 都可能影響 Service 的測試結果**。所以在 Service 的單元測試中，開發者可能會寫出較敏感的 test case：一旦 Customer 內部有一點改動，就可能導致 Service 的測試失敗。這種現象表明程式碼需要被重構。
 
 ## **應用 Tell, Don't Ask 原則**
 
-Tell, Don't Ask 原則提醒開發者：與其一直詢問物件的內部資料，倒不如直接命令它執行任務。
+Tell, Don't Ask 原則提醒開發者：與其一直詢問物件的內部資料然後執行運算，還不如直接命令它執行任務。
 
-因此 Service 不應該一直詢問 Customer 的內部資訊，而是直接命令 Customer 做事，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。此時可用 **Move Method** 的重構手法，將這段邏輯搬進 Customer 之中，讓它處在對的地方，萬一日後有異動發生時，可能會需要同時被修改到的程式碼都是放在一起的，這也是一種讓物件更具備內聚力的手法。
+因此 Service 應該直接命令 Customer 做事，做完後回傳結果即可，也不必了解 Customer 內部具體是怎麼實作的。此時可用 **Move Method** 的重構手法，將這段邏輯搬進 Customer 之中，讓它處在對的地方，萬一日後有異動發生時，可能會需要同時被修改到的程式碼都是放在一起的，這也是一種讓物件更具備內聚力的手法。
 
 ```java
 public class Customer {
