@@ -30,7 +30,7 @@ image: /assets/image/site-image-small.png
 因為 PowerMock 與 Mockito 有許多 API 的用法是一模一樣的，但兩者間的支援度與行為卻不同。所以如果在 IDE 沒有特別指出，寫出來的程式都會是一模一樣，因此容易被誤用，更難以 debug，而且開發者不該花時間 debug 測試程式碼。
 
 ### **2. 複雜的用法**
-PowerMock 提供了很多的神奇的 API，例如 `@PrepareForTest`, `@SuppressStaticInitializationFor`, `Whitebox` 等等，當開發者在 test case 寫了一堆 PowerMock 的各種神奇用法後，寫測試的時間可能比開發更久，不僅如此，可能三個月後就看不懂，其他同事讀起來也困難，造成不好維護。此外，若升級 Powermock 的版本，也可能會讓舊的寫法失效，甚至導致意想不到的問題。
+PowerMock 提供了很多的神奇的 API，例如 `@PrepareForTest`, `@SuppressStaticInitializationFor`, `Whitebox` 等等，研究它們 + 寫測試的時間可能比開發更久，不僅如此，可能三個月後就看不懂，其他同事讀起來也困難，造成不好維護。此外，若升級 Powermock 的版本，也可能會讓舊的寫法失效，甚至導致意想不到的問題。
 
 ### **3. Overhead**
 優秀的單元測試速度要快，不過 PowerMock 的初始化時間比 Mockito 更久，如果測試數量不多，也許還可以忍受；但隨著專案漸漸龐大，累積了上百上千的測試案例，此時就容易讓人下 skip test 指令，那就失去了寫測試的意義了。
