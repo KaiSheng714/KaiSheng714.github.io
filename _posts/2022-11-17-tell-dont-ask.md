@@ -46,7 +46,7 @@ public void doBusiness(Customer customer) {
 
 從這簡短的程式碼就可以發現幾個議題：
 
-- `doBusiness` 多次詢問 Customer，導致 Customer 本不應該被暴露的內部資料都洩漏出去，也造成了雙方緊密耦合。這是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身。
+- `doBusiness` 多次詢問 Customer，導致 Customer 本不應該被暴露的內部資料都洩漏出去，也造成了雙方緊密耦合。這是一種壞味道 -- **Feature Envy**，意思是對另一個物件的興趣高於自己。
 - 若專案中其他地方需要使用相同邏輯時，開發者就得再寫一遍，實作重複知識 **(DRY原則)**。
 - Service 和 Customer 內部的 CreditCard 耦合，違反了最小知識原則 **(Law of Demeter)**。
 - 因此，當 Customer 的內部資料操控在別人手上時，就容易被濫用，**降低物件內聚力，提高與外部的耦合程度**。
