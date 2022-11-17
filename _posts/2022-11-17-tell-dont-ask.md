@@ -82,7 +82,7 @@ public void do_for_other() {
 
 ```
 
-這裡不難發現一個問題：**測試中暴露過多 Customer 的內部細節，導致每個 Customer setter 都可能影響 Service 的測試結果**。所以在 Service 的單元測試中，開發者可能會寫出較敏感的 test case。這種現象表明程式碼需要被重構。
+- **測試中暴露過多 Customer 的內部細節，導致每個 Customer setter 都可能影響 Service 的測試結果**。所以在 Service 的單元測試中，開發者可能會寫出較敏感的 test case。這種現象表明程式碼需要被重構。
 
 ## **應用 Tell, Don't Ask 原則**
 
