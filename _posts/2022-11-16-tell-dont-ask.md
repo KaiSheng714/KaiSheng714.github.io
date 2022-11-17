@@ -7,9 +7,9 @@ categories: [Design]
 image: /assets/image/site-image-small.png
 --- 
 
-Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 這種只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。然而這種設計並不符合物件導向的設計理念，因為它容易破壞物件的封裝特性，提高物件之間的耦合度。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
+Web MVC 三層架構已盛行多年，因此在許多專案中經常可看到 VO, DTO 這種只有資料而沒有邏輯的類別，也稱為貧血模型(Anemic Domain Model)。然而這種設計並不符合物件導向的設計理念，因為它破壞了物件的封裝特性，使物件的內部資訊容易被外部濫用，提高與外部物件的耦合程度。Tell, Don't Ask 原則意旨在提醒開發者應盡量避免類似情形。
 
-## **問題範例**
+## **問題**
 
 例如有個 Customer 類別，只存放顧客基本資料和 getter, setter，沒有任何邏輯：
 
@@ -44,15 +44,18 @@ public void doBusiness(Customer customer) {
 }
 ```
 
-`doBusiness` 首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部資料都洩漏出去，造成了雙方緊密耦合。其實這也是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身，例如常常存取另一個 class 的多個 field 或 method。
+這簡短的程式碼可以發現幾個議題：
 
-此外，Service 不僅與 Customer 耦合，也和 Customer 的內部 CreditCard 耦合，這種情況下不易單純只用一個 mock 進行測試，而是需要建立許多測試資料或 mock，因此測試可讀性變得比較差。Service 的單元測試如下：
+1. 當 Customer 的內部資料操控在別人手上時，就容易被濫用。破壞了物件封裝的特性，降低內聚力，提高耦合性。
+2. `doBusiness` 首先詢問 Customer 的多個內部資料，導致 Customer 本不應該被暴露的內部資料都洩漏出去，也造成了雙方緊密耦合。這也是一種壞味道 -- **Feature Envy**，意思是對另一個 class 的興趣高於自己本身。
+3. 如果專案中其他地方需要使用相同邏輯時，開發者就得再寫一遍，讓這個知識重複了(DRY原則)。
+4. Service 不僅與 Customer 耦合，也和 Customer 的內部 CreditCard 耦合，違反了最小知識原則(Law of Demeter)。
+5. 以單元測試的角度來說，不易單純只用一個 mock 進行測試，而是需要建立許多測試資料或 mock，因此測試可讀性變得比較差。Service 的單元測試如下：
 
 ```java
 // ServiceTest.java
 @Test
 public void do_for_vip() {
-    // 暴露過多 Customer 的內部細節，每個 setter 都可能影響測試結果
     CreditCard creditCard = new CreditCard().setLimit(5_000_000);
     Customer customer = new Customer()
                             .setAge(20)
@@ -66,7 +69,6 @@ public void do_for_vip() {
 
 @Test
 public void do_for_other() {
-    // 暴露過多 Customer 的內部細節，每個 setter 都可能影響測試結果
     CreditCard creditCard = new CreditCard().setLimit(5_000_000);
     Customer customer = new Customer()
                             .setAge(17)
@@ -79,6 +81,8 @@ public void do_for_other() {
 }
 
 ```
+
+這裡不難發現一個問題：**測試中暴露過多 Customer 的內部細節，導致每個 setter 都可能影響測試結果**。
 
 因為判斷 vip 條件的具體實作細被節暴露在外，所以在 Service 的單元測試中，可能會寫出較敏感的 test case：只要 Customer 內部有一點改動，就可能導致 Service 的測試失敗，這種現象表明程式碼需要被重構。
 
@@ -119,6 +123,8 @@ public void doBusiness(Customer customer) {
 }
 ```
 
+### **單元測試 Service**
+
 撰寫單元測試時，我們不必再準備各種 Customer 資料來測試不同行為，現在只要控制 mocked customer 就很容易 verify，測試意圖變得更明確：
 
 ```java
@@ -145,7 +151,9 @@ public void do_for_other() {
 
 ```
 
-當然也可以單獨測試 Customer 內部的 `isVip()` 邏輯，經過重構後我們更容易寫出更多不同的 test case：
+
+### **單元測試 Customer**
+同場加映，重構後當然也可以單獨測試 Customer 內部的 `isVip()` 邏輯，經過重構後我們更容易寫出更多不同的 test case：
 
 ```java
 // CustomerTest.java
@@ -183,6 +191,7 @@ public void customer_register_less_than_1_year_is_not_vip() {
 
 ### **References**
 - [TellDontAsk - Martin Fowler](https://martinfowler.com/bliki/TellDontAsk.html)
+- [這裡貧血、那裡充血，到底資料模型要怎麼設計？](https://dotblogs.com.tw/regionbbs/2021/05/29/anemicdomainmodel)
 
 ### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
