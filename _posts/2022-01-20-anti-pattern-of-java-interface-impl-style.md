@@ -8,8 +8,7 @@ categories: [Java, Design]
 image: /assets/image/interface-impl-dir.png
 --- 
 
-在 Java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 FooImpl, BarImpl, ServiceImpl，
-而且通常它們只給團隊內部使用，也不會界接外部服務，我認為這樣設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
+在 Java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 FooImpl, BarImpl, ServiceImpl，而且通常它們只給團隊內部使用，也不會界接外部服務，我認為這樣設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?margin=vertical-medium)
 
