@@ -9,7 +9,7 @@ image: /assets/image/interface-impl-dir.png
 --- 
 
 在 Java 專案中，應該不少人看過或寫過只有一個實作(implementation) 的介面 (interface)，並且以 **Interface-Impl** 的風格普遍存在，如下圖的 FooImpl, BarImpl, ServiceImpl，
-而且它們通常都放在同一個 package 或 module 裡，也只給內部人員使用，並不會當作 library 提供給其它專案參考。我認為 interface-impl 的設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
+而且通常它們只給團隊內部使用，也不會界接外部服務，我認為這樣設計是個 **anti-pattern**。它會產生幾個問題，本文將探討此寫法的負面影響以及如何改善。 
 
 ![常見的 Interface 錯誤用法](/assets/image/interface-impl-dir.png?margin=vertical-medium)
 
@@ -55,7 +55,7 @@ image: /assets/image/interface-impl-dir.png
 
 因此，首先描述你的 interface 能為 client 提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-再者，如果你的專案並沒有開放給團隊外引用，例如企業級應用程式，在實務上大部分的情況下是不需要 interface 的。反之，若你開發的是例如 library, SDK 發布給外部 client 開發使用，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 界接你的作品，並由他們自行開發具體細節。
+再者，如果你的專案並無開放給團隊外引用，或者不是為了與外部服務界接，實務上大部分的情況下是不需要 interface 的。反之，若你開發的是例如 library, SDK 發布給外部 client 開發使用，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 界接你的作品，並由他們自行開發具體細節。
 
 ## **結語**
 本文描述了許多人對於 java interface 的誤用，導致這種只有一個實作的介面 (interface-impl) 成對出現在許多專案中，這並沒有利用 interface 的優點。若開發者沒有理解 interface 的實際意義與價值，將會產生許多負面影響。**並不是只要有 interface 就等於抽象、解耦**，誤用比未用更糟糕。
