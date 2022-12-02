@@ -78,7 +78,7 @@ found character '@' that cannot start any token. (Do not use @ for indentation)
 
 ## **3. 部署階段 - Maven**
 
-當我們開發完成，利用 mvn package / install 指令來打包時，需加入 -P 參數，告訴 maven 幫我們將 application.properties 的 '**@activeProfile@' 字串替換成 ‘prod’，**指令如下:
+當我們開發完成，利用 mvn package / install 指令來打包時，需加入 -P 參數，告訴 maven 幫我們將 application.properties 的 **'@activeProfile@' 字串替換成 ‘prod’**，指令如下:
 
 ```
 mvn clean package -P prod
