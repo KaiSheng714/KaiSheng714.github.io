@@ -8,7 +8,7 @@ categories: [Java]
 image: /assets/image/site-image-small.png
 --- 
 
-開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在一般環境下使用通常不會出錯，但在高併發（High Concurrency）的環境下就可能會出現異常。
+開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在一般環境下使用通常不會出錯，但在高併發（Highly Concurrenct）的環境下就可能會出現異常。
 
 ![why-simple-date-format-is-bad.png](/assets/image/simple-date-format.png?size=full)
 
