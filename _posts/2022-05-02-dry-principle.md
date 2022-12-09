@@ -46,7 +46,7 @@ public class Order {
 
 ```java
 public int calculateTotal(User user, int total) {
-  return user.isVip() ? total * 0.9 : total;
+  return user.isVip() ? (int)(total * 0.9) : total;
 }
 ```
 
