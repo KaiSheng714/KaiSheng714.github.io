@@ -40,6 +40,8 @@ image: /assets/image/site-image-small.png
 
 ## **如何提高程式碼的可測試性**
 
+透過以下幾種方法，可以提高程式碼的可測試性，使得軟體的品質更高，並且更容易維護。
+
 ### **Single Responsibility Principle (SRP)**
 
 單一職責意味著每個 class 應該有一個且只有一個職責（或被改變的理由），也意味著內聚力較高，這些都使得單元測試更容易。
