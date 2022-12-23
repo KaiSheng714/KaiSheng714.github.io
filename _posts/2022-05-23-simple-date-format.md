@@ -8,7 +8,7 @@ categories: [Java]
 image: /assets/image/site-image-small.png
 --- 
 
-開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在一般環境下使用通常不會出錯，但在高併發（Highly Concurrenct）的環境下就可能會出現異常。
+開發 Java 專案時經常操作時間、日期與字串的互相轉換，最常見簡單的方式是使用 SimpleDateFormat，想必大家對它不陌生。雖然它簡單易用，如果沒有正確使用，在一般環境下使用通常不會出錯，但在高併發（Highly Concurrent）的環境下就可能會出現異常。
 
 ![why-simple-date-format-is-bad.png](/assets/image/simple-date-format.png?size=full)
 
@@ -46,7 +46,7 @@ public class DateUtil {
 
 這是最簡單的做法，只要每次都宣告區域變數就可以了，區域變數是 thread-safe。若專案對於效能要求不高，也許可以考慮這個解法，或直到出現效能問題時再考慮其他方法。畢竟至少這個做法能正確運作，而且簡單的作法往往是較好的。
 
-## **正確用法 2. 使用 synchronized**
+## **正確用法 2. 加鎖**
 ```java
 public class DateUtil {
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -57,7 +57,7 @@ public class DateUtil {
 }
 ```
 
-首先宣告 SimpleDateFormat 成員變數，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format` (mutual exclusion)。雖然這個方式不會出錯，但在高併發場景下使用也有可能造成效能不佳的問題。 
+首先宣告 SimpleDateFormat field，避免重複 new 而造成效能問題。再加上關鍵字 `synchronized` 就能確保同一時刻只有一個 thread 能執行 `format` (mutual exclusion)。雖然這個方式不會出錯，但可能降低併發度。 
 
 ## **正確用法 3. 使用 ThreadLocal 容器**
 ThreadLocal 容器是一種讓程式達到 thread-safety 的手段，它相當於給每個 thread 都開了一個獨立的存儲空間，既然 thread 之間互相隔離，自然解決了 race condition 的問題，也讓 thread 能重複使用 SimpleDateFormat 實例。程式碼如下:
@@ -107,16 +107,6 @@ LocalDateTime 轉成字串
 LocalDateTime now = LocalDateTime.now();
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 hh:mm");
 System.out.println(now.format(formatter));
-```
-
-我覺得其中一種不錯的 use case 是爬蟲程式。利用`Jsoup`, `LocalDate` 與該網站的 queryString 去抓取某一個日期區間的資料:
-```java
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-for (LocalDate date = LocalDate.of(2022, 1, 1); date.isBefore(LocalDate.of(2022, 5, 20)); date = date.plusDays(1)) {
-    String url = "https://www.demo.test?date=" + date.format(formatter);
-    Document doc = Jsoup.connect(url).get();
-    // do something
-}
 ```
 
 ### **References**
