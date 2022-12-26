@@ -62,9 +62,11 @@ image: /assets/image/interface-impl-dir.png
 也許你可以檢視你的專案是否有類似的情況，並試著讓專案更乾淨、直觀、明確，降低維護成本，提升軟體品質。
 
 ### **Reference**
+- 本文是 [常見的 Interface 錯誤用法](https://www.gss.com.tw/blog/interface) 的新版，原文作者為我本人
 - [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
 - [Adam Bien — Service s = new ServiceImpl() — Why You Are Doing That?](http://adambien.blog/roller/abien/entry/service_s_new_serviceimpl_why)
 - [Do I need to use an interface when only one class will ever implement it?](https://softwareengineering.stackexchange.com/questions/159813/do-i-need-to-use-an-interface-when-only-one-class-will-ever-implement-it/159815#159815)
+
 
 ### **更多你可能會感興趣的文章**
 - [軟體設計原則 YAGNI (You aren't gonna need it!)](/articles/yagni-principle)
