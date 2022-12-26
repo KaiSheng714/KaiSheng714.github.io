@@ -26,7 +26,7 @@ image: /assets/image/interface-impl-dir.png
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
 ### **問題2. 違反 DRY 原則**
-當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次，我相信任何人都不喜歡維護重複出現的程式碼。這不僅是程式的重複，也是知識上的重複，違反了 DRY 原則。
+當你寫出 interface-impl，其中一者發生改變時，無論是重構或是任何程式修改，都迫使你需要花費額外的成本去同步、維護另一者，但我們不應該將同樣的事情再重複做一次，我相信任何人都不喜歡維護重複出現的程式碼。
 
 延伸閱讀: [軟體設計原則 DRY (Don't repeat yourself)](/articles/dry-principle) 
 
@@ -38,12 +38,12 @@ image: /assets/image/interface-impl-dir.png
 ## **如何解決？**
 我認為這種 interface-impl 不應存在，反而直接了當使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。因此，優秀的 clean coder 應盡量維持專案的乾淨與健康。
 
-如果是為了寫單元測試，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
+如果是為了寫**測試**，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要 interface 時再利用工具進行 extract interface 即可，這幾乎無成本，很容易就能產生一個 interface。換言之，避免此問題的方法其實很簡單: **等待**、**延遲決定**。
  
 
-## **關於 interface 的正確用法**:
+## **interface 的正確用法**:
 先引用一段話:
 
 > 
@@ -54,10 +54,12 @@ image: /assets/image/interface-impl-dir.png
 
 因此，首先描述你的 interface 能為 client 提供**什麼功能**，例如你有一個提供檔案存取服務的 interface 命名為 **FileService** ，那它的 implementation 應該要描述**如何**存取檔案，例如可能有 DiskService, FtpService, MyMagicService …，而不應該是 FileServiceImpl。
 
-再者，如果你的專案並無開放給團隊外引用，或者不是為了與外部服務界接，實務上大部分的情況下是不需要 interface 的。反之，若你開發的是例如 library, SDK 發布給外部 client 開發使用，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 界接你的作品，並由他們自行開發具體細節。
+再以 Java 的 `ArrayList`, `LinkedList` 為例，它們都實作了 `List` 介面，各有各的實作細節。透過 interface，我們可以根據應用情境（例如效能、時間複雜度等)，用很少的改動成本決定要使用哪個 List，這可以增加程式的彈性。好的 interface 就應如此。
+
+再者，如果你的專案並無開放給團隊外引用，或者不是為了界接外部服務，通常是不需要自行定義 interface 的。反之，若你開發的是例如 library, SDK 發布給外部 client 開發使用，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 界接你的專案，並由他們自行開發具體細節。
 
 ## **結語**
-本文描述了許多人對於 java interface 的誤用，導致這種只有一個實作的介面 (interface-impl) 成對出現在許多專案中，這並沒有利用 interface 的優點。若開發者沒有理解 interface 的實際意義與價值，將會產生許多負面影響。**並不是只要有 interface 就等於抽象、解耦**，誤用比未用更糟糕。
+本文描述了許多人對於 java interface 的誤用，導致這種只有一個實作的介面 (interface-impl) 成對出現在許多專案中，**並不是寫了 interface 就等於抽象、解耦**，誤用比未用更糟糕，**如果不需要，就不應該盲目的寫。**
  
 也許你可以檢視你的專案是否有類似的情況，並試著讓專案更乾淨、直觀、明確，降低維護成本，提升軟體品質。
 
