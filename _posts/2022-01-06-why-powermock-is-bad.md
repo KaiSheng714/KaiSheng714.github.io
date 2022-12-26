@@ -203,7 +203,8 @@ PowerMock 是個功能強大的單元測試工具，但也不可否認的，若�
 總之，我認為 PowerMock 只適合用於 legacy code，不應該用於開發中的系統。
  
 ### **References**
-[Modern Mocking Tools and Black Magic](https://martinfowler.com/articles/modernMockingTools.html)
+- 本文是 ["不建議使用 PowerMock 的理由 - 叡揚資訊"](https://www.gss.com.tw/blog/powermock) 的修訂新版，原文作者為我本人
+- [Modern Mocking Tools and Black Magic](https://martinfowler.com/articles/modernMockingTools.html)
 
 ### **更多你可能會感興趣的文章**
 - [如何寫出優秀的單元測試 (Best Practice)](/articles/good-unit-test)
