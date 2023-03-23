@@ -37,12 +37,12 @@ image: /assets/image/interface-impl-dir.png
 
 此外，這也表示檔案的數量是比原本多一倍的，這不僅讓專案**虛胖**，也連帶增加複雜度，因為多了這層非必要的 abstract layer，不僅更不直觀，也可能會隱藏其他的 implementation。
  
-## **如何解決？**
-我認為這種 interface-impl 不應存在，反而直接了當使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是最重要的。可能有些人會認為專案中即使有一些 interface-impl 也無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。
+## **如何改善它？**
+我認為在這種情況下，直接使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是很重要的。可能有些人會認為這樣寫無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。
 
 如果是為了寫**測試**，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
-因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**暫時不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要 interface 時再利用工具進行 extract interface 即可，這幾乎無成本，很容易就能產生一個 interface。換言之，避免此問題的方法其實很簡單: **等待**、**延遲決定**。
+因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**先不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要時再利用進行 **extract interface** 即可，幾乎無成本。換言之，避免此問題的方法其實很簡單: **延遲決定、需要時再建**。 
  
 
 ## **interface 的正確用法**:
