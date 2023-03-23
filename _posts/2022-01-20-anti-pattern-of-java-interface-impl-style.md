@@ -21,9 +21,9 @@ image: /assets/image/interface-impl-dir.png
 > 先寫出 interface，先抽象化，以後就可以替換不同實作，較有彈性。
 >
 
-但經驗法則告訴我們，計畫通常都趕不上變化，我們無法預測未來，導致最終結果可能和當初想的不一樣。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很有可能不會有第二個實作，等到有明確需求時再實行抽象化也不遲。
+但經驗法則告訴我們，計畫通常都趕不上變化，我們無法預測未來。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很可能和我們當初所想的不一樣。
 
-如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是幾乎沒有差異的，表面上是 interface，實質上是個 duplicated type，**不抽象，也沒有解耦，更沒有多型**，反而成為一種 over design，往往造成後續接手的人難以維護。
+如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是幾乎沒有差異的，**不抽象，也沒有解耦，更沒有多型**，反而成為一種 over design，往往造成後續接手的人難以維護。
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
