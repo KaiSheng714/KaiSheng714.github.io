@@ -23,7 +23,8 @@ image: /assets/image/interface-impl-dir.png
 
 但經驗法則告訴我們，計畫通常都趕不上變化，我們無法預測未來。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很可能和我們當初所想的不一樣。
 
-如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是幾乎沒有差異的，**不抽象，也沒有解耦，更沒有多型**，反而成為一種 over design，往往造成後續接手的人難以維護。
+如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是幾乎沒有差異的，**不抽象，也沒有解耦，更沒有多型**，反而成為一種 over design，往往造成後續接手的人更難維護。
+
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
 
@@ -38,7 +39,7 @@ image: /assets/image/interface-impl-dir.png
 此外，這也表示檔案的數量是比原本多一倍的，這不僅讓專案**虛胖**，也連帶增加複雜度，因為多了這層非必要的 abstract layer，不僅更不直觀，也可能會隱藏其他的 implementation。
  
 ## **如何改善它？**
-我認為在這種情況下，直接使用 concrete class 即可。開發程式不需要過度包裝與設計，保持簡單直觀是很重要的。可能有些人會認為這樣寫無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。
+我認為在這種情況下，直接使用 concrete class 即可。開發程式保持簡單直觀是很重要的。可能有些人會認為這樣寫無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。
 
 如果是為了寫**測試**，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
