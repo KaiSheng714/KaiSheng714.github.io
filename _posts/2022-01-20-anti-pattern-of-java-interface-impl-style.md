@@ -23,7 +23,7 @@ image: /assets/image/interface-impl-dir.png
 
 但經驗法則告訴我們，計畫通常都趕不上變化，我們無法預測未來。因此，設計程式時不需為了**未來有可能**使用的理由就事先建立 interface，因為它反而很可能會和我們當初所想的不一樣。
 
-如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是幾乎沒有差異的，**不抽象，也沒有解耦，更沒有多型**，反而成為一種 over design，往往造成後續接手的人更難維護。
+如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與 concrete class 是幾乎沒有差異的，**一點都不抽象，也沒有解耦，更沒有多型**，反而成為一種 over design，往往造成後續接手的人更難維護。
 
 
 延伸閱讀: [軟體設計原則 YAGNI (You aren't gonna need it)](/articles/yagni-principle)
