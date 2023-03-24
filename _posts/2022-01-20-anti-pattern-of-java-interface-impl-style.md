@@ -39,7 +39,7 @@ image: /assets/image/interface-impl-dir.png
 此外，這也表示檔案的數量是比原本多一倍的，這不僅讓專案**虛胖**，也連帶增加複雜度，因為多了這層非必要的 abstract layer，不僅更不直觀，也可能會隱藏其他的 implementation。
  
 ## **如何改善它？**
-我認為在這種情況下，直接使用 concrete class 即可。開發程式保持簡單直觀是很重要的。可能有些人會認為這樣寫無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。
+我認為在這種情況下，**直接使用 concrete class 即可**。開發程式保持簡單直觀是很重要的。可能有些人會認為這樣寫無傷大雅，但我認為大問題往往是從小問題引起的，一旦病入膏肓，就算想改也改不動了。
 
 如果是為了寫**測試**，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
@@ -59,9 +59,9 @@ image: /assets/image/interface-impl-dir.png
 
 再以 Java 的 `ArrayList`, `LinkedList` 為例，它們都實作了 `List` 介面，各有各的實作細節。透過 interface，我們可以根據應用情境（例如時空複雜度)，用很少的改動成本決定要使用哪個 List，這可以增加程式的彈性，`List` 就是個好的 interface。
 
-另一方面，在實務上，如果專案並無開放給團隊外部引用，也沒有使用例如 RPC, 微服務等一定要有 interface 的框架，其實大部分的情況是不需要寫 interface 的。
+另一方面，在實務上，如果專案並無開放給團隊外部引用(例如公司自家開發的產品)，也沒有使用例如 RPC, 微服務等一定要有 interface 的框架，真正需要寫 interface 的情況其實並不常見。
 
-反之，若是在例如開發 library, SDK 會發布給外部的專案，此時就很適合利用 interface 定義出系統邊界，讓外部 client 自行開發具體細節，透過 interface 界接你的專案。
+反之，若是開發例如 library, SDK 會發布給外部的專案，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 整合該專案。
 
 ## **結語**
 **並不是寫了 interface 就等於抽象、解耦**，有時候誤用比未用更糟糕，應該根據具體的情況去權衡是否需要 interface。也許你可以檢視你的專案是否有類似的情況，並試著改善它，降低維護成本，提升軟體品質。
