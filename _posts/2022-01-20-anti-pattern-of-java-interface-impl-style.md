@@ -43,7 +43,7 @@ image: /assets/image/interface-impl-dir.png
 
 如果是為了寫**測試**，在 test 裡會有唯一的 implementation 時，我建議可以使用 mocking library 如 [Mocktio](https://site.mockito.org/)，或是利用繼承與 @Override 或 faking 技術在測試中替換實作，如此就不必特地為了單元測試而寫 interface，使專案保持簡潔。
 
-因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**先不要**。因為仰賴於現代 IDE 的強大，若等到有明確需要時再利用進行 **extract interface** 即可，幾乎無成本。換言之，避免此問題的方法其實很簡單: **延遲決定、需要時再建**。 
+因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：**先不要**。仰賴於現代的 IDE 之強大，若等到有明確需要時再做 **extract interface** 即可，幾乎無成本。換言之，改善此問題的方法其實很簡單: **延遲決定、需要時再建**。 
  
 
 ## **interface 的正確用法**:
