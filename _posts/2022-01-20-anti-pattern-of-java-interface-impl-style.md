@@ -57,7 +57,7 @@ image: /assets/image/interface-impl-dir.png
 
 再以 Java 的 `ArrayList`, `LinkedList` 為例，它們都實作了 `List` 介面，各有各的實作細節。透過 interface，我們可以根據應用情境（例如時空複雜度)，用很少的改動成本決定要使用哪個 List，這可以增加程式的彈性，`List` 就是個好的 interface。
 
-另一方面，在實務上，如果專案並無開放給團隊外部引用(例如公司自家開發的產品)，也沒有使用例如 RPC, 微服務, ORM 等等一定要有 interface 的框架，則真正需要寫 interface 的情況其實並不常見。
+另一方面，在實務上，如果專案並無開放給團隊外部引用(例如公司自家開發的產品)，也沒有使用例如 RPC, 微服務, ORM 等等要求要寫 interface 的框架，則真正需要寫 interface 的情況其實並不多。
 
 反之，若是開發例如 library, SDK 會發布給外部的專案，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 整合該專案。
 
