@@ -62,7 +62,7 @@ image: /assets/image/interface-impl-dir.png
 反之，若是開發例如 library, SDK 會發布給外部的專案，此時就很適合利用 interface 定義出系統邊界，讓外部 client 透過 interface 整合該專案。
 
 ## **結語**
-**並不是寫了 interface 就等於抽象、解耦**，有時候誤用比未用更糟糕，應該根據具體的情況去權衡是否需要 interface。也許你可以檢視你的專案是否有類似的情況，並試著改善它，以降低維護成本，提升軟體品質。
+**並不是寫了 interface 就等於抽象、解耦**，有時候誤用比未用更糟糕，應該根據具體的情況去權衡是否使用 interface。也許你可以檢視你的專案是否有類似的情況，並試著改善它，以降低維護成本，提升軟體品質。
 ### **Reference**
 - 本文是 ["常見的 Interface 錯誤用法 - 叡揚資訊"](https://www.gss.com.tw/blog/interface) 的修訂新版，原文作者為我本人
 - [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
