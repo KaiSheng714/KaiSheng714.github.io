@@ -7,7 +7,7 @@ permalink: /articles/misuse-of-java-8-optional
 categories: [Design, Java]
 image: /assets/image/site-image-small.png
 --- 
-Java 8 新加入了 Optional 類別，能省去繁瑣的 null check 流程，讓程式邏輯看起來更簡潔、易讀。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。本篇探討這些錯誤的用法，以及如何正確使用。
+Java 8 新加入了 Optional 類別，能省去繁瑣的 null check 流程，豐富的 API 也讓程式邏輯看起來更簡潔、易讀。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。本篇探討這些錯誤的用法，以及如何正確使用。
  
 ## **isPresent() and get()**
 假設有一個 `studentService` 可利用 id 查詢學生資料，我們為了避免 return null 而後續可能導致 NPE，我們就必需在 `studentService.readById` 回傳結果時先做 null check，因此傳統寫法會像這樣:
@@ -124,13 +124,6 @@ public class Student {
 - Optional.empty()
 
 這樣容易造成程式複雜與混淆，比較好的方式是：如果真的沒有回傳值，那就回傳一個**空的容器**就好了：
-
-```java
-public List<Student> readAllStudentsInClass(String classId) {
-    // ... 
-    return result.isEmpty() ? Collections.emptyList(): new ArrayList<>(result);
-}
-```
  
 ## **Map and Optional**
 不要將 Optional 放入 Map，例如 `Map<String, Optional<Student>>`，原因和上述類似，在呼叫 `map.get(key)` 的回傳值會是:
