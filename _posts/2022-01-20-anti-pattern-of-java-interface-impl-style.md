@@ -20,7 +20,7 @@ image: /assets/image/interface-impl-dir.png
 但事實上，如果當前的實作並沒有被替換的可能，此時這個 interface 在用法上、在依賴上與具體類別是幾乎沒有差異的，反而成為了一種過度設計，往往造成後續接手的人更難維護、寫更多程式碼。
 
 ### **問題2. 違反 DRY 原則**
-每當 interface-impl 的其中一者發生改變時，無論是重構、改名或是任何修改，都迫使開發者需要花費額外的成本去同步、維護另一者。我相信任何人都不喜歡做重複的事、維護重複出現的程式碼。
+每當 interface-impl 的其中一者發生改變時，無論是新增功能、重構、改名或任何修改，都迫使開發者花費額外成本去同步另一者。但開發時應少做重複的事，尤其是維護重複的程式碼。
 
 ### **問題3. 不必要的干擾**
 在較大的專案中如果出現許多 interface-impl，IDE 會使你無法很流暢地進行 trace code，因為 IDE 會不斷詢問要導向 interface 或 implementation，這將會打擊開發者的工作效率與心理感受。
@@ -37,7 +37,7 @@ image: /assets/image/interface-impl-dir.png
 ## **interface 的建議用法**
 開發者應該根據 client 的需求進行設計 interface，接著再讓 client 自行實作出功能。白話文就是：我完全不知道、也不在乎 client 怎麼實作，但我只要求 client 能符合我所設計的規格(interface)即可。
 
-例如開發 library, SDK, framework 此類會發布給外部的專案，就很適合利用 interface 定義出**系統邊界**，讓外部 client 透過 interface 整合該專案。
+舉例來說，在開發 library, SDK, framework 此類會發布給外部的專案時，就很適合利用 interface 定義出**系統邊界**，讓外部 client 透過 interface 來整合使用。
 
 另一方面，在實務上，如果專案並無開放給團隊外部引用（例如企業應用程式），或是不使用微服務、ORM 等等一定要寫 interface 的 framework，則真正需要 interface 的情況其實並不多。
 
