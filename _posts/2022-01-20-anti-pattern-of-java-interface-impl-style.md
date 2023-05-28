@@ -15,9 +15,9 @@ image: /assets/image/interface-impl-dir.png
 雖然此寫法可以在任何時候用另一個實作來替換原本的實作，提高程式碼的彈性。但我認為如果當前沒有多個實作，這反而會增加額外的工作量，是一種過度設計，可能導致下列幾個問題:
 
 ### **問題1. 違反 YAGNI 原則**
-很多人會寫 interface-impl 的原因是根據經典的設計原則，認為程式應依賴抽象介面，所以他們事先寫出許多 interface-impl、提早抽象化，以便於未來替換不同實作，增加程式彈性。
+很多人會寫 interface-impl 的原因是根據經典的設計原則或設計模式，認為程式應依賴抽象介面，所以他們事先寫出許多 interface-impl、提早抽象化，以便於未來替換不同實作，增加程式彈性。
 
-但事實上，如果當前的實作並沒有被替換的可能，那這種 interface 在用法上、在依賴上與具體類別是幾乎沒有差異的，這個 interface 反而成為了一種過度設計，往往造成後續接手的人更難維護、寫更多程式碼。
+但事實上，如果當前的實作並沒有被替換的可能，此時這個 interface 在用法上、在依賴上與具體類別是幾乎沒有差異的，反而成為了一種過度設計，往往造成後續接手的人更難維護、寫更多程式碼。
 
 ### **問題2. 違反 DRY 原則**
 每當 interface-impl 的其中一者發生改變時，無論是重構、改名或是任何修改，都迫使開發者需要花費額外的成本去同步、維護另一者。我相信任何人都不喜歡做重複的事、維護重複出現的程式碼。
@@ -35,7 +35,7 @@ image: /assets/image/interface-impl-dir.png
 因此，若開發者當下不確定是否需要一個 interface 時，我的建議是：先不要。仰賴於現代強大的 IDE，若等到有明確需要時再做 **extract interface** 即可，幾乎無成本。換言之，改善此問題的方法其實很簡單: **延遲決定**。 
 
 ## **interface 的建議用法**
-開發者應該根據 client 的需求進行設計 interface，接著再讓 client 自行實作出功能。白話文就是：我完全不知道、也不在乎 client 怎麼實作，但只要求 client 能符合我所設計的規格(interface)即可。
+開發者應該根據 client 的需求進行設計 interface，接著再讓 client 自行實作出功能。白話文就是：我完全不知道、也不在乎 client 怎麼實作，但我只要求 client 能符合我所設計的規格(interface)即可。
 
 例如開發 library, SDK, framework 此類會發布給外部的專案，就很適合利用 interface 定義出**系統邊界**，讓外部 client 透過 interface 整合該專案。
 
@@ -43,7 +43,6 @@ image: /assets/image/interface-impl-dir.png
 
 ## **結語**
 如果程式在設計時就有很具體的行為，而且目前也不會有多個不同實作，那就可以不必寫 interface 了。雖然經典的設計原則鼓勵程式之間應依賴抽象介面，但依賴具體類別也並不是錯，因此開發者應該權衡是否需要 interface，並且不要過度設計。
-
 ### **Reference**
 - 本文是 ["常見的 Interface 錯誤用法 - 叡揚資訊"](https://www.gss.com.tw/blog/interface) 的修訂新版，原文作者為我本人
 - [Martin Fowler- InterfaceImplementationPair](https://martinfowler.com/bliki/InterfaceImplementationPair.html)
