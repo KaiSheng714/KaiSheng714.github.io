@@ -9,6 +9,8 @@ image: /assets/image/site-image-small.png
 --- 
 Java 8 新加入了 Optional 類別，能省去繁瑣的 null check 流程，豐富的 API 也讓程式邏輯看起來更簡潔、易讀。但我卻看到了不少錯誤的用法，反而讓 Optional 顯得多此一舉。本篇探討這些錯誤的用法，以及如何正確使用。
  
+
+ 
 ## **isPresent() and get()**
 假設有一個 `studentService` 可利用 id 查詢學生資料，我們為了避免 return null 而後續可能導致 NPE，我們就必需在 `studentService.readById` 回傳結果時先做 null check，因此傳統寫法會像這樣:
 
