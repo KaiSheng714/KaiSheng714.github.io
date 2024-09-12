@@ -25,7 +25,7 @@ image: /assets/image/interface-impl-dir.png
 
 如果需要為單元測試而使用 interface，我建議可以使用模擬（mocking）函式庫，如 Mockito，或者利用繼承、@Override等技術在測試中替換具體實作，這樣就不需要為了增加可測試性而特別建立 interface。
 
-因此，我建議開發者在不確定是否需要 interface 時，就先別急著建。在現代強大的 IDE 的幫助下，可以隨時進行「extract interface」，幾乎沒有額外的成本。因此，改善這個問題的方法很簡單：延遲決定，並通過反饋和迭代，調整和改進設計。**好的設計總是重構來的**。
+因此，我建議開發者在不確定是否需要 interface 時，先別急著建。因為在現代 IDE 的幫助下，可以隨時進行「extract interface」，幾乎沒有額外的成本。因此，改善這個問題的方法很簡單：延遲決定，並通過反饋和迭代，調整和改進設計。**好的設計總是重構來的**。
 
 ## **interface 的建議用法**
 一般而言，使用 interface 的目的是實現多型，其中一種常見的用法是透過屬性檔例如 application.yaml，實現在 runtime 時根據不同環境選擇使用不同的 implementation。
