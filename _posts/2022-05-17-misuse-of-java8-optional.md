@@ -134,6 +134,26 @@ public class Student {
 
 像這種錯誤用法都會提高不必要的複雜性。
 
+
+## 後記 (2026/07)
+我認為 Java 的 `Optional` 是個雞肋的發明，並沒有真正解決 `NullPointerException` 的問題。用了它之後，有時候反而會拋出一些意想不到的 Exception，而且程式碼看起來更複雜、更難 Debug，甚至還會有一點點效能的損耗。
+從文章中可見，`Optional` 需要避雷的點很多，且適合使用的場景並不多，真正熟練的人更是少。就算你精通 `Optional`，但團隊裡的同事不一定看得懂，反而增加了溝通和維護的成本。
+ 
+這是大家最習慣的寫法：
+```java
+if (a != null) {
+   a.doSomething();
+} else {
+   throw new SomeException();
+}
+```
+這邏輯已經深植在所有 Java 開發者的心中了，簡單、直觀，其實並沒有不好。
+ 
+照理說，應該要思考為什麼程式碼會產生 NullPointerException，並**從源頭去好好解決它**，而不是用 `Optional` 去包裝它、掩蓋它。
+ 
+**結論： 如果沒有特別的必要，能不用 Optional 就儘量別用。**
+
+
 ### **References**
 - [java-8-optional-use-cases](http://dolszewski.com/java/java-8-optional-use-cases/)
 - [@RequestParam in Spring MVC handling optional parameters](https://stackoverflow.com/questions/22373696/requestparam-in-spring-mvc-handling-optional-parameters)
